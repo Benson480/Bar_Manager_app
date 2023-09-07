@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>{% block title %}{% endblock %}</title>
+  <style>
+  body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  }
+  
+  footer {
+    background-color: #007f46;
+    color: #FFF;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto; /* Push the footer to the bottom */
+  }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    header {
+      background-color: #007f46; /* Change the header background color */
+      color: #FFF;
+      overflow: hidden;
+    }
+    .topnav {
+      background-color: hsl(115, 76%, 18%);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+    }
+    
+    .topnav a {
+      color: #fff;
+      display: inline-block;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .search-container {
+      float: right;
+      margin-top: 10px;
+      margin-right: 20px;
+    }
+    
+    .search-container input[type=text] {
+      padding: 6px;
+      border: none;
+      font-size: 14px;
+    }
+    
+    .search-container button {
+      padding: 6px 10px;
+      background: #ccc;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .sidenav {
+      width: 200px;
+      height: 100%;
+      position: fixed;
+      top: 58px; /* Adjusted to accommodate the height of the topnav */
+      left: 0;
+      overflow-x: hidden;
+      padding-top: 20px;
+      z-index: 999; /* Increased z-index to ensure sidenav is displayed above content */
+      background-color: hwb(155 5% 62%);
+      transition: 0.5s; /* Added transition for smooth movement */
+    }
+    
+    .sidenav a {
+      padding: 25px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 16px;
+      color: white;
+      display: block;
+      height: auto;
+    }
+    
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+    
+    .content {
+      margin-left: 200px;
+      padding: 16px;
+      margin-top: 50px;
+      /* overflow-y: auto; */
+      background-color: rgb(243, 248, 246);
+      background-size: cover;
+      transition: 0.5s; /* Added transition for smooth movement */
+    }
+
+    .highlight {
+      background-color: yellow;
+    }
+
+    /* Responsive Styles for Tablet and Phone Screens */
+    @media only screen and (max-width: 1024px) {
+      .sidenav {
+        position: relative;
+        top: 80px;
+        width: 100%;
+        height: auto;
+        padding-top: 0;
+      }
+
+      .content {
+        margin-left: 0;
+        margin-top: 0;
+        padding-top: 130px; /* Adjust the padding to make space for the fixed topnav */
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .topnav {
+        position: static;
+      }
+
+      .search-container {
+        float: none;
+        margin: 10px auto;
+        text-align: center;
+      }
+
+      .sidenav {
+        position: fixed;
+        left: -200px;
+        top: 58px; /* Adjusted to accommodate the height of the topnav */
+        width: 200px;
+        height: calc(100% - 58px);
+        transition: 0.5s;
+        z-index: 999;
+        background-color: hsl(157, 65%, 26%);
+      }
+
+      .sidenav a {
+        padding: 20px 8px 6px 16px;
+      }
+
+      .sidenav a:hover {
+        color: #f1f1f1;
+      }
+
+      .content {
+        margin-left: 0;
+        margin-top: 0;
+        padding-top: 80px; /* Adjust the padding to make space for the fixed topnav */
+      }
+
+      .sidenav.show {
+        left: 0;
+      }
+
+      /* Move content to the right when side navigation is shown */
+      .content.show {
+        margin-left: 200px;
+      }
+
+      /* Show the "show" button only when the screen is small */
+      .topnav .icon {
+        display: block;
+      }
+    }
+    
+    /* Responsive Styles for Small Phone Screens */
+    @media only screen and (max-width: 400px) {
+      .sidenav,
+      .topnav.responsive .search-container {
+        position: static;
+        width: 100%;
+      }
+
+      .topnav.responsive a.icon {
+        position: relative;
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .topnav.responsive .search-container {
+        margin: 10px 0;
+        padding: 0;
+        text-align: left;
+      }
+
+      .topnav.responsive .search-container input[type="text"],
+      .topnav.responsive .search-container button {
+        width: 100%;
+      }
+      
+      .sidenav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .sidenav a {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .sidenav i {
+        margin-right: 0;
+        display: block;
+      }
+
+      .content {
+        margin-left: 0;
+        margin-top: 0;
+        padding-top: 80px; /* Adjust the padding to make space for the fixed topnav */
+      }
+    }
+    /* Add this media query to make the navigation full width on small screens */
+@media screen and (max-width: 600px) {
+  .topnav.responsive {
+    position: relative;
+  }
+
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .topnav.responsive a:not(.icon) {
+    display: block;
+    text-align: left;
+  }
+
+  .topnav.responsive .search-container {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .topnav.responsive .search-container input[type="text"],
+  .topnav.responsive .search-container button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+/* Responsive Styles for 6.1-inch Phone Screen */
+@media only screen and (max-width: 720px) {
+  .topnav {
+    position: static;
+  }
+
+  .search-container {
+    float: none;
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  .sidenav {
+    position: fixed;
+    left: -200px;
+    top: 58px;
+    width: 200px;
+    height: calc(100% - 58px);
+    transition: 0.5s;
+    z-index: 999;
+    background-color: hsl(157, 65%, 26%);
+  }
+
+  .sidenav a {
+    padding: 20px 8px 6px 16px;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .content {
+    margin-left: 0;
+    margin-top: 0;
+    padding-top: 80px;
+  }
+
+  .sidenav.show {
+    left: 0;
+  }
+
+  .content.show {
+    margin-left: 200px;
+  }
+
+  .topnav .icon {
+    display: block;
+  }
+}
+.topnav.responsive a.icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.menu-item {
+    position: relative;
+    display: inline-block;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1; /* To ensure it appears above other elements */
+}
+
+.menu-item:hover .submenu {
+    display: block;
+}
+
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <script>
+    function search() {
+      var input = document.getElementById('searchInput').value.toLowerCase();
+      var content = document.querySelector('.content');
+      var paragraphs = content.getElementsByTagName('p');
+
+      for (var i = 0; i < paragraphs.length; i++) {
+        var text = paragraphs[i].innerText.toLowerCase();
+        if (text.includes(input)) {
+          var highlightedText = text.replace(new RegExp(input, 'gi'), '<span class="highlight">$&</span>');
+          paragraphs[i].innerHTML = highlightedText;
+          paragraphs[i].style.display = '';
+        } else {
+          paragraphs[i].innerHTML = text;
+          paragraphs[i].style.display = 'none';
+        }
+      }
+    }
+    
+    function toggleSidenav() {
+      var sidenav = document.querySelector('.sidenav');
+      var content = document.querySelector('.content');
+      sidenav.classList.toggle('show');
+      content.classList.toggle('show'); // Toggle the 'show' class on content
+    }
+  </script>
+</head>
+<body>
+  <div class="topnav">
+    <a href="/dashboard"><i class="fa fa-home"></i> Home</a>
+    <a href="/about/"><i class="fa fa-info-circle"></i> About</a>
+    <div class="menu-item">
+        <a href="#"><i class="fa fa-leaf"></i> Farm Profile</a>
+        <div class="submenu" style="background-color: green;">
+          <a href="https://chat.openai.com/" target="_blank" style="background-color: rgb(202, 209, 106); color: black;">Show Profile</a>
+          <a href="#" style="background-color: rgb(230, 245, 23); color: black;">Edit My Profile</a>
+          <a href="#" style="background-color: aquamarine; color: black;">Admin Panel</a>
+        </div>
+    </div>
+    <a href="/contact"><i class="fa fa-envelope"></i> Contact</a>
+    <a href="#"><i class="fa fa-briefcase"></i> Careers</a>
+    <div class="menu-item">
+        <a href="#"><i class="fa fa-flask"></i> Research</a>
+        <div class="submenu" style="background-color: green; padding: 0px;">
+            <a href="https://chat.openai.com/" target="_blank" title="ChatGPT OpenAI" >OpenAI</a>
+            <a href="https://www.w3schools.com/django/" target="_blank" title="Django is a back-end server side web framework used to develop this app">Django Tutorial</a>
+            <a href="#">Soil Science</a>
+        </div>
+    </div>
+    <a href="/{{ BASE_URL }}admin/" target="_blank"><i class="fa fa-user-cog"></i> Admin</a>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="search()"><i class="fa fa-search"></i> Search</button>
+    </div>
+    <a href="javascript:void(0);" class="icon" onclick="toggleSidenav()">
+        <i class="fa fa-bars"></i>
+        <span class="show-text"></span>
+    </a>
+</div>
+
+  
+
+  <div class="sidenav" style="display: block;">  
+    <a href="/dashboard"><i class="fa fa-chart-bar"></i> Dashboard</a>
+    <a href="/Fertilizers"><i class="fa fa-leaf"></i> Fertilizers Regime</a>
+    <a href="/fertilizer_list"><i class="fa fa-list"></i> Fertilizers</a>
+    <a href="/prices"><i class="fa fa-money-bill"></i> Prices</a>
+    <a href="/diagnosis"><i class="fa fa-stethoscope"></i> Diagnosis</a>
+    <a href="/laboratory"><i class="fa fa-flask"></i> Laboratories Test</a>
+    <a href="/ppm/"><i class="fa fa-tint"></i> Ppm</a>
+    <a href='/elements'><i class="fa fa-atom"></i> Elements</a>
+    <a href="/Fertilizers_recycle"><i class="fa fa-recycle"></i> Fertilizer Recycle</a>
+    <a href="#"><i class="fa fa-cogs"></i> Farm Settings</a>
+    <a href="/login"><i class="fa fa-sign-out-alt"></i> Logout</a>
+  </div>
+  
+    <!-- {% if user.is_authenticated %} -->
+    <!-- {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+    {% endif %} -->
+  </div>
+  <div class="content" style="background-size: cover; transform: scale(1); transform-origin: top left;">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <footer style="background-color: #007f46; color: #FFF; text-align: center; padding: 10px;">
+      © 2023 Fertppm. All rights reserved.
+  </footer>
+</body>
+</html>

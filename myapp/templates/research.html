@@ -1,0 +1,129 @@
+{% extends "master.html" %}
+
+{% block title %}
+  FERTPPM RESERCH HUB
+{% endblock %}
+
+{% block styles %}
+<style>
+ #containerChatbot{
+  position: fixed;
+  z-index: 999;
+  margin-top: 250px;
+  top: 0;
+    background-color: #202123;
+  right: -2px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), 
+            0px 6px 12px rgba(0, 0, 0, 0.2), 
+            0px 10px 20px rgba(0, 0, 0, 0.2);
+
+}
+
+#closeChatbot{
+  position: absolute;
+  right: 5px;
+  top:100px;
+  z-index: 10;
+  padding: 10px;
+  height: 50px;
+  background-color: #202123;
+  color: white;
+  text-align: center;
+  font-size: 10px;
+  border: 1px solid whitesmoke;
+  border-right: unset;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), 
+            0px 6px 12px rgba(0, 0, 0, 0.2), 
+            0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+#openChatbot{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background-color: #202123;
+  color: white;
+  text-align: center;
+  font-size: 10px;
+}
+#openChatbot:hover, #closeChatbot:hover{
+  cursor: pointer;
+}
+
+.hide{
+  display: none!important;
+}
+  
+</style>
+{% endblock %}
+
+{% block content %}
+<button style="background-color: hsl(177, 83%, 14%); color: #f0f0f7;" onclick="window.location.href='/dashboard';">Go to Dashboard</button>
+<a style="color: #fefffe; background-color: hwb(154 7% 58%); text-decoration: double;" href="https://chat.openai.com/" target="_blank">Research Hub</a>
+<script>
+var iframe = document.createElement("iframe");
+iframe.src = "https://chat.openai.com/chat";
+iframe.width = "0";
+iframe.height = "800";
+iframe.setAttribute('frameborder','0');
+iframe.setAttribute('id','chatBot');
+iframe.style.transition = "width 0.5s ease-in-out";
+
+
+var container = document.createElement("div");
+container.style.width = "50px";
+container.style.height = "50px";
+container.style.overflow = "hidden";
+container.setAttribute('id','containerChatbot');
+container.style.transition = "width 0.5s ease-in-out";
+container.style.transition = " 0.5s ease-in-out";
+
+
+container.appendChild(iframe);
+
+
+var openButton = document.createElement("button");
+openButton.setAttribute('id','openChatbot');
+openButton.innerHTML = "ChatGPT";
+container.appendChild(openButton);
+
+openButton.addEventListener("click", function() {
+    iframe.style.width = "600px";
+    container.style.width = "600px";
+    container.style.height = "800px";
+    openButton.classList.toggle("hide");
+    closeButton.classList.toggle("hide");
+
+});
+
+var closeButton = document.createElement("button");
+closeButton.setAttribute('class', 'hide');
+closeButton.setAttribute('id','closeChatbot');
+
+closeButton.innerHTML = "Close";
+container.appendChild(closeButton);
+
+document.body.appendChild(container);
+
+closeButton.addEventListener("click", function() {
+        container.style.width = "50px";
+        iframe.style.width = "0px";
+        
+        container.style.height = "50px";
+
+        closeButton.classList.toggle("hide");
+        openButton.classList.toggle("hide");
+
+
+});
+</script>
+{% endblock %}

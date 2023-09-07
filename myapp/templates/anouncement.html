@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" type="image/x-icon">
+  <title>FERTPPM</title>
+  <style>
+    body {
+      background-image: url("https://images.pexels.com/photos/2749165/pexels-photo-2749165.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      height: 100%;
+    }
+
+    .navbar {
+      color: #fff;
+    }
+
+    .navbar-brand {
+      color: #244c0c;
+    }
+
+    .section {
+      position: absolute;
+    }
+
+    .container-fluid {
+      height: 100%;
+    }
+
+    .first_paragraph,
+    .second_paragraph,
+    .third_paragraph {
+      font-family: 'Josefin Sans', sans-serif;
+      padding: 10px 10px;
+      margin: 20px auto;
+      max-width: 600px;
+      position: relative;
+      background-color: none;
+      color: rgb(12, 11, 11);
+      height: auto;
+    }
+
+    .second_paragraph {
+      background-color: #244c0c;
+      color: rgb(12, 11, 11);
+    }
+
+    .third_paragraph {
+      background-color: #244c0c;
+      color: White;
+    }
+
+    .creators_info {
+      display: flex;
+      position: relative;
+    }
+
+    .Benson,
+    .Stephanie {
+      position: absolute;
+      font-family: 'Josefin Sans', sans-serif;
+      padding: 10px 10px;
+      margin: 20px auto;
+      width: 500%;
+      height: 50px;
+    }
+
+    /* Set height to 100% for body and html to enable the background image to cover the whole page: */
+    /* body, html {
+    height: 100%;
+    } */
+
+    .bgimg,
+    .bgimg1 {
+      /* Full-screen */
+      height: 100%;
+      /* Center the background image */
+      background-position: center;
+      /* Scale and zoom in the image */
+      background-size: cover;
+      /* Add position: relative to enable absolutely positioned elements inside the image (place text) */
+      position: relative;
+      /* Add a white text color to all elements inside the .bgimg container */
+      color: hsl(249, 83%, 50%);
+      /* Add a font */
+      font-family: "Courier New", Courier, monospace;
+      /* Set the font-size to 25 pixels */
+      font-size: 35px;
+      padding-top: 70px;
+    }
+
+    /* Position text in the top-left corner */
+    .topleft {
+      position: absolute;
+      top: 0;
+      left: 16px;
+    }
+
+    /* Position text in the bottom-left corner */
+    .bottomleft {
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+    }
+
+    /* Position text in the middle */
+    .middle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    /* Style the <hr> element */
+    hr {
+      margin: auto;
+      width: 40%;
+    }
+
+    /* Responsive Styles */
+
+    /* Small devices (phones, 576px and up) */
+    @media (min-width: 576px) {
+      .first_paragraph,
+      .second_paragraph,
+      .third_paragraph {
+        width: 90%;
+        max-width: 600px;
+      }
+
+      .first_paragraph {
+        right: 5%;
+      }
+
+      .second_paragraph {
+        left: 5%;
+      }
+
+      .third_paragraph {
+        right: 5%;
+      }
+    }
+
+    /* Medium devices (tablets, 768px and up) */
+    @media (min-width: 768px) {
+      .first_paragraph,
+      .second_paragraph,
+      .third_paragraph {
+        width: 70%;
+        max-width: 600px;
+      }
+
+      .first_paragraph {
+        right: 15%;
+      }
+
+      .second_paragraph {
+        left: 15%;
+      }
+
+      .third_paragraph {
+        right: 15%;
+      }
+    }
+
+    /* Large devices (desktops, 992px and up) */
+    @media (min-width: 992px) {
+      .first_paragraph,
+      .second_paragraph,
+      .third_paragraph {
+        width: 50%;
+        max-width: 600px;
+      }
+
+      .first_paragraph {
+        right: 25%;
+      }
+
+      .second_paragraph {
+        left: 25%;
+      }
+
+      .third_paragraph {
+        right: 25%;
+      }
+    }
+
+    /* Extra-large devices (large desktops, 1200px and up) */
+    @media (min-width: 1200px) {
+      .first_paragraph,
+      .second_paragraph,
+      .third_paragraph {
+        width: 40%;
+        max-width: 600px;
+      }
+
+      .first_paragraph {
+        right: 30%;
+      }
+
+      .second_paragraph {
+        left: 30%;
+      }
+
+      .third_paragraph {
+        right: 30%;
+      }
+    }
+  </style>
+  <!--css-->
+  <!--bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <!--font awesome-->
+  <script src="https://kit.fontawesome.com/175df408b4.js" crossorigin="anonymous"></script>
+
+  <!-- google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital@1&family=Josefin+Sans:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- As a heading -->
+  <nav class="navbar navbar-dark" style="background-color: #244c0c">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Announcements</span>
+      <span class="navbar-brand mb-0 h1"><a href="/index" style="color: whitesmoke;">Home</a></span>
+    </div>
+  </nav>
+  <div="paragraphs">
+    <div class="first_paragraph">
+      <div class="bgimg">
+        <div>
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/bTwDj7fmKJE?autoplay=1&mute=1"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div="paragraphs">
+    <div class="second_paragraph">
+    <p></p>
+      <div class="bgimg1">
+        <div>
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/D7_fgQhpd64?autoplay=1&mute=1"></iframe>
+        </div> 
+        <div class="topleft">
+          <p></p>
+        </div>
+        <div class="middle">
+          <h1>COMING SOON</h1>
+          <hr>
+          <p id="demo">35 days</p>
+        </div>
+        <div class="bottomleft">
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function () {
+
+      // Get todays date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now an the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in an element with id="demo"
+      document.getElementById("demo").innerHTML = days + "d " + hours + "h " +
+        minutes + "m " + seconds + "s ";
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+  </script>
+</body>
+
+</html>

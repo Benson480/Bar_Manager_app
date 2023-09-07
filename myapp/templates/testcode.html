@@ -1,0 +1,60 @@
+# Initialize dictionaries to store ppm values for each fertilizer
+# Initialize variables to store the sum of elements from both fertilizers
+total_elements = {}
+
+# Iterate through the elements and compositions
+for e in getelements:
+    element_composition = {
+        e.Element_1: e.Composition_1,
+        e.Element_2: e.Composition_2,
+        e.Element_3: e.Composition_3,
+        e.Element_4: e.Composition_4
+    }
+
+    for key, value in element_composition.items():
+        if key is not None and value is not None and self.Fertilizer == e.Fertilizer:
+            freshFertPpm = round((value or 0) * Grams_per_m3 / 100, 2)
+
+            # Check if the element is Nitrate and add it to the total
+            if key:
+                total_elements[key] = total_elements.get(key, 0) + freshFertPpm
+            elif key == "Calcium" and self.Fertilizer == "Calcium Nitrate":
+                total_elements[key] = total_elements.get(key, 0) + freshFertPpm
+            elif key == "Magnesium" and self.Fertilizer == "Magnesium Nitrate":
+                total_elements[key] = total_elements.get(key, 0) + freshFertPpm
+
+# Print the total sum for each relevant element
+for element, total_ppm in total_elements.items():
+    print("Total ppm of", element, "is", total_ppm)
+
+
+    for e in getelements:
+    element_composition = {
+        e.Element_1: e.Composition_1,
+        e.Element_2: e.Composition_2,
+        e.Element_3: e.Composition_3,
+        e.Element_4: e.Composition_4
+    }
+
+    for key, value in element_composition.items():
+        if key is not None and value is not None and self.Fertilizer == e.Fertilizer:
+            freshFertPpm = round((value or 0) * Grams_per_m3 / 100, 2)
+            print(key, value)
+
+        all_fertilizer_recycles = Fertilizer_Recycle.objects.all()
+        for recyle in all_fertilizer_recycles:
+
+            recycled = {recyle.Uv_Element: recyle.UvElements
+            }
+            for elem, ppm in recycled.items():
+                if elem is not None and ppm is not None and key is not None:
+                    pass
+
+                    # print("Truth, recycled", elem,"is", ppm)
+                    # print("Is it same",key,"and", elem)
+                    if key in elem and self.Fertilizer == e.Fertilizer:
+                        # fertppm1 = freshFertPpm + ppm
+                        # print("Recycle", elem,"is", ppm)
+                        print("Fresh ppm of", elem, "in", self.Fertilizer, "is", freshFertPpm)
+                        # print("Final", key, "is", fertppm1)
+                    # print(element_composition)
