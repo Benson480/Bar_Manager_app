@@ -21,11 +21,13 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.urls import path, include, re_path
 from myapp.views import (
-    register_view, login_view, logout_view
+    register_view, login_view, logout_view, dashboard
     )
 
 urlpatterns = [
     path('', login_view),
     path('admin/', admin.site.urls),
     path('login/', login_view, name='login'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('accounts/register/', register_view, name='register'),
 ]

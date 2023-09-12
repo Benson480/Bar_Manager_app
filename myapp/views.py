@@ -171,3 +171,12 @@ def logout_view(request):
         logout(request)
         return redirect("/login/")
     return render(request, "accounts/logout.html", {})  
+
+
+def dashboard(request):
+  template = loader.get_template('dashboard.html')
+  # Update user activity in the session
+  if request.user.is_authenticated:
+    request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+
+  return HttpResponse(template.render())
