@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Fertigation Dashboard
+  BarManager|Dashboard
 {% endblock %}
 
 
@@ -165,11 +165,11 @@
 {% block content %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
-<header style="background-color: #007f46; padding: 5px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
-  <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
+<header style="background-color: #462644; padding: 5px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
   <div>
-    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Fertigation System Dashboard</h2>
-    <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">Your cutting-edge solution for agricultural management</p>
+    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">BarManager Dashboard</h2>
+    <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">Your cutting-edge solution for Alcohol Business management</p>
   </div>
 </header>
 
@@ -184,7 +184,7 @@
     justify-items: center;
     align-items: center;
     background-color: #f0f7f4; /* Brighter color */
-    background-image: linear-gradient(#00000099, rgba(34, 33, 33, 0.6)), url("https://webdesigndev.com/wp-content/uploads/2022/12/Agriculture-Field-technology-917x575.jpg");
+    background-image: linear-gradient(#00000099, rgba(34, 33, 33, 0.6)), url("data:image/jpeg;base64,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");
     background-size: cover;
     background-position: center;
     padding: 20px 0;
@@ -197,100 +197,26 @@
 </style>
     <ul>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-      <a href="/Fertilizers" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
-        <i class="fas fa-leaf fa-7x" style="color: #4CAF50; background-color: #E0F2E9; padding: 20px;"></i>
-        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 20px; font-weight: bold; color: #ffffff;">Employee</span>
+
+      <a href="/Employee" title="Employee" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
+        <i class="fas fa-user fa-10x" style="color: #4CAF50; background-color: #E0F2E9; padding: 30px;"></i>
+        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 24px; font-weight: bold; color: #ffffff;">Employee</span>
       </a>
       
-      <!-- Repeat the above structure for other links with respective icons -->
-      <a href="/fertilizer_list" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
-        <i class="fas fa-toolbox fa-7x" style="color: #FF5733; background-color: #FCEDEA; padding: 20px;"></i>
-        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 20px; font-weight: bold; color: #ffffff">Employer</span>
+      <a href="/Employer" title="Employer" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
+        <i class="fas fa-building fa-10x" style="color: #FF5733; background-color: #FCEDEA; padding: 30px;"></i>
+        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 24px; font-weight: bold; color: #ffffff">Employer</span>
       </a>
       
-      <!-- <a href="/laboratory" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
-        <i class="fas fa-vial fa-7x" style="color: #E71D36; background-color: #FCEDEA; padding: 20px;"></i>
-        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 20px; font-weight: bold; color: #ffffff">Laboratory</span>
-      </a>
-      
-      <a href="/weather" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
-        <i class="fas fa-sun fa-7x" style="color: #FDB813; background-color: #FFF4E1; padding: 20px;"></i>
-        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 20px; font-weight: bold; color: #ffffff">Weather</span>
-      </a>
-      
-      <a href="/Fertlizer_dealers" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
-        <i class="fas fa-store-alt fa-7x" style="color: #FFC300; background-color: #FEF7E6; padding: 20px;"></i>
-        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 20px; font-weight: bold; color: #ffffff">Fertilizer Dealers</span>
-      </a>
-      
-      <a href="/reports" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
-        <i class="fas fa-chart-bar fa-7x" style="color: #3498DB; background-color: #EAF4FB; padding: 20px;"></i>
-        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 20px; font-weight: bold; color: #ffffff">Reports</span>
-      </a>
-      
-      <a href="/stocks" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
-        <i class="fas fa-box-open fa-7x" style="color: #9B59B6; background-color: #F4E7F3; padding: 20px;"></i>
-        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 20px; font-weight: bold; color: #ffffff">Stocks</span>
-      </a>
-      
-      <a href="/{{ BASE_URL }}admin/" target="_blank" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
-        <i class="fas fa-user-cog fa-7x" style="color: #3498DB; background-color: #EAF4FB; padding: 20px;"></i>
-        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 20px; font-weight: bold; color: #ffffff">Admin</span>
-      </a>
-      
-      <a href="/settings" style="position: relative; display: inline-block; margin-bottom: 80px; margin-right: 11px; text-align: center;">
-        <i class="fas fa-cogs fa-7x" style="color: #FFC300; background-color: #FEF7E6; padding: 20px;"></i>
-        <span style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 1; font-size: 20px; font-weight: bold; color: #ffffff">Settings</span>
-      </a> 
-       -->
     </ul>
 
 </div>
 
-
-
-  <div class="content">
-    <h2>Fertigation System Dashboard</h2>
-    <div class="chart-container">
-      <div class="chart">
-        <canvas id="moistureChart"></canvas>
-      </div>
-      <div class="chart">
-        <canvas id="phChart"></canvas>
-      </div>
-    </div>
-    <div class="table-container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Moisture Level</th>
-            <th>pH Level</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2023-07-01</td>
-            <td>08:00 AM</td>
-            <td>45%</td>
-            <td>6.8</td>
-          </tr>
-          <tr>
-            <td>2023-07-01</td>
-            <td>12:00 PM</td>
-            <td>50%</td>
-            <td>7.2</td>
-          </tr>
-          <tr>
-            <td>2023-07-01</td>
-            <td>04:00 PM</td>
-            <td>48%</td>
-            <td>7.0</td>
-          </tr>
-          <!-- Add more rows with dynamic data -->
-        </tbody>
-      </table>
+<div class="content">
+  <h2>USD to KSH Exchange Rate Dashboard</h2>
+  <div class="chart-container">
+    <div class="chart">
+      <canvas id="forexChart"></canvas>
     </div>
   </div>
 </div>
@@ -298,59 +224,72 @@
 <!-- Include Chart.js library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Example data for charts
-  var moistureData = {
-    labels: ["8 AM", "12 PM", "4 PM"],
+  // Function to fetch real-time USD to KSH exchange rates
+  async function fetchForexRates() {
+    try {
+      // Fetch exchange rates from the free Exchange Rates API
+      const response = await fetch('https://api.apilayer.com/exchangerates_data/latest?base=KES');
+      const data = await response.json();
+
+      // Extract USD to KSH exchange rate from the API response
+      const rate = data.rates.USD;
+
+      // Update the chart with the new data
+      const date = new Date().toLocaleTimeString();
+      forexChart.data.labels.push(date);
+      forexChart.data.datasets[0].data.push(rate);
+      forexChart.update();
+
+      // Remove the oldest data point if the chart data exceeds a certain length
+      if (forexChart.data.labels.length > 10) {
+        forexChart.data.labels.shift();
+        forexChart.data.datasets[0].data.shift();
+      }
+
+      // Schedule the next update (e.g., every 5 seconds)
+      setTimeout(fetchForexRates, 5000); // 5000 milliseconds = 5 seconds
+    } catch (error) {
+      console.error('Error fetching forex rates:', error);
+    }
+  }
+
+  // Initial data for the chart
+  var forexData = {
+    labels: [], // Will be populated with dates
     datasets: [{
-      label: "Moisture Level",
-      data: [45, 50, 48],
+      label: "USD to KSH Exchange Rate",
+      data: [], // Will be populated with exchange rates
       backgroundColor: "rgba(75, 192, 192, 0.2)",
       borderColor: "rgba(75, 192, 192, 1)",
       borderWidth: 1
     }]
   };
 
-  var pHData = {
-    labels: ["8 AM", "12 PM", "4 PM"],
-    datasets: [{
-      label: "pH Level",
-      data: [6.8, 7.2, 7.0],
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-      borderColor: "rgba(255, 99, 132, 1)",
-      borderWidth: 1
-    }]
-  };
+  // Get chart canvas element
+  var forexChartCanvas = document.getElementById("forexChart").getContext("2d");
 
-  // Get chart canvas elements
-  var moistureChartCanvas = document.getElementById("moistureChart").getContext("2d");
-  var pHChartCanvas = document.getElementById("phChart").getContext("2d");
-
-  // Create charts
-  var moistureChart = new Chart(moistureChartCanvas, {
+  // Create the chart
+  var forexChart = new Chart(forexChartCanvas, {
     type: "line",
-    data: moistureData,
+    data: forexData,
     options: {
       responsive: true,
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: false
         }
       }
     }
   });
 
-  var pHChart = new Chart(pHChartCanvas, {
-    type: "line",
-    data: pHData,
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+  // Fetch initial forex rates and start updating
+  fetchForexRates();
 </script>
+
+
+
+
+
+
 
 {% endblock %}

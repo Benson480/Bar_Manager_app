@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
+body {
+  margin:0;
+  font: 600 18px 'Source Sans Pro', sans-serif;
+  letter-spacing: 0.64px;
+  color: #585d74;
+}
+.topnav {
+  background-color:#375BDC;
+  color:#ffffff;
+  padding:50px;
+}
+.topnav a:link, .topnav a:visited {
+  text-decoration: none;
+  color: #ffffff; 
+}
+.topnav a:hover, .topnav a:active {
+  text-decoration: underline;
+}
+.mycard {
+  margin: 0px auto 0px auto;
+  border-radius: 5px;
+  background-image: linear-gradient(to right, rgb(222, 226, 238), rgb(229, 232, 241)); 
+  background-size: 1500px 1500px;
+  background-color:hsl(86, 83%, 62%);
+  display: block;
+  min-width: 1000px;
+  margin: .1em;
+  font-size: 20px;
+  padding-left: .2em;
+  padding-top: .4em;
+  right: 0;
+  left: 0;
+  height: 91.6%;
+  width: 86%;
+  position: relative;
+  top: 45%;
+  left: 13.1%;
+  text-align: left;
+  padding:5px;
+  margin: 0px auto 0px auto;
+  color:hsl(240, 2%, 8%);
+  font-family:sans-serif;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: .0em;
+  margin-top: 47.5px;
+  font-size: 15px;
+  Overflow-x:scroll;
+  Overflow-y:scroll;
+  
+}
+.Fertresults {
+  margin-top: 47.5px;
+  font-size: 15px;
+  Overflow-x:scroll;
+  Overflow-y:scroll;
+  
+}
+
+.mycard h1 {
+  text-align: center;
+  color:#ffffff;
+  margin:10px 0 20px 0;
+  position: relative;
+}
+
+.mycard h3 {
+  text-align: left;
+  color:#ffffff;
+  margin:10px 0 20px 0;
+  position: relative;
+  color: #375BDC;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+li:hover {
+  transform: scale(1);
+}
+a:link, a:visited {
+  color: #375BDC; 
+}
+.main, .main h1 {
+  text-align:center;
+  color:#375BDC;
+}
+
+.mycard li {
+  padding-top: 0px;
+  text-align:left;
+  padding-left: 15px;
+  padding: 2px;
+  transition: transform .25s;
+}
+
+.mycard a {
+  text-underline-position: below;
+  text-decoration: underline;
+
+}
+
+.mycard .Logout{
+  text-underline-position: below;
+  text-decoration: underline;
+  padding: 10px;
+  
+ 
+}
+
+.mycard button{
+  text-underline-position: below;
+  text-decoration: underline;
+  padding: 10px;
+  color: #375BDC;
+  left: 15%;
+
+}
+
+.topnav {
+  height: 20%;
+  width: 180px;
+  position: fixed;
+  z-index: 1;
+  top:100%;
+  left: 12%;
+  background-color: rgb(208, 208, 221);
+  overflow-x:  hidden;
+  padding-top: 0px;
+  text-transform: uppercase;
+}
+.topnav a {
+  padding: 7px 15px 7px 16px;
+  text-decoration: none;
+  font-size: 19px;
+  font: #818181;
+  display: block;
+  text-transform: uppercase;
+}
+
+.topnav a:hover{
+  color: hwb(260 7% 9%);
+}
+
+
+
+
+
+
+  .sidenav a {
+    color: whitesmoke;
+    transition: 0.3s ease;
+  }
+
+
+  .sidenav {
+    height: 100%;
+    width: 180px;
+    position: fixed;
+    z-index: 1;
+    top:0;
+    left: 0;
+    background-color:#244c0c;
+    ;
+    overflow-x:  hidden;
+    padding-top: 20px;
+    font: white;
+    text-transform: uppercase;
+  }
+
+  .sidenav img {
+    left: 10%;
+    margin: .3em;
+    font-size: 20px;
+    padding-left: .5em;
+  }
+  .topnav {
+    height: 20%;
+    width: 180px;
+    position: fixed;
+    z-index: 1;
+    top:100%;
+    left: 0;
+    background-color: rgb(208, 208, 221);
+    overflow-x:  hidden;
+    padding-top: 20px;
+    text-transform: uppercase;
+  }
+  .sidenav a {
+    padding: 7px 15px 7px 16px;
+    text-decoration: none;
+    font-size: 19px;
+    font: hsl(0, 20%, 97%);
+    display: block;
+    transition: 0.1s ease;
+    text-transform: uppercase;
+    padding: 1.7em 2.5em;
+  }
+
+  .sidenav a:hover{
+    color: rgb(251, 249, 253);
+    transition: 0.3s ease;
+    text-transform: uppercase;
+  }
+  .main{
+    margin-left: 0px;
+    padding: 0px 2px;
+  }
+  
+  .name img {
+    display: inline;
+}
+
+/*************************/
+/*    Styling  Header    */
+/*************************/
+header{
+     
+  overflow: hidden;
+}
+
+#top-header{
+       
+  text-align: center;
+  height: 60px;
+}
+
+/****************/   
+/* Styling Logo */
+/****************/
+#logo{
+  float: left;
+  padding: none;
+  margin: none;
+  height: 60px;
+  width: 30%;
+}
+
+#logo img{
+  width: 60%;
+  float: left;
+  padding: 10px 0px;
+}   
+
+/***************************/
+/* Styling Navigation Menu */
+/***************************/
+#menu{
+  float: right;
+  width: 70%;
+  height: 100%;
+  margin: none;
+}
+   
+#menu ul{
+  text-align: center;
+  float: right;
+  margin: none;
+  background: #244c0c;
+}
+   
+#menu li{
+  display: inline-block;
+  padding: none;
+  margin: none;
+}
+   
+#menu li a, #menu li span{
+  display: inline-block;
+  padding: 0em 1.5em;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 60px;
+}
+   
+#menu li a{
+       
+  color: #FFF;
+}
+   
+#menu li:hover a, #menu li span{
+  background: #FFF;
+  color: #0074D9;
+  border-left: 1px solid #0074D9;
+  text-decoration: none;
+}

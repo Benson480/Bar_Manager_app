@@ -13,7 +13,7 @@
   }
   
   footer {
-    background-color: #007f46;
+    background-color: #7f0079;
     color: #FFF;
     text-align: center;
     padding: 10px;
@@ -26,12 +26,12 @@
       height: 100%;
     }
     header {
-      background-color: #007f46; /* Change the header background color */
+      background-color: #7f0079; /* Change the header background color */
       color: #FFF;
       overflow: hidden;
     }
     .topnav {
-      background-color: hsl(115, 76%, 18%);
+      background-color: #7f0079;
       position: fixed;
       top: 0;
       left: 0;
@@ -74,7 +74,7 @@
       overflow-x: hidden;
       padding-top: 20px;
       z-index: 999; /* Increased z-index to ensure sidenav is displayed above content */
-      background-color: hwb(155 5% 62%);
+      background-color: #7f0079;
       transition: 0.5s; /* Added transition for smooth movement */
     }
     
@@ -141,7 +141,7 @@
         height: calc(100% - 58px);
         transition: 0.5s;
         z-index: 999;
-        background-color: hsl(157, 65%, 26%);
+        background-color: #7f0079;
       }
 
       .sidenav a {
@@ -272,7 +272,7 @@
     height: calc(100% - 58px);
     transition: 0.5s;
     z-index: 999;
-    background-color: hsl(157, 65%, 26%);
+    background-color: #7f0079;
   }
 
   .sidenav a {
@@ -361,21 +361,21 @@
     <a href="/dashboard"><i class="fa fa-home"></i> Home</a>
     <a href="/about/"><i class="fa fa-info-circle"></i> About</a>
     <div class="menu-item">
-        <a href="#"><i class="fa fa-leaf"></i> Farm Profile</a>
-        <div class="submenu" style="background-color: green;">
-          <a href="https://chat.openai.com/" target="_blank" style="background-color: rgb(202, 209, 106); color: black;">Show Profile</a>
-          <a href="#" style="background-color: rgb(230, 245, 23); color: black;">Edit My Profile</a>
-          <a href="#" style="background-color: aquamarine; color: black;">Admin Panel</a>
+        <a href="#"><i class="fa fa-leaf"></i> Business Profile</a>
+        <div class="submenu" style="background-color: rgb(128, 0, 122);">
+          <a href="https://chat.openai.com/" target="_blank" style="color: rgb(255, 255, 255);">Show Profile</a>
+          <a href="#" style="color: rgb(255, 255, 255);">Edit My Profile</a>
+          <a href="#" style="color: rgb(255, 255, 255);">Admin Panel</a>
         </div>
     </div>
     <a href="/contact"><i class="fa fa-envelope"></i> Contact</a>
     <a href="#"><i class="fa fa-briefcase"></i> Careers</a>
     <div class="menu-item">
         <a href="#"><i class="fa fa-flask"></i> Research</a>
-        <div class="submenu" style="background-color: green; padding: 0px;">
+        <div class="submenu" style="background-color: rgb(128, 0, 53); padding: 0px;">
             <a href="https://chat.openai.com/" target="_blank" title="ChatGPT OpenAI" >OpenAI</a>
             <a href="https://www.w3schools.com/django/" target="_blank" title="Django is a back-end server side web framework used to develop this app">Django Tutorial</a>
-            <a href="#">Soil Science</a>
+            <a href="#">Forex Exchange</a>
         </div>
     </div>
     <a href="/{{ BASE_URL }}admin/" target="_blank"><i class="fa fa-user-cog"></i> Admin</a>
@@ -392,16 +392,16 @@
   
 
   <div class="sidenav" style="display: block;">  
-    <a href="/dashboard"><i class="fa fa-chart-bar"></i> Dashboard</a>
-    <a href="/Fertilizers"><i class="fa fa-leaf"></i> Fertilizers Regime</a>
-    <a href="/fertilizer_list"><i class="fa fa-list"></i> Fertilizers</a>
-    <a href="/prices"><i class="fa fa-money-bill"></i> Prices</a>
-    <a href="/diagnosis"><i class="fa fa-stethoscope"></i> Diagnosis</a>
-    <a href="/laboratory"><i class="fa fa-flask"></i> Laboratories Test</a>
-    <a href="/ppm/"><i class="fa fa-tint"></i> Ppm</a>
-    <a href='/elements'><i class="fa fa-atom"></i> Elements</a>
-    <a href="/Fertilizers_recycle"><i class="fa fa-recycle"></i> Fertilizer Recycle</a>
-    <a href="#"><i class="fa fa-cogs"></i> Farm Settings</a>
+    <a href="/dashboard"><i class="fa fa-chart-bar"></i> Business Overview</a>
+    <a href="/employees"><i class="fa fa-users"></i> Employees</a>
+    <a href="/departments"><i class="fa fa-building"></i> Departments</a>
+    <a href="/projects"><i class="fa fa-briefcase"></i> Projects</a>
+    <a href="/finances"><i class="fa fa-dollar-sign"></i> Finances</a>
+    <a href="/clients"><i class="fa fa-user-tie"></i> Clients</a>
+    <a href="/analytics"><i class="fa fa-chart-line"></i> Analytics</a>
+    <a href='/settings'><i class="fa fa-cogs"></i> Settings</a>
+    <a href="/reports"><i class="fa fa-file-alt"></i> Reports</a>    
+    <a href="#"><i class="fa fa-cogs"></i> Business Settings</a>
     <a href="/login"><i class="fa fa-sign-out-alt"></i> Logout</a>
   </div>
   
@@ -416,8 +416,21 @@
     {% endblock %}
   </div>
 
-  <footer style="background-color: #007f46; color: #FFF; text-align: center; padding: 10px;">
-      © 2023 Fertppm. All rights reserved.
+  <footer style="background-color: #462644; color: #FFF; text-align: center; padding: 10px;">
+    <div style="display: flex; justify-content: space-between; max-width: 800px; margin: 0 auto;">
+      <div>
+        <p>Contact: fertppm@solutions.com</p>
+      </div>
+      <div>
+        <p>Location: 00606 Nairobi, City</p>
+      </div>
+      <div>
+        <p>Dev Team: Benson & Stephanie</p>
+      </div>
+    </div>
+    <p>© 2023 BarManager. All rights reserved.</p>
   </footer>
+  
+  
 </body>
 </html>
