@@ -1,11 +1,16 @@
 THE BAR MANAGER
 
 Description
-The bar manager is a Bar accounting app that makes it convenient to follow up on sales and keep up with the accounting aspect of business. For no considering that this is an MVP, it will take care of accounting related to a bar or rather alcohol business.
+The bar manager is a Bar accounting app that makes it convenient to follow up on sales and keep up with the accounting aspect of business. Considering that this is an MVP, it will take care of accounting related to a bar or rather alcohol business.
+
 Target market
+
 This app will focus on entrepreneurs with the businesses revolving around alcohol or similar fields. This includes bars, beer shacks, keg vendors etc.
+
 What the Bar manager will do
+
 important
+
 1.	Track keeping on restocking
 2.	Track keeping of Profits
 3.	Track any losses incurred

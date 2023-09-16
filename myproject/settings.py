@@ -263,9 +263,9 @@ MENU_WEIGHT = {
 }
 
 ADMIN_STYLE = {
-    'primary-color': '#164B36',
+    'primary-color': 'blue',
     'secondary-color': 'pink',
-    'tertiary-color': '#51B48E',
+    'tertiary-color': 'Yellow',
     'body-color': 'white',
     'backgound-color': 'black',
 }
