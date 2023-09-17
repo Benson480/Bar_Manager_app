@@ -98,7 +98,7 @@ class EmployeeForm(forms.ModelForm):
 	# specify the name of model to use
 	class Meta:
 		model = Employee
-		fields = ['index','firstname','lastname', 'middlename', 'Date_employed', 'Basic_Salary', 'Allowances', 'Responsibility']
+		fields = ['index', 'Payroll_number', 'Last_date_attendance', 'firstname','lastname', 'middlename', 'Date_employed','Performance', 'Basic_Salary', 'Allowances', 'Designation']
 		widgets = {
 			'Date_employed': DateInput(),
 			

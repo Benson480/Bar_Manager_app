@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
-# from .models import (Fertilizer, Fertilizer_Detail, 
-# Fertilizer_Element, Fertilizer_Amount, Fertilizer_Price, Fertilizer_Cost, UploadedImage, Fertilizer_Recycle)
+from .models import (Beverage, Beverage_Price, New_stock, Employee,
+                      Employer, BeverageImage, Daily_Usage)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -11,8 +11,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-# from .forms import (Fertilizer_AmountForm, DeleteFertilizerForm, Fertilizer_PricesForm, 
-#                     Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm, Fertilizer_Recycle_Form)
+from .forms import (Beverage_Form, EmployeeForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
+                    #Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm, Fertilizer_Recycle_Form)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
@@ -56,27 +56,6 @@ def register_view(request):
 
     return render(request, 'accounts/register.html', {'signup_form': signup_form})
     
-
-# def login_view(request):
-#     # future -> ?next=/articles/create/
-#     if request.method == "POST":
-#         form = AuthenticationForm(request, data=request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             messages.success(request, "Login successful.")
-#             login(request, user)
-#             return redirect('/dashboard/')
-        
-        
-#     else:
-#         messages.success(request, "Login not Sucessful try again!")
-#         form = AuthenticationForm(request)
-        
-#     context = {
-#         "form": form
-#     }
-#     return render(request, "accounts/login.html", context)
-
 
 
 logger = logging.getLogger(__name__)
@@ -139,33 +118,6 @@ def login_view(request):
     return render(request, 'accounts/login.html', context)
 
 
-
-
-
-"""Currently this view is not in use, Reason it is hard to implement and has blocked
-  Me from the system for several times
-"""
-# def login_view(request):
-#     error_message = None
-    
-#     if request.method == 'POST':
-#         login_form = LoginForm(request.POST)
-#         if login_form.is_valid():
-#             email = login_form.cleaned_data.get('email')  # Use lowercase field name
-#             password = login_form.cleaned_data.get('password')  # Use lowercase field name
-#             user = authenticate(username=email, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('/dashboard/')
-#             else:
-#                 error_message = "Invalid login credentials"
-#         else:
-#             error_message = "Form validation failed"
-#     else:
-#         login_form = LoginForm()
-
-#     return render(request, 'accounts/login.html', {'form': login_form, 'error_message': error_message})
-
 def logout_view(request):
     if request.method == "POST":
         logout(request)
@@ -180,3 +132,32 @@ def dashboard(request):
     request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
   return HttpResponse(template.render())
+
+
+@login_required #(redirect_to='/login/')
+def Employee(request):
+    context ={}
+ 
+    # create object of form
+    Employee_Member = Beverage.objects.all()
+    # membercost = Fertilizer_Cost.objects.all()
+    # Fertilizer_list = Fertilizer.objects.all()
+    # Employeeform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
+    Employeeform = EmployeeForm(request.POST or None, request.FILES or None)
+    
+     
+    # check if form data is valid
+    if Employeeform.is_valid():
+        # save the form data to model
+        Employeeform.save()
+    context = {
+    'form':Employeeform,
+    'Employee_Member': Employee_Member,
+    # 'Fertilizer_list':Fertilizer_list,
+    # 'membercost': membercost, 
+    # 'fertaddform':fertaddform,
+  }
+    if request.user.is_authenticated:
+      request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+
+    return render(request, "Employee.html", context)
