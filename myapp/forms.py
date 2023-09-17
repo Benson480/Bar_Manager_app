@@ -98,7 +98,7 @@ class EmployeeForm(forms.ModelForm):
 	# specify the name of model to use
 	class Meta:
 		model = Employee
-		fields = ['index','name', 'Date_employed', 'Basic_Salary', 'Allowances', 'Responsibility']
+		fields = ['index','firstname','lastname', 'middlename', 'Date_employed', 'Basic_Salary', 'Allowances', 'Responsibility']
 		widgets = {
 			'Date_employed': DateInput(),
 			
@@ -109,7 +109,7 @@ class EmployerForm(forms.ModelForm):
 	# specify the name of model to use
 	class Meta:
 		model = Employer
-		fields = ['index','name', 'Business_Start_Date', 'Responsibility']
+		fields = ['index', 'firstname','lastname', 'middlename', 'Business_Start_Date', 'Responsibility']
 		widgets = {
 			'Business_Start_Date': DateInput(),
 			

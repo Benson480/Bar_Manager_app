@@ -79,17 +79,21 @@ class Daily_Usage(models.Model):
 
 class Employee(models.Model):
     index = models.IntegerField()
-    name = models.CharField(max_length=255)
+    firstname = models.CharField(max_length=255, null=True, db_index=True)
+    lastname = models.CharField(max_length=255, null=True, db_index=True)
+    middlename = models.CharField(max_length=255, null=True, db_index=True)
     Date_employed = models.DateField(null=True,db_index=True)
-    Basic_Salary = models.FloatField(max_length=255, )
-    Allowances = models.FloatField(max_length=255)
+    Basic_Salary = models.FloatField(max_length=255, null=True, db_index=True)
+    Allowances = models.FloatField(max_length=255, null=True, db_index=True)
     Responsibility = models.CharField(max_length=255, null=True, db_index=True)
     def __str__(self):
             return f"{self.name}"
     
 class Employer(models.Model):
     index = models.IntegerField()
-    name = models.CharField(max_length=255)
+    firstname = models.CharField(max_length=255, null=True, db_index=True)
+    lastname = models.CharField(max_length=255, null=True, db_index=True)
+    middlename = models.CharField(max_length=255, null=True, db_index=True)
     Business_Start_Date = models.DateField(null=True,db_index=True)
     Responsibility = models.CharField(max_length=255, null=True, db_index=True)
     def __str__(self):

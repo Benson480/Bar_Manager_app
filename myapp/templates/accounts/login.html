@@ -501,9 +501,9 @@
                   <h3 class="signup">Sign in to your Account</h3>
                   <ul>
                       {% csrf_token %}
-                      <h5>{{ login_form.username.label_tag }} {{ login_form.username }} </h5>
+                      <h5 style="color: #000;">{{ login_form.username.label_tag }} {{ login_form.username }} </h5>
                       <label for="{{ login_form.password.id_for_label }}">
-                          <h5>{{ login_form.password.label_tag }}</h5>
+                          <h5 style="color: #000;">{{ login_form.password.label_tag }}</h5>
                       </label>
                       <div class="password-field">
                           {{ login_form.password }}
@@ -523,7 +523,7 @@
               </div>
               {% endif %}
               <div>
-                  <h5>
+                  <h5 style="color: #000;">
                       Don't Have An Account? Register
                       <a href="#" id="showSignup" title="Register Here">Here</a>
                   </h5>
@@ -539,17 +539,17 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="login_area">
-                        <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
-                        <h3 class="signup" style="color: #000000; text-align: center; font-weight: bold;">Register Here</h3>
-                        <h5 class="question" style="text-align: center;">Already Have An Account?
+                        <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" />
+                        <h3 class="signup" style="color: #ffffff; text-align: center; font-weight: bold;">Register Here</h3>
+                        <h5 class="question" style="text-align: center; color: #000;">Already Have An Account?
                             <a href="/login" style="color: #0019fc;" title="Go back to Login Page">LogIn</a>
                         </h5>
                         <form method="post" style="font-weight: bold;">
                             {% csrf_token %}
                             {% for field in signup_form %}
-                            <div class="form-group">
+                            <div class="form-group" style="color: #000;">
                                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                <div class="input-group" style="font-weight: bold;">
+                                <div class="input-group" style="font-weight: bold; ">
                                     {% if field.name != 'username' and field.name != 'email' %}
                                     <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}" name="{{ field.html_name }}" placeholder="{{ field.label }}" {% if field.field.required %} required{% endif %}>
                                     <div class="input-group-append">
