@@ -36,4 +36,8 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('anouncement/', anouncement, name='anouncement'),
     path('contacts/', contacts, name='contacts'),
+    path('images/', include('myapp.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

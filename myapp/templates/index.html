@@ -19,9 +19,6 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital@1&family=Josefin+Sans:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      padding-top: 0;
-    }
 
     .image-section {
       background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTisOmuXlpkSScXHatNqfAJmXwUcd96Jjrv6dYdDo97&s");
@@ -92,126 +89,6 @@
       
     }
 
-    .login_section {
-      display: flex;
-      flex-flow: row wrap;
-      margin: 5px 0;
-      top: 1%;
-      height: auto;
-      opacity: 0.8;
-      padding: 0.1em 0.2em;
-    }
-
-    .signup {
-      color: black;
-      padding: 30px 5px;
-      width: 100%;
-    }
-
-    form {
-      font-family: 'DM Sans', sans-serif;
-      margin: 0;
-      padding: 1em;
-      border: 1px solid #244c0c;
-      border-radius: 1em;
-    }
-
-    li {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    form li+li {
-      margin-top: 1em;
-    }
-
-    label {
-      display: inline-block;
-      width: 90px;
-      text-align: right;
-    }
-
-    input {
-      font: 1em sans-serif;
-      font-family: 'DM Sans', sans-serif;
-      line-height: 1.5;
-      width: 100%;
-      box-sizing: border-box;
-      border: 0.3rem solid #244c0c;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid #ced4da;
-      border-radius: 0.3rem;
-      padding: 0.5rem 1rem;
-    }
-
-    input:focus {
-      border-color: #000;
-    }
-
-    .button {
-      padding-left: 90px;
-      background-color: aquamarine;
-    }
-
-    button {
-      margin-left: 0.5em;
-      background-color: hsl(98, 36%, 90%);
-      color: hsl(249, 70%, 15%);
-      padding: 0.5rem 1rem;
-      border: 1px solid #ced4da;
-      border-radius: 0.3rem;
-
-    }
-
-    button:hover {
-      background-color: #A4BE7B;
-      border: 1px solid #ced4da;
-      border-radius: 0.3rem;
-    }
-
-    .login_area {
-      position: relative;
-      padding: 0px 5px;
-      width: 100%;
-      border-radius: 2%;
-      background-color: hwb(92 4% 72%);
-      opacity: 0.9;
-      color: hsl(330, 10%, 88%);
-    }
-
-    .separator {
-      padding: 30px 5px;
-      text-align: center;
-    }
-
-    .separator img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .column {
-      flex: 1;
-      border: 1px solid;
-      margin: 2px;
-      padding: 10px;
-    }
-
-    .text_pic {
-      position: absolute;
-      bottom: 200px;
-      right: 5%;
-      height: 1000px;
-    }
-
-    .selector {
-      position: relative;
-      bottom: 100px;
-      left: 300px;
-      height: 350px;
-    }
-
     @media (max-width: 767px) {
       .navbar-brand {
         left: 20px;
@@ -239,20 +116,6 @@
         position: absolute;
         top: 15px;
         right: 20px;
-      }
-    }
-
-    @media (max-width: 991px) {
-      .login_section {
-        flex-direction: column;
-      }
-
-      .login_area {
-        margin-top: 20px;
-      }
-
-      .separator {
-        margin-top: 20px;
       }
     }
 
@@ -342,11 +205,7 @@
     }
 
     /* Add background texture */
-    body {
-      background-image: url('https://www.transparenttextures.com/patterns/brick-wall.png');
-      background-color: #f0f0f0; /* Fallback color */
-      background-blend-mode: overlay; /* Blend texture with background color */
-    }
+
 </style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -396,45 +255,92 @@
         </div>
       </nav>
 
-      <!-- login section -->
-      <div class="main-container">
-        <div>
-          {% if images %}
-            <ul>
-              {% for image in images %}
-              <ul class="horizontal-list" style=" display: inline-block; padding: 10px;">
-                <li>
-                  <p><strong>Title: {{ image.title }}</p></strong>
-                  <a href="{{ image.image.url }}" target="_blank" style="display: flex; margin-right: 235px;" >
-                    <img src="{{ image.image.url }}" alt="Uploaded Image" height="250px" width="281px" >
-                  </a>
-                  <p>
-                  {% if image.about_Image is not None %}
-                  <p style="display: flex;">{{ image.about_Image|wordwrap:40 }}</p>
-                    
-                  {% else %}
-                    {{ "" }}
-                  {% endif %}
-                  </p>
-                  <p>
-                    <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}
-                    <a href="/deleteimages/{{ image.id }}" onclick="return confirm('Are you sure you want to delete this item?')" style="color: #ff0000; margin-right: 10px;">
-                      <i class="fas fa-trash-alt" title="Delete"></i>
-                    </a>
-                  </p>
-                  </p>
-                  <!-- Add more information about the image if needed -->
-                </li>
-              </ul>
-              {% endfor %}
-              <h1><a href="/upload" style="color: green; margin-right: 0px; display: block;" title="Add Images"> Add Images</a></h1>
-            </ul>
-          {% else %}
-            <p>No images uploaded yet.</p>
-            <h1><a href="/upload" style="color: green; float: right; margin-right: 100px; display: flex;"> Add Images</a></h1>
-          {% endif %}
-        </div>
-  </section>
+      <style>
+      
+        .product {
+          background-color: #fff;
+          border: 1px solid #e0e0e0;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          margin: 10px;
+          padding: 20px;
+          width: 300px;
+          text-align: center;
+          transition: transform 0.2s ease-in-out;
+        }
+      
+        .product:hover {
+          transform: translateY(-5px);
+        }
+      
+        .product img {
+          max-width: 100%;
+          height: auto;
+        }
+      
+        .product p {
+          margin: 10px 0;
+          width: 100%;
+        }
+      
+        .product button {
+          background-color: #e7ebf0;
+          color: #1d0707;
+          border: none;
+          padding: 10px 20px;
+          cursor: pointer;
+          transition: background-color 0.2s ease-in-out;
+        }
+      
+        .product button:hover {
+          background-color: #6ea8e2;
+        }
+      
+        .no-images {
+          text-align: center;
+          font-size: 18px;
+          margin-top: 20px;
+        }
+      </style>
+      
+      <div class="container">
+        {% if images %}
+          <div class="row">
+            {% for image in images %}
+              <div class="col-md-4 product">
+                <p><strong>Title: {{ image.title }}</strong></p>
+                <a href="{{ image.image.url }}" target="_blank">
+                  <img src="{{ image.image.url }}" alt="Uploaded Image">
+                </a>
+                {% if image.about_Image %}
+                  <p>{{ image.about_Image|wordwrap:40 }}</p>
+                {% endif %}
+                <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}</p>
+      
+                <!-- Buttons -->
+                <form method="POST" action="/add_to_cart/{{ image.id }}">
+                  {% csrf_token %}
+                  <button type="submit">Add to Cart</button>
+                </form>
+      
+                <form method="POST" action="/purchase_item/{{ image.id }}">
+                  {% csrf_token %}
+                  <button type="submit">Purchase Item</button>
+                </form>
+      
+                <form method="POST" action="/make_order/{{ image.id }}">
+                  {% csrf_token %}
+                  <button type="submit">Make an Order</button>
+                </form>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="no-images">No images uploaded yet.</p>
+        {% endif %}
+      </div>
+      
+      
+
   
   <!-- js -->
   <!-- bootstrap -->
