@@ -124,6 +124,9 @@ def logout_view(request):
         return redirect("/login/")
     return render(request, "accounts/logout.html", {})  
 
+def index(request):
+    images = BeverageImage.objects.all()
+    return render(request, 'index.html', {'images': images})
 
 def dashboard(request):
   template = loader.get_template('dashboard.html')
@@ -132,6 +135,30 @@ def dashboard(request):
     request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
   return HttpResponse(template.render())
+
+
+def about(request):
+  template = loader.get_template('about.html')
+  return HttpResponse(template.render())
+
+def anouncement(request):
+  template = loader.get_template('anouncement.html')
+  return HttpResponse(template.render())
+
+def contacts(request):
+  #This is the outer contacts page
+  template = loader.get_template('contacts.html')
+  return HttpResponse(template.render())
+
+
+def image_list(request):
+    images = BeverageImage.objects.all()
+    return render(request, 'index.html', {'images': images})
+
+def deleteimages(request, id):
+  member = BeverageImage.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("image_list"))
 
 
 @login_required #(redirect_to='/login/')

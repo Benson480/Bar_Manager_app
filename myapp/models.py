@@ -99,7 +99,7 @@ class Employee(models.Model):
                   )
     
     def __str__(self):
-            return f"{self.Payroll_number} {self.firstname}"
+            return f"{self.Payroll_number} {self.firstname} {self.middlename} {self.Designation}"
     
 class Employer(models.Model):
     index = models.IntegerField()

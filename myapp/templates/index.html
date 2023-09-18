@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fertppm</title>
-  <link rel="icon" href="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" type="image/x-icon">
+  <title>BarManager</title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
   <!-- css -->
   <!--bootstrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -24,7 +24,7 @@
     }
 
     .image-section {
-      background-image: url("https://images.squarespace-cdn.com/content/v1/59765fd317bffcafaf5ff75c/1551978397103-RBKIL7HO5GR190EIQMKY/hydroponic+lettuce.jpg?format=1500w");
+      background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTisOmuXlpkSScXHatNqfAJmXwUcd96Jjrv6dYdDo97&s");
       background-size: cover;
     }
 
@@ -302,6 +302,51 @@
     .assistant {
       background-color: #e5e5ff;
     }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      display: inline-block;
+      margin: 10px;
+      width: calc(25% - 20px); /* Set the width for four items per row (25% - 20px margin) */
+      box-sizing: border-box; /* Include padding and border within the width calculation */
+    }
+
+    img {
+      max-width: 100px; /* Set the maximum width of the images */
+      max-height: 100px; /* Set the maximum height of the images */
+      border: 1px solid #ccc;
+    }
+
+    /* Add a container to limit the page width */
+    .container {
+      max-width: 800px; /* Set the maximum width for the container */
+      margin: 0 auto; /* Center the container on the page */
+      padding: 20px; /* Optional: Add some padding around the content */
+      background-color: rgba(255, 255, 255, 0.9); /* Light background color */
+      border-radius: 10px; /* Rounded corners */
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      .container {
+        max-width: 100%; /* Set the container width to 100% on small screens */
+        padding: 10px; /* Adjust the padding on small screens */
+      }
+
+      li {
+        width: 100%; /* Set the width to 100% on small screens for a vertical layout */
+      }
+    }
+
+    /* Add background texture */
+    body {
+      background-image: url('https://www.transparenttextures.com/patterns/brick-wall.png');
+      background-color: #f0f0f0; /* Fallback color */
+      background-blend-mode: overlay; /* Blend texture with background color */
+    }
 </style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -317,8 +362,8 @@
       <!-- navbar -->
       <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar">
         <div class="container">
-          <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
-          <a class="navbar-brand" href="#">FERTPPM</a>
+          <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" />
+          <a class="navbar-brand" href="#">BarManager</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             Menu
@@ -353,33 +398,42 @@
 
       <!-- login section -->
       <div class="main-container">
-        <div class="login_section">
-          <div>
-            <img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width: 100%;" height="40%">
-            <h5>We Provide the Best Plant Nutritional Ideas</h5>
-          <div>
-            <iframe width="100%" height="315" src="https://www.youtube.com/embed/w_x-WDdQdxI?autoplay=1&mute=1" title="Crop Nutrition Analysis"></iframe>
-          </div>
+        <div>
+          {% if images %}
+            <ul>
+              {% for image in images %}
+              <ul class="horizontal-list" style=" display: inline-block; padding: 10px;">
+                <li>
+                  <p><strong>Title: {{ image.title }}</p></strong>
+                  <a href="{{ image.image.url }}" target="_blank" style="display: flex; margin-right: 235px;" >
+                    <img src="{{ image.image.url }}" alt="Uploaded Image" height="250px" width="281px" >
+                  </a>
+                  <p>
+                  {% if image.about_Image is not None %}
+                  <p style="display: flex;">{{ image.about_Image|wordwrap:40 }}</p>
+                    
+                  {% else %}
+                    {{ "" }}
+                  {% endif %}
+                  </p>
+                  <p>
+                    <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}
+                    <a href="/deleteimages/{{ image.id }}" onclick="return confirm('Are you sure you want to delete this item?')" style="color: #ff0000; margin-right: 10px;">
+                      <i class="fas fa-trash-alt" title="Delete"></i>
+                    </a>
+                  </p>
+                  </p>
+                  <!-- Add more information about the image if needed -->
+                </li>
+              </ul>
+              {% endfor %}
+              <h1><a href="/upload" style="color: green; margin-right: 0px; display: block;" title="Add Images"> Add Images</a></h1>
+            </ul>
+          {% else %}
+            <p>No images uploaded yet.</p>
+            <h1><a href="/upload" style="color: green; float: right; margin-right: 100px; display: flex;"> Add Images</a></h1>
+          {% endif %}
         </div>
-       
-        </div>
-          <div class="login_area">
-            <div class="column">
-              <h3 class="mb-3">Fertilizer Types:</h3>
-              <p>Here, you can find information about different types of fertilizers used in hydroponic systems.</p>
-            </div>
-            <div class="column">
-              <h3 class="mb-3">Nutrient Solutions:</h3>
-              <p>Learn about the importance of nutrient solutions and how to prepare them for your hydroponic system.</p>
-            </div>
-            <div class="column">
-              <h3 class="mb-3">Plant Diseases:</h3>
-              <p>Find out how to identify and treat common plant diseases that can affect hydroponic plants.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </section>
   
   <!-- js -->

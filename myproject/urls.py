@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.urls import path, include, re_path
 from myapp.views import (
-    register_view, login_view, logout_view, dashboard, Employee_view
+    register_view, login_view, logout_view, dashboard, Employee_view, index, about,
+    anouncement, contacts
     )
 
 urlpatterns = [
@@ -31,4 +32,8 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('accounts/register/', register_view, name='register'),
     path('Employee/', Employee_view, name='Employee'),
+    path('index/', index, name='index'),
+    path('about/', about, name='about'),
+    path('anouncement/', anouncement, name='anouncement'),
+    path('contacts/', contacts, name='contacts'),
 ]

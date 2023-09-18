@@ -495,40 +495,46 @@
               }
           </style>
   
-          <div class="login_area">
-              <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" />
-              <form action="" method="post">
-                  <h3 class="signup">Sign in to your Account</h3>
-                  <ul>
-                      {% csrf_token %}
-                      <h5 style="color: #000;">{{ login_form.username.label_tag }} {{ login_form.username }} </h5>
-                      <label for="{{ login_form.password.id_for_label }}">
-                          <h5 style="color: #000;">{{ login_form.password.label_tag }}</h5>
-                      </label>
-                      <div class="password-field">
-                          {{ login_form.password }}
-                          <button type="button" id="showPasswordToggle" class="password-toggle-button" onclick="togglePasswordVisibility()" title="Show Password">
-                              <i class="fas fa-eye"></i>
-                          </button>
-                      </div>
-                      <div>
-                          <a class="forgotpassword" href="#" target="_blank" title="Forgot Password">Forgot your password?</a>
-                      </div>
-                      <button type="submit" title="Please Login Here">Log In</button>
-                  </ul>
-              </form>
-              {% if login_form.errors %}
-              <div class="error-message">
-                  <p>Login not successful. Please try again!</p>
-              </div>
-              {% endif %}
-              <div>
-                  <h5 style="color: #000;">
-                      Don't Have An Account? Register
-                      <a href="#" id="showSignup" title="Register Here">Here</a>
-                  </h5>
-              </div>
+        <div class="login_area">
+          <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" />
+          <form action="" method="post">
+              <h3 class="signup">Sign in to your Account</h3>
+              <ul>
+                  {% csrf_token %}
+                  <h5 style="color: #000;">{{ login_form.username.label_tag }} {{ login_form.username }} </h5>
+                  <label for="{{ login_form.password.id_for_label }}">
+                      <h5 style="color: #000;">{{ login_form.password.label_tag }}</h5>
+                  </label>
+                  <div class="password-field">
+                      {{ login_form.password }}
+                      <button type="button" id="showPasswordToggle" class="password-toggle-button" onclick="togglePasswordVisibility()" title="Show Password">
+                          <i class="fas fa-eye"></i>
+                      </button>
+                  </div>
+                  <div>
+                    <label for="remember_me" style="display: flex; color: #000;">
+                        <input type="checkbox" id="remember_me" name="remember_me" value="1"> Remember Me
+                    </label>
+                </div>
+                
+                  <div>
+                      <a class="forgotpassword" href="#" target="_blank" title="Forgot Password">Forgot your password?</a>
+                  </div>
+                  <button type="submit" title="Please Login Here">Log In</button>
+              </ul>
+          </form>
+          {% if login_form.errors %}
+          <div class="error-message">
+              <p>Login not successful. Please try again!</p>
           </div>
+          {% endif %}
+          <div>
+              <h5 style="color: #000;">
+                  Don't Have An Account? Register
+                  <a href="#" id="showSignup" title="Register Here">Here</a>
+              </h5>
+          </div>
+      </div>
       </div>
   </section>
   
