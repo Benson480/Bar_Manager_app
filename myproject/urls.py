@@ -36,7 +36,7 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('anouncement/', anouncement, name='anouncement'),
     path('contacts/', contacts, name='contacts'),
-    path('images/', include('myapp.urls')),
+    # path('images/', include('myapp.urls')),
 ]
 
 if settings.DEBUG:

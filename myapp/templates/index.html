@@ -203,8 +203,35 @@
         width: 100%; /* Set the width to 100% on small screens for a vertical layout */
       }
     }
-
+    
+    .nav-link:hover {
+    transform: translateX(10px); /* Adjust the value as needed */
+    background-color: #e5e5ff;
+    }
     /* Add background texture */
+
+    /* Define the container for the link */
+  /* .nav-item {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* Define the link style */
+  /* .nav-link {
+    color: #244c0c;
+    display: inline-block;
+    animation: scrollText 5s linear infinite;
+  }
+
+  /* Define the animation keyframes */
+  /* @keyframes scrollText {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }  */
 
 </style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -216,8 +243,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <section class="image-section" id="title">
-    <div class="container-fluid">
+  <section class="image-section" id="title" >
+    <div class="container-fluid" style="background-color: rgb(230, 159, 182);">
       <!-- navbar -->
       <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar">
         <div class="container">
@@ -254,90 +281,108 @@
           </div>
         </div>
       </nav>
-
-      <style>
-      
-        .product {
-          background-color: #fff;
-          border: 1px solid #e0e0e0;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          margin: 10px;
-          padding: 20px;
-          width: 300px;
-          text-align: center;
-          transition: transform 0.2s ease-in-out;
-        }
-      
-        .product:hover {
-          transform: translateY(-5px);
-        }
-      
-        .product img {
-          max-width: 100%;
-          height: auto;
-        }
-      
-        .product p {
-          margin: 10px 0;
-          width: 100%;
-        }
-      
-        .product button {
-          background-color: #e7ebf0;
-          color: #1d0707;
-          border: none;
-          padding: 10px 20px;
-          cursor: pointer;
-          transition: background-color 0.2s ease-in-out;
-        }
-      
-        .product button:hover {
-          background-color: #6ea8e2;
-        }
-      
-        .no-images {
-          text-align: center;
-          font-size: 18px;
-          margin-top: 20px;
-        }
-      </style>
-      
-      <div class="container">
-        {% if images %}
-          <div class="row">
-            {% for image in images %}
-              <div class="col-md-4 product">
-                <p><strong>Title: {{ image.title }}</strong></p>
-                <a href="{{ image.image.url }}" target="_blank">
-                  <img src="{{ image.image.url }}" alt="Uploaded Image">
-                </a>
-                {% if image.about_Image %}
-                  <p>{{ image.about_Image|wordwrap:40 }}</p>
-                {% endif %}
-                <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}</p>
-      
-                <!-- Buttons -->
-                <form method="POST" action="/add_to_cart/{{ image.id }}">
-                  {% csrf_token %}
-                  <button type="submit">Add to Cart</button>
-                </form>
-      
-                <form method="POST" action="/purchase_item/{{ image.id }}">
-                  {% csrf_token %}
-                  <button type="submit">Purchase Item</button>
-                </form>
-      
-                <form method="POST" action="/make_order/{{ image.id }}">
-                  {% csrf_token %}
-                  <button type="submit">Make an Order</button>
-                </form>
-              </div>
-            {% endfor %}
-          </div>
-        {% else %}
-          <p class="no-images">No images uploaded yet.</p>
-        {% endif %}
-      </div>
+    </div>
+  </section>
+  <section class="image-section" id="title">
+    <style>
+      .product {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 20px;
+        width: calc(33.33% - 20px); /* 3 columns per row with some margin */
+        text-align: center;
+        transition: transform 0.2s ease-in-out;
+      }
+  
+      .product:hover {
+        transform: translateY(-5px);
+      }
+  
+      .product img {
+        max-width: 100%;
+        height: auto;
+        max-height: 150px; /* Limit the height of the images */
+      }
+  
+      .product p {
+        margin: 10px 0;
+        width: 100%;
+      }
+  
+      .product button {
+        background-color: #e7ebf0;
+        color: #1d0707;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+      }
+  
+      .product button:hover {
+        background-color: #6ea8e2;
+      }
+  
+      .no-images {
+        text-align: center;
+        font-size: 18px;
+        margin-top: 20px;
+      }
+  
+      /* CSS for controlling the number of columns */
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -10px; /* Compensate for the margin on .product */
+      }
+  
+      .col-md-4 {
+        flex: 0 0 calc(33.33% - 20px); /* 3 columns per row with some margin */
+        margin: 10px;
+      }
+    </style>
+  
+    <div class="container">
+      {% if images %}
+        <div class="row">
+          {% for image in images %}
+            <div class="col-md-4 product">
+              <p><strong>Title: {{ image.title }}</strong></p>
+              <a href="{{ image.image.url }}" target="_blank">
+                <img src="{{ image.image.url }}" alt="Uploaded Image">
+              </a>
+              {% if image.about_Image %}
+                <p>{{ image.about_Image|wordwrap:40 }}</p>
+              {% endif %}
+              <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}</p>
+              <p><strong>Status:</strong> {{ image.uploaded_at }}</p>
+  
+              <!-- Buttons -->
+              <form method="POST" action="/add_to_cart/{{ image.id }}">
+                {% csrf_token %}
+                <button type="submit">Add to Cart</button>
+              </form>
+  
+              <form method="POST" action="/purchase_item/{{ image.id }}">
+                {% csrf_token %}
+                <button type="submit">Purchase Item</button>
+              </form>
+  
+              <form method="POST" action="/make_order/{{ image.id }}">
+                {% csrf_token %}
+                <button type="submit">Make an Order</button>
+              </form>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="no-images">No images uploaded yet.</p>
+      {% endif %}
+    </div>
+  </section>
+  
+  
       
       
 
