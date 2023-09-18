@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-from .forms import (Beverage_Form, EmployeeForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
+from .forms import (Beverage_Form, EmployeeForm, )# DeleteFertilizerForm, Fertilizer_PricesForm, 
                     #Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm, Fertilizer_Recycle_Form)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
@@ -135,11 +135,11 @@ def dashboard(request):
 
 
 @login_required #(redirect_to='/login/')
-def Employee(request):
+def Employee_view(request):
     context ={}
  
     # create object of form
-    Employee_Member = Beverage.objects.all()
+    Employee_Member = Employee.objects.all()
     # membercost = Fertilizer_Cost.objects.all()
     # Fertilizer_list = Fertilizer.objects.all()
     # Employeeform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)

@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Fertilizers Regime
+  Employees
 {% endblock %}
 
 {% block styles %}
@@ -243,61 +243,47 @@
               margin: 0;
             }
           </style>
+          
+          <table>
+            <!-- Search row -->
+            <tr>
+              <th>
+                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search">
+              </th>
+              <th>
+                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date_employed">
+              </th>
+              <th>
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Payroll_number">
+              </th>
+              <th>
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search first name">
+              </th>
+              <th>
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search middle name">
+              </th>
+              <th>
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search last name">
+              </th>
+            </tr>
+            <!-- Header row -->
             <tr>
               <th>
                 <input type="checkbox" id="selectAllCheckbox" onchange="selectAllRows()">
                 No
               </th>
-              <th>
-                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date">
-              </th>
-              <th>
-                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Payroll">
-              </th>
-              <th>
-                Date Employed
-              </th>
-              <th>
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search First name">
-              </th>
-              <th>
-                Payroll Number
-              </th>
-              <th>
-                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Attendance">
-              </th>
-              <th>
-                First Name
-              </th>
-              <th>
-                Middle Name
-              </th>
-              <th>
-                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Designation">
-              </th>
-              <th>
-                Last name
-              </th>
-              <th>
-                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Performance">
-              </th>
-              <th>
-                Last Day Attended
-              </th>
-              <th>
-                Designation
-              </th>
-              <th>
-                Performance
-              </th>
-              <th>
-                Edit
-              </th>
-              <th>
-                Remove
-              </th>
+              <th>Date Employed</th>
+              <th>Payroll Number</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last name</th>
+              <th>Last Day Attended</th>
+              <th>Designation</th>
+              <th>Performance</th>
+              <th>Edit</th>
+              <th>Remove</th>
             </tr>
-          
+            <!-- Your table data goes here -->    
           {% for x in Employee_Member %}
             <td>
                 <input type="checkbox" class="rowCheckbox">
