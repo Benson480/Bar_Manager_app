@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-from .forms import (Beverage_Form, EmployeeForm, )# DeleteFertilizerForm, Fertilizer_PricesForm, 
+from .forms import (Beverage_Form, EmployeeForm, Usage_Amount_Form, New_stockForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
                     #Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm, Fertilizer_Recycle_Form)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
@@ -196,3 +196,31 @@ def Employer_dashboard(request):
     request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
   return HttpResponse(template.render())
+
+@csrf_protect
+@login_required #(redirect_to='/login/')
+def Inventory(request):
+    context ={}
+ 
+    # create object of form
+    Usage_Member = Daily_Usage.objects.all()
+    New_stock_Member = New_stock.objects.all()
+    Usage_form = Usage_Amount_Form(request.POST or None, request.FILES or None)
+    New_stock_form = New_stockForm(request.POST or None, request.FILES or None)
+    
+     
+    # check if form data is valid
+    if Usage_form.is_valid():
+        # save the form data to model
+        Usage_form.save()
+    context = {
+    'form':Usage_form,
+    'Usage_Member': Usage_Member,
+    'New_stock_Member':New_stock_Member,
+    # 'membercost': membercost, 
+    'New_stock_form':New_stock_form,
+  }
+    if request.user.is_authenticated:
+      request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+
+    return render(request, "DailyStockUsage.html", context)

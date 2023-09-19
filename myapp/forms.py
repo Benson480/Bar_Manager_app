@@ -79,7 +79,7 @@ class New_stockForm(forms.ModelForm):
 		}               
 
 
-class Beverage_Amount(forms.ModelForm):
+class Usage_Amount_Form(forms.ModelForm):
     # Date = forms.DateField(input_formats=['%d-%m-%Y'])
     Observation = forms.CharField(
         required=False,

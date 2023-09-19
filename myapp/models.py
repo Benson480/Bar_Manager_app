@@ -54,11 +54,18 @@ class New_stock(models.Model):
 class Daily_Usage(models.Model):
     Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True)
     Date = models.DateField(null=True, db_index=True, blank=True)
-    Place_of_usage = models.CharField(max_length=200, null=True, db_index=True, blank=True)
+    Place_of_use_Choices = (
+    ("Internal", "Internal"),
+    ("Online", "Online Sale"),
+    )
+
+    Place_of_usage = models.CharField(max_length=255,null=True,db_index=True,
+                  choices=Place_of_use_Choices
+                  )
     Used_Amount = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
 
     def __str__(self):
-        return str(self.Product)
+        return f"{self.Date} {self.Product} {self.Place_of_usage} {self.Used_Amount}"
     
     @property
     def UnitOfMeasure(self):
