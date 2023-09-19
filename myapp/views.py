@@ -121,7 +121,7 @@ def login_view(request):
 def logout_view(request):
     if request.method == "POST":
         logout(request)
-        return redirect("/login/")
+        return redirect("/index/")
     return render(request, "accounts/logout.html", {})  
 
 def index(request):
@@ -188,3 +188,11 @@ def Employee_view(request):
       request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
     return render(request, "Employee.html", context)
+
+def Employer_dashboard(request):
+  template = loader.get_template('Employer.html')
+  # Update user activity in the session
+  if request.user.is_authenticated:
+    request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+
+  return HttpResponse(template.render())

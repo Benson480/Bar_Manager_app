@@ -69,6 +69,7 @@ MIDDLEWARE = [
     'myproject.redirect_middleware.LoginRequiredMiddleware',  # Your custom middleware (Authentication-related?)
     'axes.middleware.AxesMiddleware',  # IP blocking for suspicious login attempts
     'myproject.middleware.AutoLogoutMiddleware',  # Automatic logout after inactivity
+    'myproject.middleware.RedirectAfterInactivityMiddleware', #custom middleware
     'django.contrib.messages.middleware.MessageMiddleware',  # Message handling
     'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Clickjacking protection
     
@@ -243,10 +244,12 @@ else:
 
 
 
+# Set the session timeout to a longer duration (e.g., 30 minutes).
+SESSION_COOKIE_AGE = 1800  # 30 minutes in seconds
 
 
 # LOGIN_REDIRECT_URL = 'dasboard'
-LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'  
 
 LOGIN_URL = '/login/'
 

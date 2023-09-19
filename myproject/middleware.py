@@ -1,6 +1,7 @@
 # middleware.py
 
 import datetime
+from django.shortcuts import redirect
 from django.conf import settings
 from django.contrib.auth import logout
 
@@ -25,4 +26,18 @@ class AutoLogoutMiddleware:
             request.session['last_activity'] = datetime.datetime.now().isoformat()
 
         response = self.get_response(request)
+        return response
+
+class RedirectAfterInactivityMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+
+        # Check if the user is authenticated and if the session has expired
+        if request.user.is_authenticated and not request.session.get_expiry_age():
+            # Redirect the user to the homepage
+            return redirect('index')  # Replace 'home' with the name of your homepage URL pattern
+
         return response
