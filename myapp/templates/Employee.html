@@ -267,43 +267,40 @@
               </th>
             </tr>
             <!-- Header row -->
-            <tr>
-              <th>
-                <input type="checkbox" id="selectAllCheckbox" onchange="selectAllRows()">
-                No
-              </th>
-              <th>Date Employed</th>
-              <th>Payroll Number</th>
-              <th>First Name</th>
-              <th>Middle Name</th>
-              <th>Last name</th>
-              <th>Last Day Attended</th>
-              <th>Designation</th>
-              <th>Performance</th>
-              <th>Edit</th>
-              <th>Remove</th>
-            </tr>
-            <!-- Your table data goes here -->    
-          {% for x in Employee_Member %}
-            <td>
-                <input type="checkbox" class="rowCheckbox">
-                {{ x.index}}
-            </td>
-            <td>
-              {{ x.Date_employed|date:"m/d/Y" }}
-            </td>
-            <td>{{ x.Payroll_number }}</td>
-            <td>{{ x.firstname }}</td>
-            <td>{{ x.middlename }}</td>
-            <td>{{ x.lastname }}</td>
-            <td>{{ x.Last_date_attendance }}</td>
-            <td>{{ x.Designation }}</td>
-            <td>{{ x.Performance }}</td>
-            <td><a style="color: green;" href="update/{{ x.id }}"><i class="fas fa-pencil-alt fa-1x" style="color: rgb(9, 141, 9);"></i></a></td>
-            <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fas fa-trash-alt fa-1x" style="color: rgb(170, 16, 16);"></i></a></td>
-          </tr>
-          {% endfor %}
-        </table>
+            <table>
+              <tr>
+                <th>
+                  <input type="checkbox" id="selectAllCheckbox" onchange="selectAllRows()">
+                  No
+                </th>
+                <th>Date Employed</th>
+                <th>Payroll Number</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last name</th>
+                <th>Last Day Attended</th>
+                <th>Designation</th>
+                <th>Performance</th>
+                <th>Edit</th>
+                <th>Remove</th>
+              </tr>
+              <!-- Your table data goes here -->    
+              {% for x in Employee_Member %}
+                <tr>
+                  <td>{{ forloop.counter }}</td> <!-- Add this line to display the row number -->
+                  <td>{{ x.Date_employed|date:"m/d/Y" }}</td>
+                  <td>{{ x.Payroll_number }}</td>
+                  <td>{{ x.firstname }}</td>
+                  <td>{{ x.middlename }}</td>
+                  <td>{{ x.lastname }}</td>
+                  <td>{{ x.Last_date_attendance }}</td>
+                  <td>{{ x.Designation }}</td>
+                  <td>{{ x.Performance }}</td>
+                  <td><a style="color: green;" href="update/{{ x.id }}"><i class="fas fa-pencil-alt fa-1x" style="color: rgb(9, 141, 9);"></i></a></td>
+                  <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fas fa-trash-alt fa-1x" style="color: rgb(170, 16, 16);"></i></a></td>
+                </tr>
+              {% endfor %}
+            </table>            
       </div>
     </ul>
     <button style="background-color: rgb(145, 31, 31); color: #fff;" onclick="deleteSelectedItems()">Delete Selected</button>

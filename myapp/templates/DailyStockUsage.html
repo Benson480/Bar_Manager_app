@@ -251,19 +251,16 @@
                 <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search">
               </th>
               <th>
-                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date_employed">
+                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date">
               </th>
               <th>
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Payroll_number">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Product">
               </th>
               <th>
-                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search first name">
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search U/m">
               </th>
               <th>
-                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search middle name">
-              </th>
-              <th>
-                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search last name">
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search price">
               </th>
             </tr>
             <!-- Header row -->
@@ -278,13 +275,13 @@
               <th>Price</th>
               <th>Opening stock</th>
               <th>New stock</th>
-              <th>Closing</th>
+              <th>Closing Amount</th>
               <th>Closing value</th>
               <th>Edit</th>
               <th>Remove</th>
             </tr>
             <!-- Your table data goes here -->    
-          {% for x in Employee_Member %}
+          {% for x in Usage_Member %}
             <td>
                 <input type="checkbox" class="rowCheckbox">
                 {{ x.index}}

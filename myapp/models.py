@@ -73,6 +73,13 @@ class Daily_Usage(models.Model):
         for uom in getUnitOfMeasure:
             if uom.Beverage_Product == self.Product:
                 return str(uom.Unit_Of_Measure)
+            
+    @property
+    def NewStock(self):
+        getNewStock = New_stock.objects.all()
+        for items in getNewStock:
+            if items.Product == self.Product:
+                return str(items.Purchase_Amount)
 
     @property
     def Daily_cost(self):
@@ -85,7 +92,6 @@ class Daily_Usage(models.Model):
             
 
 class Employee(models.Model):
-    index = models.IntegerField()
     Payroll_number = models.CharField(max_length=255, null=True, db_index=True)
     firstname = models.CharField(max_length=255, null=True, db_index=True)
     middlename = models.CharField(max_length=255, null=True, db_index=True)
