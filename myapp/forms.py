@@ -51,7 +51,7 @@ class Beverage_Form(forms.ModelForm):
 	# specify the name of model to use
 	class Meta:
 		model = Beverage
-		fields = ['Date', 'index', 'name', 'Supplier']
+		fields = ['Date', 'name', 'Supplier']
 		widgets = {
 			'Date': DateInput(),
 			
@@ -109,7 +109,7 @@ class EmployerForm(forms.ModelForm):
 	# specify the name of model to use
 	class Meta:
 		model = Employer
-		fields = ['index', 'firstname','lastname', 'middlename', 'Business_Start_Date', 'Responsibility']
+		fields = ['firstname','lastname', 'middlename', 'Business_Start_Date', 'Responsibility']
 		widgets = {
 			'Business_Start_Date': DateInput(),
 			
@@ -131,4 +131,5 @@ class DeleteBeverageForm(forms.ModelForm): #This can be handled using JavaScript
 class DeleteEmployeeForm(forms.ModelForm): #This can be handled using JavaScript
     class Meta:
         model = Employee
+
         fields = []

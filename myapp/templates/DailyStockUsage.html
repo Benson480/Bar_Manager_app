@@ -264,43 +264,49 @@
               </th>
             </tr>
             <!-- Header row -->
-            <tr>
-              <th>
-                <input type="checkbox" id="selectAllCheckbox" onchange="selectAllRows()">
-                No
-              </th>
-              <th>Stock Date</th>
-              <th>Product</th>
-              <th>U/m</th>
-              <th>Price</th>
-              <th>Opening stock</th>
-              <th>New stock</th>
-              <th>Closing Amount</th>
-              <th>Closing value</th>
-              <th>Edit</th>
-              <th>Remove</th>
-            </tr>
-            <!-- Your table data goes here -->    
-          {% for x in Usage_Member %}
-            <td>
-                <input type="checkbox" class="rowCheckbox">
-                {{ x.index}}
-            </td>
-            <td>
-              {{ x.Date_employed|date:"m/d/Y" }}
-            </td>
-            <td>{{ x.Payroll_number }}</td>
-            <td>{{ x.firstname }}</td>
-            <td>{{ x.middlename }}</td>
-            <td>{{ x.lastname }}</td>
-            <td>{{ x.Last_date_attendance }}</td>
-            <td>{{ x.Designation }}</td>
-            <td>{{ x.Performance }}</td>
-            <td><a style="color: green;" href="update/{{ x.id }}"><i class="fas fa-pencil-alt fa-1x" style="color: rgb(9, 141, 9);"></i></a></td>
-            <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fas fa-trash-alt fa-1x" style="color: rgb(170, 16, 16);"></i></a></td>
-          </tr>
-          {% endfor %}
-        </table>
+            <table>
+              <tr>
+                  <th>
+                      <input type="checkbox" id="selectAllCheckbox" onchange="selectAllRows()">
+                      No
+                  </th>
+                  <th>Stock Date</th>
+                  <th>Product</th>
+                  <th>U/m</th>
+                  <th>Price Ksh</th>
+                  <th>Opening stock</th>
+                  <th>New stock</th>
+                  <th>Used Amount</th>
+                  <th>Closing Amount</th>
+                  <th>Closing value</th>
+                  <th>Edit</th>
+                  <th>Remove</th>
+              </tr>
+              <!-- Your table data goes here -->    
+              {% for x in Usage_Member %}
+              <tr>
+                  <td>
+                      <input type="checkbox" class="rowCheckbox">
+                      {{ forloop.counter }} <!-- Add row number here -->
+                  </td>
+                  <td style="text-align: left;">
+                      {{ x.Date|date:"m/d/Y" }}
+                  </td>
+                  <td style="text-align: left;">{{ x.Product|default:"" }}</td>
+                  <td style="text-align: left;">{{ x.UnitOfMeasure|default:"" }}</td>
+                  <td style="text-align: right;">{{ x.Product_price|default:"" }}</td>
+                  <td style="text-align: right;">{{ x.Opening_stock_data|default:"" }}</td>
+                  <td style="text-align: right;">{{ x.NewStock|default:"" }}</td>
+                  <td style="text-align: right;">{{ x.Used_Amount|default:"" }}</td>
+                  <td style="text-align: right;">{{ x.closing_stock|default:"" }}</td>
+                  <td style="text-align: right;">{{ x.closing_stock_value|default:"" }}</td>
+                  <td><a style="color: green;" href="update/{{ x.id }}"><i class="fas fa-pencil-alt fa-1x" style="color: rgb(9, 141, 9);"></i></a></td>
+                  <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fas fa-trash-alt fa-1x" style="color: rgb(170, 16, 16);"></i></a></td>
+              </tr>
+              {% endfor %}
+              
+          </table>
+          
       </div>
     </ul>
     <button style="background-color: rgb(145, 31, 31); color: #fff;" onclick="deleteSelectedItems()">Delete Selected</button>

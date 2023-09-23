@@ -286,20 +286,21 @@
               </tr>
               <!-- Your table data goes here -->    
               {% for x in Employee_Member %}
-                <tr>
+              <tr>
                   <td>{{ forloop.counter }}</td> <!-- Add this line to display the row number -->
                   <td>{{ x.Date_employed|date:"m/d/Y" }}</td>
                   <td>{{ x.Payroll_number }}</td>
-                  <td>{{ x.firstname }}</td>
-                  <td>{{ x.middlename }}</td>
-                  <td>{{ x.lastname }}</td>
-                  <td>{{ x.Last_date_attendance }}</td>
-                  <td>{{ x.Designation }}</td>
-                  <td>{{ x.Performance }}</td>
+                  <td>{{ x.firstname|default:"" }}</td>
+                  <td>{{ x.middlename|default:"" }}</td>
+                  <td>{{ x.lastname|default:"" }}</td>
+                  <td>{{ x.Last_date_attendance|default:"" }}</td>
+                  <td>{{ x.Designation|default:"" }}</td>
+                  <td>{{ x.Performance|default:"" }}</td>
                   <td><a style="color: green;" href="update/{{ x.id }}"><i class="fas fa-pencil-alt fa-1x" style="color: rgb(9, 141, 9);"></i></a></td>
                   <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fas fa-trash-alt fa-1x" style="color: rgb(170, 16, 16);"></i></a></td>
-                </tr>
+              </tr>
               {% endfor %}
+              
             </table>            
       </div>
     </ul>

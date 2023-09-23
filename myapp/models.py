@@ -8,7 +8,6 @@ import textwrap
 
 
 class Beverage(models.Model):
-    index = models.IntegerField()
     name = models.CharField(max_length=255)
     Date = models.DateField(null=True,db_index=True)
     Supplier = models.CharField(max_length=255, null=True, db_index=True)
@@ -37,6 +36,14 @@ class Beverage_Price(models.Model):
     def __str__(self):
         return str(self.Beverage_Product)
     
+class Opening_stock(models.Model):
+    Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True)
+    Stock_Take_Date = models.DateField(null=True, db_index=True, blank=True)
+    Physical_balance = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
+
+    def __str__(self):
+        return str(self.Product)
+    
 class New_stock(models.Model):
     Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True)
     Purchase_Date = models.DateField(null=True, db_index=True, blank=True)
@@ -52,28 +59,23 @@ class New_stock(models.Model):
                 return str(productsupplier.Supplier)
     
 class Daily_Usage(models.Model):
-    Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True)
+    Product = models.ForeignKey(Beverage, on_delete=models.CASCADE, db_index=True)
     Date = models.DateField(null=True, db_index=True, blank=True)
     Place_of_use_Choices = (
-    ("Internal", "Internal"),
-    ("Online", "Online Sale"),
+        ("Internal", "Internal"),
+        ("Online", "Online Sale"),
     )
 
-    Place_of_usage = models.CharField(max_length=255,null=True,db_index=True,
-                  choices=Place_of_use_Choices
-                  )
-    Used_Amount = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
+    Place_of_usage = models.CharField(max_length=255, null=True, db_index=True, choices=Place_of_use_Choices)
+    Used_Amount = models.FloatField(max_length=200, db_index=True, null=True, blank=True)
 
-    def __str__(self):
-        return f"{self.Date} {self.Product} {self.Place_of_usage} {self.Used_Amount}"
-    
     @property
     def UnitOfMeasure(self):
         getUnitOfMeasure = Beverage_Price.objects.all()
         for uom in getUnitOfMeasure:
             if uom.Beverage_Product == self.Product:
                 return str(uom.Unit_Of_Measure)
-            
+
     @property
     def NewStock(self):
         getNewStock = New_stock.objects.all()
@@ -82,13 +84,66 @@ class Daily_Usage(models.Model):
                 return str(items.Purchase_Amount)
 
     @property
+    def Product_price(self):
+        getprice = Beverage_Price.objects.all()
+        for a in getprice:
+            if a.Beverage_Product == self.Product:
+                price = round(a.price_ksh, 2)
+                formatted_price = "{:,.2f}".format(price)
+                return formatted_price
+
+
+    @property
+    def Opening_stock_data(self):
+        getnew = Opening_stock.objects.all()
+        for items in getnew:
+            if items.Product == self.Product and self.Date >= items.Stock_Take_Date:
+                Physical_stock = round(items.Physical_balance, 2)
+                formatted_physical_stock = "{:,.2f}".format(Physical_stock)
+                return formatted_physical_stock
+
+    @property
     def Daily_cost(self):
         getprice = Beverage_Price.objects.all()
         for a in getprice:
             if a.Beverage_Product == self.Product:
-                # updated_price = a.price_Usd[:-1]
-                DailyCost = round(a.price_ksh * self.Used_Amount,2)
-                return str(DailyCost)
+                DailyCost = round(a.price_ksh * self.Used_Amount, 2)
+                formatted_daily_cost = '{:,.2f}'.format(DailyCost)
+                return formatted_daily_cost
+
+    @property
+    def closing_stock(self):
+        get_opening = Opening_stock.objects.all()
+        getNewStock = New_stock.objects.all()
+        getprice = Beverage_Price.objects.all()
+        for opening in get_opening:
+            if opening.Product == self.Product:
+                Physical_stock = round(opening.Physical_balance, 2)
+        for new in getNewStock:
+            if new.Product == self.Product:
+                Purchase_Amount = round(new.Purchase_Amount, 2)
+                self.Closing_amount = round(Physical_stock + Purchase_Amount - self.Used_Amount, 2)
+                return '{:,.2f}'.format(self.Closing_amount)
+
+    @property
+    def closing_stock_value(self):
+        getprice = Beverage_Price.objects.all()
+        for price in getprice:
+            if price.Beverage_Product == self.Product:
+                if self.Closing_amount is None:
+                    self.closing_stock  # Calculate Closing_amount if it's not already calculated
+                Closing_value = round(price.price_ksh * self.Closing_amount, 2)
+                formatted_closing_value = f'{Closing_value:,.2f}'
+                return formatted_closing_value
+
+
+        # for new in getNewStock:
+        #     if new.Product == self.Product:
+        #         Purchase_Amount = round(new.Purchase_Amount,2)
+        #         # updated_price = a.price_Usd[:-1]
+        #         Closing_amount = round(Physical_stock + Purchase_Amount - self.Used_Amount,2)
+        #         return str(Closing_amount)      
+    
             
 
 class Employee(models.Model):
@@ -115,7 +170,6 @@ class Employee(models.Model):
             return f"{self.Payroll_number} {self.firstname} {self.middlename} {self.Designation}"
     
 class Employer(models.Model):
-    index = models.IntegerField()
     firstname = models.CharField(max_length=255, null=True, db_index=True)
     lastname = models.CharField(max_length=255, null=True, db_index=True)
     middlename = models.CharField(max_length=255, null=True, db_index=True)

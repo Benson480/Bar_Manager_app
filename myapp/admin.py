@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage)
+                      Employer, BeverageImage, Daily_Usage, Opening_stock)
 
 
 
@@ -14,6 +14,7 @@ admin.site.register(Employee)
 admin.site.register(Employer)
 admin.site.register(BeverageImage)
 admin.site.register(Daily_Usage)
+admin.site.register(Opening_stock)
 
 
 
