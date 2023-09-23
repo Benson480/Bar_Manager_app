@@ -80,7 +80,7 @@ class Daily_Usage(models.Model):
     def NewStock(self):
         getNewStock = New_stock.objects.all()
         for items in getNewStock:
-            if items.Product == self.Product:
+            if items.Product == self.Product: # and self.Date >= items.Stock_Take_Date
                 return str(items.Purchase_Amount)
 
     @property
@@ -92,12 +92,11 @@ class Daily_Usage(models.Model):
                 formatted_price = "{:,.2f}".format(price)
                 return formatted_price
 
-
     @property
     def Opening_stock_data(self):
         getnew = Opening_stock.objects.all()
         for items in getnew:
-            if items.Product == self.Product and self.Date >= items.Stock_Take_Date:
+            if items.Product == self.Product:
                 Physical_stock = round(items.Physical_balance, 2)
                 formatted_physical_stock = "{:,.2f}".format(Physical_stock)
                 return formatted_physical_stock
@@ -107,6 +106,8 @@ class Daily_Usage(models.Model):
         getprice = Beverage_Price.objects.all()
         for a in getprice:
             if a.Beverage_Product == self.Product:
+                if self.Used_Amount is None:
+                    self.Used_Amount = 0  # Convert None to zero
                 DailyCost = round(a.price_ksh * self.Used_Amount, 2)
                 formatted_daily_cost = '{:,.2f}'.format(DailyCost)
                 return formatted_daily_cost
@@ -122,7 +123,11 @@ class Daily_Usage(models.Model):
         for new in getNewStock:
             if new.Product == self.Product:
                 Purchase_Amount = round(new.Purchase_Amount, 2)
-                self.Closing_amount = round(Physical_stock + Purchase_Amount - self.Used_Amount, 2)
+                if self.Used_Amount is None:
+                    self.Used_Amount = 0  # Convert None to zero
+                if Physical_stock is None:
+                    Physical_stock = 0  # Convert None to zero
+                self.Closing_amount = round((Physical_stock + Purchase_Amount) - self.Used_Amount, 2)
                 return '{:,.2f}'.format(self.Closing_amount)
 
     @property
@@ -135,6 +140,7 @@ class Daily_Usage(models.Model):
                 Closing_value = round(price.price_ksh * self.Closing_amount, 2)
                 formatted_closing_value = f'{Closing_value:,.2f}'
                 return formatted_closing_value
+
 
 
         # for new in getNewStock:
