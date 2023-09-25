@@ -122,7 +122,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'myapp.context_processors.include_login_form'
+                'myapp.context_processors.include_login_form',
+                'myapp.context_processors.user_profile'
 
             ],
         },

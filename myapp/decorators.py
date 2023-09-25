@@ -1,7 +1,9 @@
 from django.shortcuts import redirect
 from django.urls import reverse
 from functools import wraps
-
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render
+from django.http import HttpResponseForbidden
 
 def login_required(redirect_to='/login/'):
     def decorator(view_func):
@@ -36,3 +38,11 @@ def login_exempt(view_func):
             return redirect('login')  # Redirect to login page if not authenticated
         return view_func(request, *args, **kwargs)
     return wrapped_view
+
+def superuser_required(view_func):
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_superuser:
+            return render(request, 'no_permission.html')  # Render the HTML template
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+

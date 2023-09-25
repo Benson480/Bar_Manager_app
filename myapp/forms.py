@@ -6,8 +6,12 @@ from .models import (Beverage, Beverage_Price, New_stock, Employee,
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from django.contrib.auth.forms import AuthenticationForm
+from .models import UserProfile
 
-
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['full_name', 'profile_picture', 'bio', 'location', 'website', 'date_of_birth']
 # Create your forms here.
 class SignupForm(forms.Form):
     username = forms.CharField(label='Username', max_length=150)

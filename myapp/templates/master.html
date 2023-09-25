@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
   <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
@@ -49,7 +50,7 @@
     .search-container {
       float: right;
       margin-top: 10px;
-      margin-right: 20px;
+      margin-right: 70px;
     }
     
     .search-container input[type=text] {
@@ -382,6 +383,65 @@
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search...">
         <button onclick="search()"><i class="fa fa-search"></i> Search</button>
+        <div class="top-right-profile">
+          {% if user_profile.profile_picture %}
+              <img src="{{ user_profile.profile_picture.url }}" alt="{{ user_profile.user.username }}" width="40" height="40">
+          {% else %}
+              <!-- Display a default image or a placeholder image -->
+              <img src="{% static 'images/default_image.png' %}" alt="{{ user_profile.user.username }}" width="40" height="40">
+
+          {% endif %}
+      </div>
+      
+      <!-- The rest of your HTML content here -->
+      
+      <!-- Profile details container (initially hidden) -->
+      <div class="user-profile-details" id="profile-details">
+          <h2>User Profile</h2>
+          <p><strong>Full Name:</strong> {{ user_profile.full_name }}</p>
+          <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+          <p><strong>Location:</strong> {{ user_profile.location }}</p>
+          <p><strong>Website:</strong> <a href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
+          <p><strong>Date of Birth:</strong> {{ user_profile.date_of_birth }}</p>
+          <p><a href="/Edit Profile" style="color: black;"><i class="fas fa-pencil-alt"></i> Edit Profile</a></p>
+          <p><a href="/index" style="color: black;" ><i class="fa fa-sign-out-alt"></i> Logout</a></p>
+      </div>
+      
+      <!-- JavaScript to toggle the visibility of the profile details -->
+      <script>
+          const profileLink = document.querySelector('.top-right-profile');
+          const profileDetails = document.getElementById('profile-details');
+      
+          profileLink.addEventListener('click', () => {
+              profileDetails.style.display = profileDetails.style.display === 'none' ? 'block' : 'none';
+          });
+      </script>
+      
+      <style>
+          /* Style for the profile details container */
+          .user-profile-details {
+              display: none;
+              position: fixed;
+              top: 80px; /* Adjust the top position to create separation */
+              right: 20px;
+              width: 200px; /* Adjust the width as needed */
+              background-color: white;
+              border: 1px solid #ccc;
+              padding: 20px;
+              box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+          }
+      
+          /* Style for the top-right-profile */
+          .top-right-profile {
+              position: fixed;
+              top: 20px; /* Adjust the top position to be at the very top */
+              right: 20px;
+              cursor: pointer;
+              z-index: 1000; /* Ensure it appears above other content */
+          }
+      </style>
+      
+        
     </div>
     <a href="javascript:void(0);" class="icon" onclick="toggleSidenav()">
         <i class="fa fa-bars"></i>

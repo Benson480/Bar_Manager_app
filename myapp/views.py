@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage)
+                      Employer, BeverageImage, Daily_Usage, UserProfile)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-from .forms import (Beverage_Form, EmployeeForm, Usage_Amount_Form, New_stockForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
+from .forms import (Beverage_Form, EmployeeForm, Usage_Amount_Form, New_stockForm, UserProfileForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
                     #Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm, Fertilizer_Recycle_Form)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
@@ -29,6 +29,11 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import reverse_lazy
 from .decorators import public_view, login_exempt
+from .decorators import superuser_required
+from django.contrib.auth.decorators import user_passes_test
+from django.core.files import File
+
+
 def regenerate_csrf_token(request):
     if request.method == 'GET':
         csrf_token = get_token(request)
@@ -124,10 +129,37 @@ def logout_view(request):
         return redirect("/index/")
     return render(request, "accounts/logout.html", {})  
 
+@login_required
+def profile(request):
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        # Create a UserProfile instance if it doesn't exist
+        user_profile = UserProfile.objects.create(user=request.user)
+
+    return render(request, 'profile.html', {'user_profile': user_profile})
+
+
+@login_required
+def edit_profile(request):
+    # Check if the user has a UserProfile instance, and create one if not
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # Redirect to the user's profile page after saving
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'edit_profile.html', {'form': form})
+
 def index(request):
     images = BeverageImage.objects.all()
     return render(request, 'index.html', {'images': images})
 
+@login_required
 def dashboard(request):
   template = loader.get_template('dashboard.html')
   # Update user activity in the session
@@ -189,13 +221,23 @@ def Employee_view(request):
 
     return render(request, "Employee.html", context)
 
-def Employer_dashboard(request):
-  template = loader.get_template('Employer.html')
-  # Update user activity in the session
-  if request.user.is_authenticated:
-    request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+class NotSuperUserException(Exception):
+    pass
 
-  return HttpResponse(template.render())
+@superuser_required  # This ensures the user is a superuser
+@login_required
+def Employer_dashboard(request):
+    template = loader.get_template('Employer.html')
+    # Update user activity in the session
+    if request.user.is_authenticated:
+        request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+    else:
+        # Display a JavaScript alert for non-superusers
+        messages.error(request, "You are not authorized to access this view.")
+    
+    return HttpResponse(template.render())
+
+
 
 @csrf_protect
 @login_required #(redirect_to='/login/')
