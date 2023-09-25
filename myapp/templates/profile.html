@@ -9,7 +9,7 @@
             <img src="{{ user_profile.profile_picture.url }}" alt="{{ user_profile.user.username }}" width="40" height="40">
         {% else %}
             <!-- Display a default image or a placeholder image -->
-            <img src="/path/to/default/image.png" alt="{{ user_profile.user.username }}" width="40" height="40">
+            <img src="{% static 'images/default_image.png' %}" alt="{{ user_profile.user.username }}" width="40" height="40">
         {% endif %}
         <span>{{ user_profile.full_name }}</span>
     </div>

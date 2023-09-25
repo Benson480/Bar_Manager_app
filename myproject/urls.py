@@ -22,7 +22,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include, re_path
 from myapp.views import (
     register_view, login_view, logout_view, dashboard, Employee_view, index, about,
-    anouncement, contacts, Employer_dashboard, Inventory, profile,
+    anouncement, contacts, Employer_dashboard, Inventory, profile, Employee_details
     )
 
 urlpatterns = [
@@ -39,6 +39,7 @@ urlpatterns = [
     path('Employer_dashboard/', Employer_dashboard, name='Employer_dashboard'),
     path('Inventory/', Inventory, name='Inventory'),
     path('profile/', profile, name='profile'),
+    path('Employee_details/', Employee_details, name='Employee_details'),
     # path('images/', include('myapp.urls')),
 ]
 

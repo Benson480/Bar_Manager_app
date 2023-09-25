@@ -161,12 +161,14 @@ def index(request):
 
 @login_required
 def dashboard(request):
-  template = loader.get_template('dashboard.html')
-  # Update user activity in the session
-  if request.user.is_authenticated:
-    request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+    # Retrieve or create the user_profile
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    
+    # Update user activity in the session
+    if request.user.is_authenticated:
+        request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
-  return HttpResponse(template.render())
+    return render(request, 'dashboard.html', {'user_profile': user_profile})
 
 
 def about(request):
@@ -221,13 +223,46 @@ def Employee_view(request):
 
     return render(request, "Employee.html", context)
 
+
+@login_required #(redirect_to='/login/')
+def Employee_details(request):
+    context ={}
+ 
+    # create object of form
+    Employee_Member = Employee.objects.all()
+    # membercost = Fertilizer_Cost.objects.all()
+    # Fertilizer_list = Fertilizer.objects.all()
+    # Employeeform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
+    Employeeform = EmployeeForm(request.POST or None, request.FILES or None)
+    
+     
+    # check if form data is valid
+    if Employeeform.is_valid():
+        # save the form data to model
+        Employeeform.save()
+    context = {
+    'form':Employeeform,
+    'Employee_Member': Employee_Member,
+  }
+    if request.user.is_authenticated:
+      request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+
+    return render(request, "EmployeeDetail.html", context)
+
 class NotSuperUserException(Exception):
     pass
 
-@superuser_required  # This ensures the user is a superuser
+@superuser_required
 @login_required
 def Employer_dashboard(request):
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        # Create a UserProfile instance if it doesn't exist
+        user_profile = UserProfile.objects.create(user=request.user)
+
     template = loader.get_template('Employer.html')
+
     # Update user activity in the session
     if request.user.is_authenticated:
         request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
@@ -235,7 +270,7 @@ def Employer_dashboard(request):
         # Display a JavaScript alert for non-superusers
         messages.error(request, "You are not authorized to access this view.")
     
-    return HttpResponse(template.render())
+    return render(request, 'Employer.html', {'user_profile': user_profile})
 
 
 

@@ -209,7 +209,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "mystaticfiles"),
+    os.path.join(BASE_DIR, 'static'),  # Replace 'static' with your actual static files directory
 ]
 
 WHITENOISE_MANIFEST_STRICT = False

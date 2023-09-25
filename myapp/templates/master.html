@@ -384,15 +384,14 @@
         <input type="text" id="searchInput" placeholder="Search...">
         <button onclick="search()"><i class="fa fa-search"></i> Search</button>
         <div class="top-right-profile">
-          {% if user_profile.profile_picture %}
+          {% if user_profile and user_profile.profile_picture %}
               <img src="{{ user_profile.profile_picture.url }}" alt="{{ user_profile.user.username }}" width="40" height="40">
           {% else %}
-              <!-- Display a default image or a placeholder image -->
-              <img src="{% static 'images/default_image.png' %}" alt="{{ user_profile.user.username }}" width="40" height="40">
-
+              <!-- Use the static template tag for the default image -->
+              <img src="{% static 'images/default_image.png' %}" alt="{% if user_profile %}{{ user_profile.user.username }}{% endif %}" width="40" height="40">
           {% endif %}
       </div>
-      
+              
       <!-- The rest of your HTML content here -->
       
       <!-- Profile details container (initially hidden) -->
