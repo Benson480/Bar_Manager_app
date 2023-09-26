@@ -248,27 +248,33 @@
             <!-- Search row -->
             <tr>
               <th>
-                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search">
-              </th>
-              <th>
                 <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date_employed">
               </th>
               <th>
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Payroll_number">
+                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Payroll_number">
               </th>
               <th>
-                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search first name">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search first name">
               </th>
               <th>
-                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search middle name">
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Designation">
               </th>
               <th>
-                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search last name">
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Basic Salary">
+              </th>
+              <th>
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Allowances">
+              </th>
+              <th>
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Gross Pay">
+              </th>
+              <th>
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Performance">
               </th>
             </tr>
             <!-- Header row -->
             <table>
-              <tr>
+              <tr style="background-color: rgba(255, 255, 0, 0.342)">
                 <th>
                   <input type="checkbox" id="selectAllCheckbox" onchange="selectAllRows()">
                   No
@@ -283,6 +289,7 @@
                   <th>Designation</th>
                   <th>Basic Salary</th> <!-- New column -->
                   <th>Allowances</th> <!-- New column -->
+                  <th>Gross Pay</th> <!-- New column -->
                   <th>Performance</th>
                   <th>Edit</th>
                   <th>Remove</th>
@@ -292,19 +299,21 @@
                   <tr>
                       <td>{{ forloop.counter }}</td> <!-- Add this line to display the row number -->
                       <td>{{ x.Date_employed|date:"m/d/Y" }}</td>
-                      <td>{{ x.Payroll_number }}</td>
-                      <td>{{ x.firstname|default:"" }}</td>
-                      <td>{{ x.middlename|default:"" }}</td>
-                      <td>{{ x.lastname|default:"" }}</td>
-                      <td>{{ x.Last_date_attendance|default:"" }}</td>
-                      <td>{{ x.Designation|default:"" }}</td>
+                      <td>{{ x.Payroll_number|title }}</td> <!-- Capitalize Payroll Number -->
+                      <td>{{ x.firstname|default:""|title }}</td>
+                      <td>{{ x.middlename|default:""|title }}</td>
+                      <td>{{ x.lastname|default:""|title }}</td>
+                      <td>{{ x.Last_date_attendance|default:""|date:"m/d/Y" }}</td> <!-- Format Last Date Attended -->
+                      <td>{{ x.Designation|default:""|title }}</td> <!-- Capitalize Designation -->
                       <td>{{ x.Basic_Salary|default:"" }}</td> <!-- Display Basic Salary -->
                       <td>{{ x.Allowances|default:"" }}</td> <!-- Display Allowances -->
+                      <td>{{ x.Gross_pay|default:"" }}</td>
                       <td>{{ x.Performance|default:"" }}</td>
                       <td><a style="color: green;" href="update/{{ x.id }}"><i class="fas fa-pencil-alt fa-1x" style="color: rgb(9, 141, 9);"></i></a></td>
                       <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fas fa-trash-alt fa-1x" style="color: rgb(170, 16, 16);"></i></a></td>
                   </tr>
                   {% endfor %}
+                  
 
               
             </table>            

@@ -146,14 +146,6 @@ class Daily_Usage(models.Model):
 
 
 
-
-        # for new in getNewStock:
-        #     if new.Product == self.Product:
-        #         Purchase_Amount = round(new.Purchase_Amount,2)
-        #         # updated_price = a.price_Usd[:-1]
-        #         Closing_amount = round(Physical_stock + Purchase_Amount - self.Used_Amount,2)
-        #         return str(Closing_amount)      
-    
             
 
 class Employee(models.Model):
@@ -178,6 +170,13 @@ class Employee(models.Model):
     
     def __str__(self):
             return f"{self.Payroll_number} {self.firstname} {self.middlename} {self.Designation}"
+    
+    @property
+    def Gross_pay(self):
+        grosspay = round(self.Basic_Salary + self.Allowances, 2)
+        formatted_grosspay = '{:,.2f}'.format(grosspay)
+        return formatted_grosspay
+
     
 class Employer(models.Model):
     firstname = models.CharField(max_length=255, null=True, db_index=True)
@@ -231,3 +230,11 @@ def save_user_profile(sender, instance, **kwargs):
     except UserProfile.DoesNotExist:
         # Create a UserProfile instance if it doesn't exist
         UserProfile.objects.create(user=instance)
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name

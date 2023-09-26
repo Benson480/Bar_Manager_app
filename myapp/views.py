@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage, UserProfile)
+                      Employer, BeverageImage, Daily_Usage, UserProfile, Department)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -301,3 +301,9 @@ def Inventory(request):
       request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
     return render(request, "DailyStockUsage.html", context)
+
+
+def departments(request):
+    departments = Department.objects.all()
+    context = {'departments': departments}
+    return render(request, 'Departments.html', context)

@@ -1,0 +1,122 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Departments
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h1 class="text-center mb-4">List of Departments</h1>
+        <div class="input-group mb-3">
+          <input type="text" id="search" class="form-control" placeholder="Search by department name">
+          <div class="input-group-append">
+            <button class="btn btn-primary" id="search-button" type="button">Search</button>
+          </div>
+        </div>
+        <ul class="list-group" id="department-list">
+          {% for department in departments %}
+            <li class="list-group-item department-item">
+              <div class="row">
+                <div class="col-md-8">
+                  <h3 class="mb-2">{{ department.name }}</h3>
+                  <p class="mb-2">{{ department.description }}</p>
+                </div>
+                <div class="col-md-4 text-center">
+                  <button class="btn btn-primary btn-view-details" data-department="{{ department.name }}">View Details</button>
+                </div>
+              </div>
+            </li>
+          {% empty %}
+            <li class="list-group-item empty-department text-center">No departments available.</li>
+          {% endfor %}
+        </ul>
+        <nav aria-label="Page navigation" class="mt-4">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="?page=1" aria-label="First">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+              </a>
+            </li>
+            {% for page_num in departments.paginator.page_range %}
+              <li class="page-item{% if departments.number == page_num %} active{% endif %}">
+                <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+              </li>
+            {% endfor %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ departments.paginator.num_pages }}" aria-label="Last">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add interactivity (optional)
+    document.addEventListener("DOMContentLoaded", function () {
+      const departmentItems = document.querySelectorAll(".department-item");
+      const viewDetailsButtons = document.querySelectorAll(".btn-view-details");
+      const searchInput = document.getElementById("search");
+      const searchButton = document.getElementById("search-button");
+
+      departmentItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          // Handle item click (e.g., navigate to department details page)
+          alert(`Clicked on department: ${item.querySelector(".department-title").textContent}`);
+        });
+      });
+
+      viewDetailsButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+          const departmentName = event.currentTarget.getAttribute("data-department");
+          alert(`View details for department: ${departmentName}`);
+        });
+      });
+
+      // Filter departments by name when search button is clicked
+      searchButton.addEventListener("click", () => {
+        const searchValue = searchInput.value.toLowerCase();
+        departmentItems.forEach((item) => {
+          const departmentName = item.querySelector(".department-title").textContent.toLowerCase();
+          if (departmentName.includes(searchValue)) {
+            item.style.display = "list-item";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
+
+  <style>
+    /* Add custom styles (optional) */
+    .departments-list {
+      margin-top: 20px;
+    }
+
+    .department-item {
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .department-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .department-title {
+      font-size: 24px;
+    }
+
+    .department-description {
+      color: #777;
+    }
+
+    .empty-department {
+      font-style: italic;
+    }
+  </style>
+{% endblock %}
