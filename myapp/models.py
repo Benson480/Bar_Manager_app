@@ -176,6 +176,18 @@ class Employee(models.Model):
         grosspay = round(self.Basic_Salary + self.Allowances, 2)
         formatted_grosspay = '{:,.2f}'.format(grosspay)
         return formatted_grosspay
+    
+    @property
+    def Basic_pay(self):
+        Basic_payed = round(self.Basic_Salary, 2)
+        formatted_Basic_pay = '{:,.2f}'.format(Basic_payed)
+        return formatted_Basic_pay
+    
+    @property
+    def Allowances_pay(self):
+        Allowances_payed = round(self.Allowances, 2)
+        formatted_Allowances = '{:,.2f}'.format(Allowances_payed)
+        return formatted_Allowances
 
     
 class Employer(models.Model):

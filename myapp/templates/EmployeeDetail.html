@@ -305,8 +305,8 @@
                       <td>{{ x.lastname|default:""|title }}</td>
                       <td>{{ x.Last_date_attendance|default:""|date:"m/d/Y" }}</td> <!-- Format Last Date Attended -->
                       <td>{{ x.Designation|default:""|title }}</td> <!-- Capitalize Designation -->
-                      <td>{{ x.Basic_Salary|default:"" }}</td> <!-- Display Basic Salary -->
-                      <td>{{ x.Allowances|default:"" }}</td> <!-- Display Allowances -->
+                      <td>{{ x.Basic_pay|default:"" }}</td> <!-- Display Basic Salary -->
+                      <td>{{ x.Allowances_pay|default:"" }}</td> <!-- Display Allowances -->
                       <td>{{ x.Gross_pay|default:"" }}</td>
                       <td>{{ x.Performance|default:"" }}</td>
                       <td><a style="color: green;" href="update/{{ x.id }}"><i class="fas fa-pencil-alt fa-1x" style="color: rgb(9, 141, 9);"></i></a></td>

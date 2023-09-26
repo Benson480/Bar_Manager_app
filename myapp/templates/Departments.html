@@ -5,38 +5,48 @@
 {% endblock %}
 
 {% block content %}
+<header style="background-image: url('https://img.freepik.com/premium-photo/fintech-icon-abstract-financial-technology-background_34663-91.jpg?w=2000'); background-size: cover; padding: 5px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
+  <div>
+    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Organization Deparments</h2>
+    <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">List Of our Departments</p>
+  </div>
+</header>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <div class="container mt-4">
     <div class="row">
-      <div class="col-md-10 offset-md-1">
-        <h1 class="text-center mb-4">List of Departments</h1>
+      <div class="col-md-10 offset-md-1" style="text-align: center; background-image: url('https://t3.ftcdn.net/jpg/03/98/72/60/360_F_398726020_osA2T853Y6ZDfRUOqfNCo6yhZ8MUQew4.jpg');">
+        <h1 class="text-center mb-4" style="background-color: white;">List of Departments <i class="fas fa-building"></i></h1>
         <div class="input-group mb-3">
           <input type="text" id="search" class="form-control" placeholder="Search by department name">
           <div class="input-group-append">
-            <button class="btn btn-primary" id="search-button" type="button">Search</button>
+            <button class="btn btn-primary" id="search-button" type="button"><i class="fas fa-search"></i> Search</button>
           </div>
         </div>
-        <ul class="list-group" id="department-list">
+        <ul class="list-group" id="department-list" style="background-color: rgb(255, 255, 255);">
           {% for department in departments %}
-            <li class="list-group-item department-item">
+            <a class="list-group-item department-item">
               <div class="row">
                 <div class="col-md-8">
-                  <h3 class="mb-2">{{ department.name }}</h3>
+                  <h3 class="mb-2">{{ department.name }} <i class="fas fa-building"></i></h3>
                   <p class="mb-2">{{ department.description }}</p>
                 </div>
                 <div class="col-md-4 text-center">
-                  <button class="btn btn-primary btn-view-details" data-department="{{ department.name }}">View Details</button>
+                  <button class="btn btn-primary btn-view-details" data-department="{{ department.name }}"><i class="fas fa-info-circle"></i> View Details</button>
                 </div>
               </div>
-            </li>
+            </a>
           {% empty %}
-            <li class="list-group-item empty-department text-center">No departments available.</li>
+            <li class="list-group-item empty-department text-center"><i class="fas fa-exclamation-circle"></i> No departments available.</li>
           {% endfor %}
         </ul>
         <nav aria-label="Page navigation" class="mt-4">
           <ul class="pagination justify-content-center">
             <li class="page-item">
               <a class="page-link" href="?page=1" aria-label="First">
-                <span aria-hidden="true">&laquo;&laquo;</span>
+                <span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span>
               </a>
             </li>
             {% for page_num in departments.paginator.page_range %}
@@ -46,7 +56,7 @@
             {% endfor %}
             <li class="page-item">
               <a class="page-link" href="?page={{ departments.paginator.num_pages }}" aria-label="Last">
-                <span aria-hidden="true">&raquo;&raquo;</span>
+                <span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span>
               </a>
             </li>
           </ul>
