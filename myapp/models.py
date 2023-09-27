@@ -244,9 +244,20 @@ def save_user_profile(sender, instance, **kwargs):
         UserProfile.objects.create(user=instance)
 
 
+from django.db import models
+
+class ContactDetail(models.Model):
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    
+    def __str__(self):
+        return f"Contact Details {self.email} {self.phone} {self.address}"
+
 class Department(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)
-
+    contact_details = models.OneToOneField(ContactDetail, on_delete=models.SET_NULL, null=True, blank=True)
+    
     def __str__(self):
         return self.name

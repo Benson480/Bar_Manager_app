@@ -4,129 +4,255 @@
   Departments
 {% endblock %}
 
+{% block styles %}
+<style>
+  /* Custom styles for the Departments page */
+  .departments-list {
+    margin-top: 20px;
+  }
+
+  .department-item {
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .department-item:hover {
+    background-color: #f0f0f0;
+  }
+
+  .department-title {
+    font-size: 24px;
+  }
+
+  .department-description {
+    color: #777;
+  }
+
+  .empty-department {
+    font-style: italic;
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 <header style="background-image: url('https://img.freepik.com/premium-photo/fintech-icon-abstract-financial-technology-background_34663-91.jpg?w=2000'); background-size: cover; padding: 5px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
   <div>
-    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Organization Deparments</h2>
+    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Organization Departments</h2>
     <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">List Of our Departments</p>
   </div>
 </header>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-  <div class="container mt-4">
-    <div class="row">
-      <div class="col-md-10 offset-md-1" style="text-align: center; background-image: url('https://t3.ftcdn.net/jpg/03/98/72/60/360_F_398726020_osA2T853Y6ZDfRUOqfNCo6yhZ8MUQew4.jpg');">
-        <h1 class="text-center mb-4" style="background-color: white;">List of Departments <i class="fas fa-building"></i></h1>
-        <div class="input-group mb-3">
-          <input type="text" id="search" class="form-control" placeholder="Search by department name">
-          <div class="input-group-append">
-            <button class="btn btn-primary" id="search-button" type="button"><i class="fas fa-search"></i> Search</button>
-          </div>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-10 offset-md-1" style="text-align: center; background-image: url('https://t3.ftcdn.net/jpg/03/98/72/60/360_F_398726020_osA2T853Y6ZDfRUOqfNCo6yhZ8MUQew4.jpg');">
+      <h1 class="text-center mb-4" style="background-color: white;">List of Departments <i class="fas fa-building"></i></h1>
+      <div class="input-group mb-3">
+        <input type="text" id="search" class="form-control" placeholder="Search by department name">
+        <div class="input-group-append">
+          <button class="btn btn-primary" id="search-button" type="button"><i class="fas fa-search"></i> Search</button>
         </div>
-        <ul class="list-group" id="department-list" style="background-color: rgb(255, 255, 255);">
-          {% for department in departments %}
-            <a class="list-group-item department-item">
-              <div class="row">
-                <div class="col-md-8">
-                  <h3 class="mb-2">{{ department.name }} <i class="fas fa-building"></i></h3>
-                  <p class="mb-2">{{ department.description }}</p>
-                </div>
-                <div class="col-md-4 text-center">
-                  <button class="btn btn-primary btn-view-details" data-department="{{ department.name }}"><i class="fas fa-info-circle"></i> View Details</button>
-                </div>
-              </div>
-            </a>
-          {% empty %}
-            <li class="list-group-item empty-department text-center"><i class="fas fa-exclamation-circle"></i> No departments available.</li>
-          {% endfor %}
-        </ul>
-        <nav aria-label="Page navigation" class="mt-4">
-          <ul class="pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="?page=1" aria-label="First">
-                <span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span>
-              </a>
-            </li>
-            {% for page_num in departments.paginator.page_range %}
-              <li class="page-item{% if departments.number == page_num %} active{% endif %}">
-                <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
-              </li>
-            {% endfor %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ departments.paginator.num_pages }}" aria-label="Last">
-                <span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span>
-              </a>
-            </li>
-          </ul>
-        </nav>
       </div>
+      <style>
+        /* Add custom styles for responsiveness */
+        .department-item {
+          margin-right: 20px; /* Adjust the margin as needed */
+          flex: 0 0 calc(50% - 20px); /* Display two departments per row */
+          box-sizing: border-box;
+          padding: 10px;
+        }
+      
+        @media (max-width: 768px) {
+          /* Adjust styles for smaller screens */
+          .department-item {
+            flex: 0 0 calc(100% - 20px); /* Display one department per row on smaller screens */
+            margin-right: 0;
+          }
+        }
+      </style>
+      
+      <ul class="list-group" id="department-list" style="background-color: rgb(233, 228, 228); display: flex; flex-wrap: wrap; padding: 20px;">
+        {% for department in departments %}
+          <a class="list-group-item department-item" data-department-name="{{ department.name }}">
+            <div class="row">
+              <div class="col-md-8">
+                <h3 class="mb-2 department-title" style="color: rgb(13, 13, 211);">{{ department.name }} <i class="fas fa-building"></i></h3>
+                <p class="mb-2 department-description" style="color: rgb(48, 37, 37);">{{ department.description }}</p>
+                <p class="mb-2 department-contact_details" style="color: rgb(48, 37, 37);">
+                  Phone: {{ department.contact_details.phone }}<br>
+                  Email: {{ department.contact_details.email }}<br>
+                  Address: {{ department.contact_details.address }}
+                </p>            
+              </div>
+              <div class="col-md-4 text-center">
+                <button class="btn btn-primary btn-view-details" style="color: rgb(255, 255, 255); background-color: rgb(129, 137, 245);"><i class="fas fa-info-circle"></i> View Details</button>
+              </div>
+            </div>
+          </a>
+        {% empty %}
+          <a class="list-group-item empty-department text-center"><i class="fas fa-exclamation-circle"></i> No departments available.</a>
+        {% endfor %}
+      </ul>
+      
+      
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="First">
+              <span aria-hidden="true"><i class="fas fa-angle-double-left" style="color: red; font-size: xx-large;"></i></span>
+            </a>
+          </li>
+          {% for page_num in departments.paginator.page_range %}
+            <li class="page-item{% if departments.number == page_num %} active{% endif %}">
+              <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+            </li>
+          {% endfor %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ departments.paginator.num_pages }}" aria-label="Last">
+              <span aria-hidden="true"><i class="fas fa-angle-double-right" style="color: red; font-size: xx-large;"></i></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
+</div>
 
-  <script>
-    // Add interactivity (optional)
-    document.addEventListener("DOMContentLoaded", function () {
-      const departmentItems = document.querySelectorAll(".department-item");
-      const viewDetailsButtons = document.querySelectorAll(".btn-view-details");
-      const searchInput = document.getElementById("search");
-      const searchButton = document.getElementById("search-button");
+<!-- Department Details Modal -->
+<div class="modal" id="department-modal" style="background-color: rgba(0, 0, 0, 0.5); position: fixed; top: 80px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 600px; height: 20%; display: none; align-items: center; justify-content: center;">
+  <div class="modal-content" style="background-color: white; border-radius: 5px; padding: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); text-align: center; position: relative;">
+    <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; color: rgb(255, 255, 255); background-color: red; cursor: pointer;">&times;</span>
+    <h2>Department Details</h2>
+    <div id="department-details"></div>
+  </div>
+</div>
 
-      departmentItems.forEach((item) => {
-        item.addEventListener("click", () => {
-          // Handle item click (e.g., navigate to department details page)
-          alert(`Clicked on department: ${item.querySelector(".department-title").textContent}`);
-        });
-      });
 
-      viewDetailsButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-          const departmentName = event.currentTarget.getAttribute("data-department");
-          alert(`View details for department: ${departmentName}`);
-        });
-      });
 
-      // Filter departments by name when search button is clicked
-      searchButton.addEventListener("click", () => {
-        const searchValue = searchInput.value.toLowerCase();
-        departmentItems.forEach((item) => {
-          const departmentName = item.querySelector(".department-title").textContent.toLowerCase();
-          if (departmentName.includes(searchValue)) {
-            item.style.display = "list-item";
-          } else {
-            item.style.display = "none";
-          }
-        });
+
+
+<script>
+  // Add interactivity (optional)
+  document.addEventListener("DOMContentLoaded", function () {
+    const departmentItems = document.querySelectorAll(".department-item");
+    const viewDetailsButtons = document.querySelectorAll(".btn-view-details");
+    const searchInput = document.getElementById("search");
+    const searchButton = document.getElementById("search-button");
+    const modal = document.getElementById("department-modal");
+    const modalContent = document.querySelector(".modal-content");
+    const closeModal = document.querySelector(".close");
+    const departmentDetails = document.getElementById("department-details");
+
+    departmentItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        // Handle item click (e.g., navigate to department details page)
+        const departmentName = item.getAttribute("data-department-name");
+        showDepartmentDetails(departmentName);
       });
     });
-  </script>
 
-  <style>
-    /* Add custom styles (optional) */
-    .departments-list {
-      margin-top: 20px;
+    viewDetailsButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const departmentName = event.currentTarget.closest(".department-item").getAttribute("data-department-name");
+        showDepartmentDetails(departmentName);
+      });
+    });
+
+    // Show department details in the modal
+    function showDepartmentDetails(departmentName) {
+      // You can fetch department details from your data source here.
+      // For now, we'll display a simple message.
+      departmentDetails.innerHTML = `<p>Details for department: ${departmentName}</p>`;
+
+      // Display the modal
+      modal.style.display = "block";
     }
 
-    .department-item {
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-    }
+    // Close the modal when the close button is clicked
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
 
-    .department-item:hover {
-      background-color: #f0f0f0;
-    }
+    // Filter departments by name when search button is clicked
+    searchButton.addEventListener("click", () => {
+      const searchValue = searchInput.value.toLowerCase();
+      departmentItems.forEach((item) => {
+        const departmentName = item.getAttribute("data-department-name").toLowerCase();
+        if (departmentName.includes(searchValue)) {
+          item.style.display = "block";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
 
-    .department-title {
-      font-size: 24px;
-    }
 
-    .department-description {
-      color: #777;
-    }
+<script>
+  // Add JavaScript to position the modal
+  document.addEventListener("DOMContentLoaded", function () {
+    const viewDetailsButtons = document.querySelectorAll(".btn-view-details");
+    const modal = document.getElementById("department-modal");
 
-    .empty-department {
-      font-style: italic;
-    }
-  </style>
+    viewDetailsButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Get the position of the details div
+        const detailsDiv = button.closest(".list-group-item").querySelector(".department-contact_details");
+        const detailsPosition = detailsDiv.getBoundingClientRect();
+
+        // Set the modal's top position to match the details div's top position
+        modal.style.top = `${detailsPosition.top + window.scrollY}px`;
+
+        // Show the modal
+        modal.style.display = "block";
+      });
+    });
+
+    // Close modal when the close button is clicked
+    const closeBtn = document.querySelector(".close");
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+  });
+</script>
+
+
 {% endblock %}

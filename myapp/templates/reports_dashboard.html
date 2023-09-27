@@ -1,0 +1,105 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Reports Dashboard
+{% endblock %}
+
+{% block styles %}
+<style>
+  /* Add custom styles for the dashboard */
+  .dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .report-card {
+    width: 300px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+  }
+
+  .report-link {
+    text-decoration: none;
+    color: #333;
+  }
+
+  .report-link:hover {
+    color: #007bff;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<header style="background-image: url('https://img.freepik.com/premium-photo/fintech-icon-abstract-financial-technology-background_34663-91.jpg?w=2000'); background-size: cover; padding: 5px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
+  <div>
+    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Reports Dashboard</h2>
+    <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">Data Driven Business Management</p>
+  </div>
+</header>
+
+
+<div class="container" style="background-color: rgb(218, 187, 187); padding: 10px;">
+  <h1 class="mt-4 mb-4" style="text-align: center; background-color: antiquewhite;">Reports Dashboard</h1>
+  <div class="dashboard" style="display: flex; flex-wrap: wrap;">
+    <!-- Daily Usage Report Card -->
+    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+      <h3 style="color: #008000;">Daily Usage</h3>
+      <p>View daily usage report.</p>
+      <a href="{% url 'daily_usage_report' %}" class="report-link">View Report</a>
+    </div>
+
+    <!-- Purchased Stock Report Card -->
+    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+      <h3 style="color: #008000;">Purchased Stock</h3>
+      <p>View purchased stock report.</p>
+      <a href="{% url 'purchased_stock_report' %}" class="report-link">View Report</a>
+    </div>
+
+    <!-- Physical Stock Take Report Card -->
+    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+      <h3 style="color: #008000;">Physical Stock Take</h3>
+      <p>View physical stock take report.</p>
+      <a href="{% url 'physical_stock_take_report' %}" class="report-link">View Report</a>
+    </div>
+
+    <!-- Budget Report Card -->
+    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+      <h3 style="color: #008000;">Budget</h3>
+      <p>View budget report.</p>
+      <a href="{% url 'budget_report' %}" class="report-link">View Report</a>
+    </div>
+
+    <!-- Price List Report Card -->
+    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+      <h3 style="color: #008000;">Price List</h3>
+      <p>View price list report.</p>
+      <a href="{% url 'price_list_report' %}" class="report-link">View Report</a>
+    </div>
+
+    <!-- Items Classification Report Card -->
+    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+      <h3 style="color: #008000;">Items Classification</h3>
+      <p>View items classification report.</p>
+      <a href="{% url 'items_classification_report' %}" class="report-link">View Report</a>
+    </div>
+
+    <!-- Forex Exchange Rates Report Card -->
+    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+      <h3 style="color: #008000;">Forex Exchange Rates</h3>
+      <p>View forex exchange rates report.</p>
+      <a href="{% url 'forex_exchange_rates_report' %}" class="report-link">View Report</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

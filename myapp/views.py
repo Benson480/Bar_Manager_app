@@ -171,6 +171,17 @@ def dashboard(request):
     return render(request, 'dashboard.html', {'user_profile': user_profile})
 
 
+@login_required
+def report_dashboard(request):
+    # Retrieve or create the user_profile
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    
+    # Update user activity in the session
+    if request.user.is_authenticated:
+        request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+
+    return render(request, 'reports_dashboard.html', {'user_profile': user_profile})
+
 def about(request):
   template = loader.get_template('about.html')
   return HttpResponse(template.render())
@@ -307,3 +318,35 @@ def departments(request):
     departments = Department.objects.all()
     context = {'departments': departments}
     return render(request, 'Departments.html', context)
+
+
+
+# Example views
+def daily_usage_report(request):
+    # Implement your daily usage report logic here
+    # You can render an HTML template for the report or return JSON data, depending on your needs
+    return render(request, 'daily_usage_report.html')
+
+def purchased_stock_report(request):
+    # Implement your purchased stock report logic here
+    return render(request, 'purchased_stock_report.html')
+
+def physical_stock_take_report(request):
+    # Implement your physical stock take report logic here
+    return render(request, 'physical_stock_take_report.html')
+
+def budget_report(request):
+    # Implement your budget report logic here
+    return render(request, 'budget_report.html')
+
+def price_list_report(request):
+    # Implement your price list report logic here
+    return render(request, 'price_list_report.html')
+
+def items_classification_report(request):
+    # Implement your items classification report logic here
+    return render(request, 'items_classification_report.html')
+
+def forex_exchange_rates_report(request):
+    # Implement your forex exchange rates report logic here
+    return render(request, 'forex_exchange_rates_report.html')

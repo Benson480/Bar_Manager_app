@@ -714,6 +714,21 @@
         appendMessage("assistant", "Sorry, something went wrong while processing your request.");
       }
     }
+
+
+        // Obtain the CSRF token from the hidden input field
+    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+
+    // Include the CSRF token in the headers of your AJAX request
+    fetch('/your-api-endpoint/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({/* your data */}),
+    });
+
   </script>
   
   <footer style="background-color: #462644; color: #FFF; text-align: center; padding: 10px;">
