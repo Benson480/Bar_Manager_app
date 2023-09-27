@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-a^-!si_9u(5noyi=)l%uno@o!0kn95cba#2ajn)2lwdmi^^%e&
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['*', 'fertppm.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
