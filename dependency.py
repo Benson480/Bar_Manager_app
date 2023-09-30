@@ -16,6 +16,9 @@ packages_to_install = [
     "django-allauth",
     "django-allauth==0.48.0",
     "django-allauth[google]",
+    "matplotlib",
+    "djangorestframework",
+
 ]
 
 # Loop through the list and install each package

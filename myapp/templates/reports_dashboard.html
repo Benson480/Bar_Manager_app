@@ -6,6 +6,30 @@
 
 {% block styles %}
 <style>
+
+:root {
+    --bg-color: #f0f0f0;
+    --text-color: #333;
+    --card-bg-color: #fff;
+    --card-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    --link-color: #007bff;
+    --header-bg-image: url('https://img.freepik.com/premium-photo/fintech-icon-abstract-financial-technology-background_34663-91.jpg?w=2000');
+    --header-text-color: #fff;
+    --header-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Dark theme */
+  .dark-theme {
+    --bg-color: #1c1c1c;
+    --text-color: #fff;
+    --card-bg-color: #333; /* Change background color for dark mode */
+    --card-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
+    --link-color: #4caf50;
+    --header-bg-image: url('https://img.freepik.com/premium-photo/fintech-icon-abstract-financial-technology-background_34663-91.jpg?w=2000');
+    --header-text-color: #fff;
+    --header-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
   /* Add custom styles for the dashboard */
   .dashboard {
     display: flex;
@@ -14,25 +38,68 @@
     align-items: center;
     gap: 20px;
     padding: 20px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
   }
 
   .report-card {
     width: 300px;
-    background-color: #f5f5f5;
+    background-color: var(--card-bg-color);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
     text-align: center;
     display: flex;
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .report-card:hover {
+    background-color: #444; /* Darken the background color on hover */
+    color: #fff; /* Change text color on hover */
   }
 
   .report-link {
     text-decoration: none;
-    color: #333;
+    color: var(--link-color);
   }
 
   .report-link:hover {
     color: #007bff;
+  }
+
+  /* Header styling */
+  header {
+    background-image: var(--header-bg-image);
+    background-size: cover;
+    padding: 5px 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+    box-shadow: var(--header-box-shadow);
+  }
+
+  .header-logo {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+  }
+
+  .header-text {
+    color: var(--header-text-color);
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: var(--header-box-shadow);
+    margin: 0;
+  }
+
+  .header-subtext {
+    color: var(--header-text-color);
+    font-size: 18px;
+    opacity: 0.8;
+    margin-top: 10px;
   }
 </style>
 {% endblock %}
@@ -48,58 +115,59 @@
 </header>
 
 
-<div class="container" style="background-color: rgb(218, 187, 187); padding: 10px;">
-  <h1 class="mt-4 mb-4" style="text-align: center; background-color: antiquewhite;">Reports Dashboard</h1>
-  <div class="dashboard" style="display: flex; flex-wrap: wrap;">
+<div class="container" style="background-color: #f0f0f0; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+  <h1 class="mt-4 mb-4" style="text-align: center; background-color: #ffd700; padding: 10px; border-radius: 5px;">Reports Dashboard</h1>
+  <div class="dashboard" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-evenly;">
     <!-- Daily Usage Report Card -->
-    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+    <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
       <h3 style="color: #008000;">Daily Usage</h3>
-      <p>View daily usage report.</p>
-      <a href="{% url 'daily_usage_report' %}" class="report-link">View Report</a>
+      <p style="color: #6d571b;">View the daily usage report.</p>
+      <a href="{% url 'daily_usage_report' %}" class="report-link" style="color: #007bff;">View Report</a>
     </div>
 
     <!-- Purchased Stock Report Card -->
-    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+    <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
       <h3 style="color: #008000;">Purchased Stock</h3>
-      <p>View purchased stock report.</p>
-      <a href="{% url 'purchased_stock_report' %}" class="report-link">View Report</a>
+      <p style="color: #6d571b;">View the purchased stock report.</p>
+      <a href="{% url 'purchased_stock_report' %}" class="report-link" style="color: #007bff;">View Report</a>
     </div>
 
     <!-- Physical Stock Take Report Card -->
-    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+    <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
       <h3 style="color: #008000;">Physical Stock Take</h3>
-      <p>View physical stock take report.</p>
-      <a href="{% url 'physical_stock_take_report' %}" class="report-link">View Report</a>
+      <p style="color: #6d571b;">View the physical stock take report.</p>
+      <a href="{% url 'physical_stock_take_report' %}" class="report-link" style="color: #007bff;">View Report</a>
     </div>
 
     <!-- Budget Report Card -->
-    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+    <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
       <h3 style="color: #008000;">Budget</h3>
-      <p>View budget report.</p>
-      <a href="{% url 'budget_report' %}" class="report-link">View Report</a>
+      <p style="color: #6d571b;">View the budget report.</p>
+      <a href="{% url 'budget_report' %}" class="report-link" style="color: #007bff;">View Report</a>
     </div>
 
     <!-- Price List Report Card -->
-    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+    <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
       <h3 style="color: #008000;">Price List</h3>
-      <p>View price list report.</p>
-      <a href="{% url 'price_list_report' %}" class="report-link">View Report</a>
+      <p style="color: #6d571b;">View the price list report.</p>
+      <a href="{% url 'price_list_report' %}" class="report-link" style="color: #007bff;">View Report</a>
     </div>
 
     <!-- Items Classification Report Card -->
-    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+    <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
       <h3 style="color: #008000;">Items Classification</h3>
-      <p>View items classification report.</p>
-      <a href="{% url 'items_classification_report' %}" class="report-link">View Report</a>
+      <p style="color: #6d571b;">View the items classification report.</p>
+      <a href="{% url 'items_classification_report' %}" class="report-link" style="color: #007bff;">View Report</a>
     </div>
 
     <!-- Forex Exchange Rates Report Card -->
-    <div class="report-card" style="flex-basis: calc(33.33% - 20px); margin-right: 20px;">
+    <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
       <h3 style="color: #008000;">Forex Exchange Rates</h3>
-      <p>View forex exchange rates report.</p>
-      <a href="{% url 'forex_exchange_rates_report' %}" class="report-link">View Report</a>
+      <p style="color: #6d571b;">View the forex exchange rates report.</p>
+      <a href="{% url 'forex_exchange_rates_report' %}" class="report-link" style="color: #007bff;">View Report</a>
     </div>
   </div>
 </div>
+
 
 {% endblock %}

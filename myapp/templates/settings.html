@@ -1,0 +1,143 @@
+<!-- settings.html -->
+{% extends "master.html" %}
+
+{% block content %}
+<div class="settings-container">
+    <header>
+        <h1>Settings Page</h1>
+    </header>
+    <h2>Settings</h2>
+    <div class="form-group">
+        <label for="dark-mode-toggle">Dark Mode:</label>
+        <input type="checkbox" id="dark-mode-toggle">
+    </div>
+    <div class="form-group">
+        <label for="font-size-select">Font Size:</label>
+        <select id="font-size-select">
+            <option value="14px">Small</option>
+            <option value="16px">Medium</option>
+            <option value="18px">Large</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="notification-toggle">Notifications:</label>
+        <input type="checkbox" id="notification-toggle">
+    </div>
+    <h2>User Profile</h2>
+    <p><strong>Full Name:</strong> {{ user_profile.full_name }}</p>
+    <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+    <p><strong>Location:</strong> {{ user_profile.location }}</p>
+    <p><strong>Website:</strong> <a href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
+    <p><strong>Date of Birth:</strong> {{ user_profile.date_of_birth }}</p>
+</div>
+
+<style>
+    .settings-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    header h1 {
+        font-size: 24px;
+        color: #007BFF;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    select {
+        width: 100%;
+        padding: 5px;
+    }
+
+    h2 {
+        text-decoration: underline;
+        color: #007BFF;
+    }
+
+    a {
+        color: #007BFF;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const fontSizeSelect = document.getElementById('font-size-select');
+        const notificationToggle = document.getElementById('notification-toggle');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+        // Function to save user settings
+        const saveUserSettings = () => {
+            const selectedFontSize = fontSizeSelect.value;
+            document.body.style.fontSize = selectedFontSize;
+
+            const userSettings = {
+                fontSize: selectedFontSize,
+                darkMode: darkModeToggle.checked,
+                notifications: notificationToggle.checked
+            };
+            localStorage.setItem('userSettings', JSON.stringify(userSettings));
+
+            // Apply dark mode immediately if enabled
+            if (userSettings.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        };
+
+        // Function to apply saved settings on page load
+        const applySavedSettings = () => {
+            const savedUserSettings = localStorage.getItem('userSettings');
+            if (savedUserSettings) {
+                const userSettings = JSON.parse(savedUserSettings);
+                fontSizeSelect.value = userSettings.fontSize;
+                document.body.style.fontSize = userSettings.fontSize;
+                darkModeToggle.checked = userSettings.darkMode;
+                notificationToggle.checked = userSettings.notifications;
+
+                // Apply dark mode immediately if enabled
+                if (userSettings.darkMode) {
+                    document.body.classList.add('dark-mode');
+                }
+            }
+        };
+
+        // Event listeners
+        fontSizeSelect.addEventListener('change', () => {
+            const selectedFontSize = fontSizeSelect.value;
+            document.body.style.fontSize = selectedFontSize;
+            saveUserSettings();
+        });
+
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            saveUserSettings();
+        });
+
+        notificationToggle.addEventListener('change', () => {
+            saveUserSettings();
+        });
+
+        // Apply saved settings on page load
+        applySavedSettings();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics</title>
+</head>
+{% block content %}
+<body>
+    <h1>Analytics Dashboard</h1>
+    
+    <!-- Display the graph -->
+    <img src="data:image/png;base64,{{ graph }}" alt="Sample Graph">
+    
+    <!-- Add more analytics content here as needed -->
+</body>
+{% endblock %}

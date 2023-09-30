@@ -72,6 +72,7 @@ MIDDLEWARE = [
     'myproject.middleware.RedirectAfterInactivityMiddleware', #custom middleware
     'django.contrib.messages.middleware.MessageMiddleware',  # Message handling
     'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Clickjacking protection
+    'myproject.middleware.UserSettingsMiddleware'
     
 
     # 'django.middleware.security.SecurityMiddleware',
@@ -123,7 +124,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'myapp.context_processors.include_login_form',
-                'myapp.context_processors.user_profile'
+                'myapp.context_processors.user_profile',
+                'myapp.context_processors.user_settings',
 
             ],
         },

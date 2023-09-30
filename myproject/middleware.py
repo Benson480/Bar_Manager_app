@@ -41,3 +41,17 @@ class RedirectAfterInactivityMiddleware:
             return redirect('index')  # Replace 'home' with the name of your homepage URL pattern
 
         return response
+    
+# middleware.py
+class UserSettingsMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        # Apply user settings to the response context
+        request.dark_mode = request.session.get('dark_mode', False)
+        request.font_size = request.session.get('font_size', 'medium')
+        request.notifications = request.session.get('notifications', True)
+
+        response = self.get_response(request)
+        return response

@@ -65,12 +65,16 @@ class Daily_Usage(models.Model):
     Product = models.ForeignKey(Beverage, on_delete=models.CASCADE, db_index=True)
     Date = models.DateField(null=True, db_index=True, blank=True)
     Place_of_use_Choices = (
-        ("Internal", "Internal"),
-        ("Online", "Online Sale"),
+        ("Internal Sales", "Internal Sales"),
+        ("Online Sale", "Online Sale"),
     )
 
     Place_of_usage = models.CharField(max_length=255, null=True, db_index=True, choices=Place_of_use_Choices)
     Used_Amount = models.FloatField(max_length=200, db_index=True, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.Date} {self.Product} {self.Place_of_usage}"
+
 
     @property
     def UnitOfMeasure(self):
@@ -144,7 +148,16 @@ class Daily_Usage(models.Model):
                 formatted_closing_value = f'{Closing_value:,.2f}'
                 return formatted_closing_value
 
-
+    @property
+    def Daily_usage_cost(self):
+        getprice = Beverage_Price.objects.all()
+        for price in getprice:
+            if price.Beverage_Product == self.Product:
+                if self.Used_Amount is None:
+                    self.Used_Amount  # Calculate Closing_amount if it's not already calculated
+                Daily_used_cost = round(price.price_ksh * self.Used_Amount, 2)
+                Formatted_used_cost = f'{Daily_used_cost:,.2f}'
+                return Formatted_used_cost
 
             
 
@@ -261,3 +274,13 @@ class Department(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class UserSettings(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    dark_mode = models.BooleanField(default=False)
+    notifications = models.BooleanField(default=True)
+    font_size = models.CharField(max_length=20, default='medium')
+
+    def __str__(self):
+        return self.user.username + "'s Settings"

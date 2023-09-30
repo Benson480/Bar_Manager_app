@@ -1,0 +1,22 @@
+<!-- app/home.html -->
+{% extends "master.html" %}
+
+{% block content %}
+<style>/* Add dark mode styles in your CSS */
+    .dark-mode {
+        background-color: #111;
+        color: #fff;
+        /* Additional styles for dark mode */
+    }</style>
+    
+  <h2>Welcome to My App</h2>
+  <div class="{% if user_settings.dark_mode %}dark-mode{% endif %}">
+    <p>This is some content.</p>
+    <p>Font size: {{ user_settings.font_size }}</p>
+    {% if user_settings.notifications %}
+      <p>You have notifications enabled.</p>
+    {% else %}
+      <p>Notifications are disabled.</p>
+    {% endif %}
+  </div>
+{% endblock %}

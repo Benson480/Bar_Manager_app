@@ -1,18 +1,77 @@
-<!DOCTYPE html>
 {% load static %}
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <title>{% block title %}{% endblock %}</title>
+</head>
+
   <style>
-  body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
-  }
-  
+/* styles.css */
+
+/* Default styles */
+body {
+    background-color: #fff; /* Set default background color */
+    color: #333; /* Set default text color */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #333; /* Change background color for dark mode */
+    color: #fff; /* Change text color for dark mode */
+}
+
+/* Add specific styles for other elements that need to be adjusted for dark mode */
+body.dark-mode .content {
+    /* Adjust styles for the content area in dark mode */
+    background-color: #333; /* Change content background color for dark mode */
+    color: #fff; /* Change content text color for dark mode */
+}
+
+/* CSS for dark mode */
+.dark-mode {
+  background-color: #333; /* Set your dark background color */
+  color: #fff; /* Set your dark text color */
+}
+
+/* Additional CSS for dark mode, update as needed */
+.dark-mode a {
+  color: #fff; /* Set link color in dark mode */
+}
+
+.dark-mode select {
+  background-color: #444; /* Set select background color in dark mode */
+  color: #fff; /* Set select text color in dark mode */
+}
+
+/* You may need to adjust other styles for dark mode as well */
+
+/* Default styles for light mode */
+.user-profile-details {
+  background-color: #ffffff; /* Set your light background color */
+  color: #333; /* Set your light text color */
+}
+
+/* Dark mode styles */
+.dark-mode .user-profile-details {
+  background-color: #333; /* Set your dark background color */
+  color: #ffffff; /* Set your dark text color */
+}
+
+/* Additional default styles for light mode, update as needed */
+.user-profile-details a {
+  color: black; /* Set link color in light mode */
+}
+
+.user-profile-details select {
+  background-color: #f5f5f5; /* Set select background color in light mode */
+  color: #333; /* Set select text color in light mode */
+}
+
+
+
   footer {
     background-color: #7f0079;
     color: #FFF;
@@ -358,6 +417,7 @@
   </script>
 </head>
 <body>
+  {% if user_settings.dark_mode %}class="dark-mode"{% endif %} style="font-size: {{ user_settings.font_size }};">
   <div class="topnav">
     <a href="/dashboard"><i class="fa fa-home"></i> Home</a>
     <a href="/about/"><i class="fa fa-info-circle"></i> About</a>
@@ -372,7 +432,7 @@
     <a href="/contact"><i class="fa fa-envelope"></i> Contact</a>
     <a href="#"><i class="fa fa-briefcase"></i> Careers</a>
     <div class="menu-item">
-        <a href="#"><i class="fa fa-flask"></i> Research</a>
+        <a href="https://www.pythonanywhere.com/user/barmanager/" target="_blank"><i class="fa fa-flask"></i> Research</a>
         <div class="submenu" style="background-color: rgb(128, 0, 122); padding: 0px;">
             <a href="https://chat.openai.com/" target="_blank" title="ChatGPT OpenAI" >OpenAI</a>
             <a href="https://www.w3schools.com/django/" target="_blank" title="Django is a back-end server side web framework used to develop this app">Django Tutorial</a>
@@ -396,16 +456,169 @@
       <!-- The rest of your HTML content here -->
       
       <!-- Profile details container (initially hidden) -->
-      <div class="user-profile-details" id="profile-details">
-          <h2>User Profile</h2>
-          <p><strong>Full Name:</strong> {{ user_profile.full_name }}</p>
-          <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
-          <p><strong>Location:</strong> {{ user_profile.location }}</p>
-          <p><strong>Website:</strong> <a href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
-          <p><strong>Date of Birth:</strong> {{ user_profile.date_of_birth }}</p>
-          <p><a href="/Edit Profile" style="color: black;"><i class="fas fa-pencil-alt"></i> Edit Profile</a></p>
-          <p><a href="/index" style="color: black;" ><i class="fa fa-sign-out-alt"></i> Logout</a></p>
-      </div>
+<!-- Your existing HTML code -->
+
+<!-- Your existing HTML code -->
+
+<div class="user-profile-details" id="profile-details" style="overflow-y: auto; max-height: 400px;">
+  <h2 style="text-decoration: underline; background-color: blue; color: white;">User Profile</h2>
+  <p><strong>Full Name:</strong> {{ user_profile.full_name }}</p>
+  <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+  <p><strong>Location:</strong> {{ user_profile.location }}</p>
+  <p><strong>Website:</strong> <a style="color: rgb(111, 111, 243); float: left; word-wrap: break-word;" href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
+
+  <p><strong>Date of Birth:</strong> {{ user_profile.date_of_birth }}</p>
+  <p>
+      <!-- Checkbox for Dark Theme -->
+      <p style="text-decoration: underline; background-color: blue; color: white;"><strong>User Preference</strong></p>
+      <label for="darkModeToggle">Dark Theme</label>
+      <input type="checkbox" id="darkModeToggle" {% if not user_settings.dark_mode %}checked{% endif %}>
+  </p>
+  <p>
+      <!-- Checkbox for Notifications -->
+      <label for="notificationToggle">Enable Notifications</label>
+      <input type="checkbox" id="notificationToggle"> <!-- Remove the 'checked' attribute -->
+  </p>
+  <p>
+      <!-- Select Font Size -->
+      <label for="fontSizeSelect">Font Size:</label>
+      <select id="fontSizeSelect">
+          <option value="small" {% if user_settings.font_size == "small" %}selected{% endif %}>Small</option>
+          <option value="medium" {% if user_settings.font_size == "medium" %}selected{% else %}selected{% endif %}>Medium</option>
+          <option value="large" {% if user_settings.font_size == "large" %}selected{% endif %}>Large</option>
+      </select>
+  </p>
+  <div style="position: relative;">
+    <p style="text-align: left;">
+      <a href="/Edit Profile" style="color: black;"><i class="fas fa-pencil-alt"></i> Edit Profile</a>
+    </p>
+    <p style="text-align: left; background-color: green;">
+      <a href="/index" style="color: white;"><i class="fa fa-sign-out-alt"></i> Logout</a>
+    </p>
+
+    <!-- Container for the close button -->
+    <button id="closeButton" style="position: absolute; bottom: -20; left: 5px; padding: 5px 10px; background-color: red; color: white; border: none; cursor: pointer;">Close</button>
+  </div>
+</div>
+
+<style>
+  @media (max-width: 600px) {
+    .user-profile-details {
+      position: relative;
+      z-index: 1;
+    }
+  }
+</style>
+
+<!-- Your existing JavaScript code -->
+
+<script>
+  const fontSizeSelect = document.getElementById('fontSizeSelect');
+  const notificationToggle = document.getElementById('notificationToggle');
+  const darkModeToggle = document.getElementById('darkModeToggle');
+
+  // Function to save user settings and apply dark mode
+  const saveUserSettings = () => {
+    const selectedFontSize = fontSizeSelect.value;
+    document.body.style.fontSize = selectedFontSize;
+
+    // Save user settings in localStorage
+    const userSettings = {
+      fontSize: selectedFontSize,
+      darkMode: darkModeToggle.checked,
+      notifications: notificationToggle.checked
+    };
+    localStorage.setItem('userSettings', JSON.stringify(userSettings));
+
+    // Apply dark mode immediately if it was saved as enabled
+    if (userSettings.darkMode) {
+      document.body.classList.add('dark-mode');
+      // Set the text color to white for the specified elements
+      setTextColorForElements('white');
+    } else {
+      document.body.classList.remove('dark-mode');
+      // Reset the text color for the specified elements
+      setTextColorForElements('black');
+    }
+  };
+
+  // Function to set text color for specified elements
+  const setTextColorForElements = (color) => {
+    const editProfileLink = document.querySelector('a[href="/Edit Profile"]');
+    const logoutLink = document.querySelector('a[href="/index"]');
+
+    if (editProfileLink) {
+      editProfileLink.style.color = color;
+    }
+
+    if (logoutLink) {
+      logoutLink.style.color = color;
+    }
+  };
+
+  // Event listener for font size selection
+  fontSizeSelect.addEventListener('change', () => {
+    // Implement code to change font size
+    const selectedFontSize = fontSizeSelect.value;
+    document.body.style.fontSize = selectedFontSize;
+
+    // Save user settings when the font size is changed
+    saveUserSettings();
+  });
+
+  window.addEventListener('load', () => {
+    // Apply user settings on page load
+    const savedUserSettings = localStorage.getItem('userSettings');
+    if (savedUserSettings) {
+      const userSettings = JSON.parse(savedUserSettings);
+      fontSizeSelect.value = userSettings.fontSize;
+      document.body.style.fontSize = userSettings.fontSize;
+      darkModeToggle.checked = userSettings.darkMode;
+      notificationToggle.checked = userSettings.notifications;
+
+      // Apply dark mode immediately if it was saved as enabled
+      if (userSettings.darkMode) {
+        document.body.classList.add('dark-mode');
+        // Set the text color to white for the specified elements
+        setTextColorForElements('white');
+      }
+    }
+
+    // Event listeners for checkboxes and select
+    darkModeToggle.addEventListener('change', () => {
+      // Implement code to toggle dark mode
+      if (darkModeToggle.checked) {
+        document.body.classList.add('dark-mode');
+        // Set the text color to white for the specified elements
+        setTextColorForElements('white');
+      } else {
+        document.body.classList.remove('dark-mode');
+        // Reset the text color for the specified elements
+        setTextColorForElements('black');
+      }
+
+      // Save user settings when the theme is changed
+      saveUserSettings();
+    });
+
+    // Rest of your event listeners...
+  });
+
+  // JavaScript code for handling the close button
+  const closeButton = document.getElementById('closeButton');
+  const userProfileDetails = document.getElementById('profile-details');
+
+  closeButton.addEventListener('click', () => {
+    // Hide or remove the user-profile-details when the close button is clicked
+    userProfileDetails.style.display = 'none';
+  });
+</script>
+
+
+
+
+
+
       
       <!-- JavaScript to toggle the visibility of the profile details -->
       <script>
@@ -415,6 +628,26 @@
           profileLink.addEventListener('click', () => {
               profileDetails.style.display = profileDetails.style.display === 'none' ? 'block' : 'none';
           });
+
+
+          // Global Settings
+          document.addEventListener('DOMContentLoaded', () => {
+          const darkModeToggle = document.getElementById('id_dark_mode');
+          const fontSizeSelect = document.getElementById('id_font_size');
+          const notificationToggle = document.getElementById('id_notifications');
+
+          // Apply user settings
+          if (darkModeToggle.checked) {
+              document.body.classList.add('dark-mode');
+          } else {
+              document.body.classList.remove('dark-mode');
+          }
+
+          const selectedFontSize = fontSizeSelect.value;
+          document.body.style.fontSize = selectedFontSize;
+
+          // You can also check the notification setting here and update the UI accordingly
+      });
       </script>
       
       <style>
@@ -452,14 +685,14 @@
   
 
   <div class="sidenav" style="display: block;">  
-    <a href="/dashboard"><i class="fa fa-chart-bar"></i> Business Overview</a>
+    <a href="/dashboard"><i class="fa fa-chart-bar"></i> Dashboard</a>
     <a href="/Employee"><i class="fa fa-users"></i> Employees</a>
     <a href="/departments"><i class="fa fa-building"></i> Departments</a>
     <a href="/Inventory"><i class="fa fa-briefcase"></i> Inventory</a>
     <a href="/finances"><i class="fa fa-dollar-sign"></i> Finances</a>
     <a href="/clients"><i class="fa fa-user-tie"></i> Clients</a>
     <a href="/analytics"><i class="fa fa-chart-line"></i> Analytics</a>
-    <a href='/settings'><i class="fa fa-cogs"></i> Settings</a>
+    <a href='/mysettings'><i class="fa fa-cogs"></i> Settings</a>
     <a href="/report_dashboard"><i class="fa fa-file-alt"></i> Reports</a>    
     <a href="#"><i class="fa fa-cogs"></i> Business Settings</a>
     <a href="/index"><i class="fa fa-sign-out-alt"></i> Logout</a>
@@ -490,7 +723,9 @@
     </div>
     <p>© 2023 BarManager. All rights reserved.</p>
   </footer>
-  
+
+
+
   
 </body>
 </html>

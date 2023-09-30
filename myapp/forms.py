@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage)
+                      Employer, BeverageImage, Daily_Usage, UserSettings)
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from django.contrib.auth.forms import AuthenticationForm
@@ -137,3 +137,8 @@ class DeleteEmployeeForm(forms.ModelForm): #This can be handled using JavaScript
         model = Employee
 
         fields = []
+        
+class UserSettingsForm(forms.ModelForm):
+    class Meta:
+        model = UserSettings
+        fields = ['dark_mode', 'notifications', 'font_size']

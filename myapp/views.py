@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage, UserProfile, Department)
+                      Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSettings)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-from .forms import (Beverage_Form, EmployeeForm, Usage_Amount_Form, New_stockForm, UserProfileForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
+from .forms import (Beverage_Form, EmployeeForm, Usage_Amount_Form, New_stockForm, UserProfileForm, UserSettingsForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
                     #Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm, Fertilizer_Recycle_Form)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
@@ -32,6 +32,10 @@ from .decorators import public_view, login_exempt
 from .decorators import superuser_required
 from django.contrib.auth.decorators import user_passes_test
 from django.core.files import File
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
+
 
 
 def regenerate_csrf_token(request):
@@ -323,9 +327,17 @@ def departments(request):
 
 # Example views
 def daily_usage_report(request):
-    # Implement your daily usage report logic here
-    # You can render an HTML template for the report or return JSON data, depending on your needs
-    return render(request, 'daily_usage_report.html')
+    context ={}
+ 
+    # create object of form
+    Usage_Member = Daily_Usage.objects.all()
+    context = {
+    'Usage_Member': Usage_Member,
+  }
+    if request.user.is_authenticated:
+      request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+
+    return render(request, "daily_usage_report.html", context)
 
 def purchased_stock_report(request):
     # Implement your purchased stock report logic here
@@ -350,3 +362,41 @@ def items_classification_report(request):
 def forex_exchange_rates_report(request):
     # Implement your forex exchange rates report logic here
     return render(request, 'forex_exchange_rates_report.html')
+
+@login_required  # Add the login_required decorator to require authentication
+def mysettings(request):
+    user_settings, created = UserSettings.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = UserSettingsForm(request.POST, instance=user_settings)
+        if form.is_valid():
+            form.save()
+            return redirect('settings')
+    else:
+        form = UserSettingsForm(instance=user_settings)
+    return render(request, 'settings.html', {'form': form})
+
+
+def analytics_view(request):
+    # Your data processing and graph generation code here
+    # For example, create a sample graph:
+    x = [1, 2, 3, 4, 5]
+    y = [10, 20, 15, 30, 25]
+
+    plt.figure(figsize=(6, 4))
+    plt.plot(x, y)
+    plt.title('Sample Graph')
+    plt.xlabel('X-Axis')
+    plt.ylabel('Y-Axis')
+
+    # Save the graph as a BytesIO object
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    buffer.close()
+
+    # Encode the graph in base64
+    graph = base64.b64encode(image_png).decode('utf-8')
+
+    context = {'graph': graph}
+    return render(request, 'analytics.html', context)

@@ -1,0 +1,1194 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Inventory
+{% endblock %}
+
+{% block styles %}
+<style>
+  .post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0 auto;
+    background-color: #72f766; /* Change the background color */
+    margin-top: 50px; /* Adjust the margin-top value as needed */
+    color: blue;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+
+  p {
+    margin-bottom: 10px;
+    text-align: center;
+    border: gold;
+    color: blue;
+  }
+
+  small {
+    color: grey;
+  }
+
+  span.error {
+    color: red;
+  }
+
+  button {
+    margin-top: 10px;
+    background-color: #72f766;
+  }
+
+  .image-container {
+    position: fixed;
+    bottom: -10%;
+    left: -41%;
+    float: left;
+    opacity: 0.6;
+    padding: 0em 3.1em;
+  }
+  .image-container img {
+    width: 100%;
+    height: auto;
+    opacity: 0.4;
+  }
+  .form-container {
+    max-width: 50%;
+    flex-basis: 50%;
+    float: left;
+  }
+
+  .table-container {
+    max-width: 45%;
+    flex-basis: 45%;
+    float: right;
+  }
+
+  /* Responsive styles */
+  @media only screen and (max-width: 600px) {
+    .image-container {
+      position: static;
+      padding: 0;
+    }
+
+    .form-container,
+    .table-container {
+      max-width: 100%;
+      flex-basis: 100%;
+    }
+  }
+
+  /* Additional responsive styles */
+  @media only screen and (max-width: 800px) {
+    .post-form {
+      padding: 20px;
+    }
+  }
+  #myTable2 {
+  width: 100%;
+}
+
+#myTable2 th,
+#myTable2 td {
+  padding: 8px;
+}
+
+@media (max-width: 768px) {
+  #myTable2 {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  #myTable2 th,
+  #myTable2 td {
+    white-space: nowrap;
+    font-size: 12px;
+  }
+}
+
+.table-container {
+  float: right;
+  background-color: #d4fdfd;
+  padding: 5px;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .table-container {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1201px) {
+  .table-container {
+    width: 61%;
+  }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  /* Styles for the modal content */
+  .modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+</style>
+
+
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<header style="background-image: url('https://img.freepik.com/premium-photo/fintech-icon-abstract-financial-technology-background_34663-91.jpg?w=2000'); background-size: cover; padding: 5px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
+    <div>
+      <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Expenditure</h2>
+      <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">Your reports and data warehouse</p>
+    </div>
+  </header>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<div class="container" style="background-size: cover; width: 100%;">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+<div style="overflow-x: auto; overflow-y: auto;">
+  <div class="table-container" style="text-align: center;">
+
+    <h1 style="color: blue; background-color: rgb(198, 255, 196);">Daily Usage Report</h1>
+    
+
+    <input type="button" id="btnExport1" value="PDF" title="Export to PDF" />
+    <button onclick="htmlTableToExcel('xlsx', 'myTable2')"><i class="fas fa-file-excel" title="Export to Excel" style="color: green;"></i></button>
+    <button id="toggleButton" onclick="toggleTable()"><i class="fas fa-table"></i></button>
+    
+    <div style="margin-left: 20px;"> <!-- Add margin for spacing -->
+        <label for="dateInput">Date:</label>
+        <input type="date" id="dateInput" />
+        <button onclick="showTable();"><i class="fas fa-cloud-download-alt"></i></button>
+        <button id="toggleButton1" style="margin-left: 10px;"><i class="fas fa-calendar"></i></button>
+    </div>
+    
+    <div class="container" style="margin-left: 20px;"> <!-- Add margin for spacing -->
+        <div id="codeBlock" style="display: none;">
+            <label for="startDateInput">From Date:</label>
+            <input type="date" id="startDateInput" />
+            <label for="endDateInput">To Date:</label>
+            <input type="date" id="endDateInput" />
+            <button onclick="myFunction1();"><i class="fas fa-filter"></i></button>
+        </div>
+    </div>
+</h3>  
+      
+    <ul id="id01">
+      <div style="overflow-x: auto; overflow-y: auto;">
+        <table id="myTable2" border="1" style="display: flex; border: 1px solid black; border-collapse: collapse; overflow-x: auto; overflow-y: auto; background-color: bisque;">
+          <style>
+            table {
+              border-collapse: collapse; /* Collapse border spacing to create a single border */
+              width: 100%; /* Set the table width to 100% */
+            }
+          
+            th, td {
+              border: 1px solid #ccc; /* Add a 1px solid border to table headers and cells */
+              padding: 10px; /* Add padding to the cells for spacing */
+              text-align: center; /* Center-align text in header cells and data cells */
+              font-weight: bold; /* Make the text in header cells bold */
+            }
+          
+            input[type="text"] {
+              width: 100%; /* Make the search input fields span the entire cell */
+              padding: 5px; /* Add some padding to the input fields for spacing */
+              box-sizing: border-box; /* Include padding in the input field's total width */
+              border: 1px solid #ccc; /* Add a border to input fields */
+              border-radius: 4px; /* Add rounded corners to input fields */
+            }
+          
+            /* Style the "Select All" checkbox */
+            #selectAllCheckbox {
+              margin: 0;
+            }
+          </style>
+          
+          <table>
+            <!-- Search row -->
+            <tr>
+              <th>
+                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search">
+              </th>
+              <th>
+                <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date">
+              </th>
+              <th>
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Product">
+              </th>
+              <th>
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search U/m">
+              </th>
+              <th>
+                <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search price">
+              </th>
+            </tr>
+            <!-- Header row -->
+            <table>
+              <tr style="background-color: rgb(148, 98, 42); color: white;">
+                  <th>
+                      <input type="checkbox" id="selectAllCheckbox" onchange="selectAllRows()">
+                      No
+                  </th>
+                  <th>Date</th>
+                  <th>Product</th>
+                  <th>U/m</th>
+                  <th>Price Ksh</th>
+                  <th>Used Amount</th>
+                  <th>Cost Ksh</th>
+                  <th>Place of Use</th>
+                  <th>Edit</th>
+                  <th>Remove</th>
+              </tr>
+              <!-- Your table data goes here -->    
+              {% for x in Usage_Member %}
+              <tr>
+                  <td>
+                      <input type="checkbox" class="rowCheckbox">
+                      {{ forloop.counter }} <!-- Add row number here -->
+                  </td>
+                  <td style="text-align: left;">
+                      {{ x.Date|date:"m/d/Y" }}
+                  </td>
+                  <td style="text-align: left;">{{ x.Product|default:"" }}</td>
+                  <td style="text-align: left;">{{ x.UnitOfMeasure|default:"" }}</td>
+                  <td style="text-align: right;">{{ x.Product_price|default:"" }}</td>
+                  <td style="text-align: right;">{{ x.Used_Amount|default:"" }}</td>
+                  <td style="text-align: right;">{{ x.Daily_usage_cost|default:"" }}</td>
+                  <td style="text-align: left;">{{ x.Place_of_usage|default:"" }}</td>
+                  <td><a style="color: green;" href="update/{{ x.id }}"><i class="fas fa-pencil-alt fa-1x" style="color: rgb(9, 141, 9);"></i></a></td>
+                  <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fas fa-trash-alt fa-1x" style="color: rgb(170, 16, 16);"></i></a></td>
+              </tr>
+              {% endfor %}
+              
+          </table>
+          
+      </div>
+    </ul>
+    <button style="background-color: rgb(145, 31, 31); color: #fff;" onclick="deleteSelectedItems()">Delete Selected</button>
+    <button onclick="performOperationOnSelected()">Perform Operation on Selected</button>
+    <button id="exportButton" style="background-color: green; color: #fff;">Export to Excel</button>
+    <div id="paginationButtons">
+      <button onclick="showPreviousPage1()">Previous</button>
+      <button onclick="showNextPage1()">Next</button>
+    </div>
+  </div>
+</div>
+</div>
+        
+    
+    <script>
+      const itemsPerPage = 10;
+      let currentPaginationPage = 1;
+      const tableRows = document.querySelectorAll("#myTable2 tr");
+
+      function showPage(pageNumber) {
+        const startIndex = (pageNumber - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        tableRows.forEach((row, index) => {
+          if (index === 0) { // Skip the first row (table header)
+            return;
+          }
+
+          if (index >= startIndex && index < endIndex) {
+            row.style.display = "table-row";
+          } else {
+            row.style.display = "none";
+          }
+        });
+
+        currentPaginationPage = pageNumber;
+        updatePaginationButtons();
+      }
+
+      function updatePaginationButtons() {
+        const prevButton = document.querySelector("#paginationButtons button:first-child");
+        const nextButton = document.querySelector("#paginationButtons button:last-child");
+
+        prevButton.disabled = currentPaginationPage === 1;
+        nextButton.disabled = (currentPaginationPage * itemsPerPage) >= (tableRows.length - 1); // Exclude the header row
+      }
+
+      function showPreviousPage1() {
+        if (currentPaginationPage > 1) {
+          showPage(currentPaginationPage - 1);
+        }
+      }
+
+      function showNextPage1() {
+        if ((currentPaginationPage * itemsPerPage) < (tableRows.length - 1)) { // Exclude the header row
+          showPage(currentPaginationPage + 1);
+        }
+      }
+
+      // Show the first page initially with 15 items
+      showPage(1);
+
+
+    </script>
+        
+        <script>
+
+
+          // // Function to add row numbers to the table
+          // function addRowNumbers() {
+          //   const table = document.getElementById('myTable2');
+          //   const rows = table.getElementsByTagName('tr');
+            
+          //   // Start the row number from 1 (excluding the header row)
+          //   let rowNumber = 1;
+          //   for (let i = 1; i < rows.length; i++) {
+          //     const row = rows[i];
+          //     const cells = row.getElementsByTagName('td');
+              
+          //     // Update the first cell (index 0) with the row number
+          //     cells[0].innerText = rowNumber;
+          //     rowNumber++;
+          //   }
+          // }
+
+          // Call the function to add row numbers when the page loads
+          // addRowNumbers();
+
+
+
+
+
+
+        function selectAllRows() {
+          var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+          var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
+        
+          // Set the checked state of row checkboxes based on the select all checkbox
+          for (var i = 0; i < rowCheckboxes.length; i++) {
+            rowCheckboxes[i].checked = selectAllCheckbox.checked;
+          }
+        }
+        
+        function deleteSelectedItems() {
+          var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
+
+          // Collect the IDs of the selected rows
+          var selectedIds = [];
+          for (var i = 0; i < rowCheckboxes.length; i++) {
+            if (rowCheckboxes[i].checked) {
+              var row = rowCheckboxes[i].parentNode.parentNode;
+              var id = row.querySelector('a[href^="delete/"]').getAttribute('href').split('/')[1];
+              selectedIds.push(id);
+            }
+          }
+
+          // Perform the delete action with the selected IDs
+          if (selectedIds.length > 0) {
+            var confirmed = confirm('Are you sure you want to delete the selected items?');
+            if (confirmed) {
+              // Use AJAX to send the delete request to the server
+              var xhr = new XMLHttpRequest();
+              xhr.open('GET', '/delete_multiple/?selected_ids[]=' + selectedIds.join('&selected_ids[]='), true);
+              xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                  // Handle the response if needed
+                  window.location.href = '/Fertilizers';
+                }
+              };
+              xhr.send();
+            }
+          } else {
+            alert('No items selected.');
+          }
+        }
+        
+        // Your existing code for performing operations on selected items
+        function performOperationOnSelected() {
+          var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
+          var selectedIds = [];
+
+          for (var i = 0; i < rowCheckboxes.length; i++) {
+            if (rowCheckboxes[i].checked) {
+              var row = rowCheckboxes[i].parentNode.parentNode;
+              var id = row.querySelector('a[href^="update/"]').getAttribute('href').split('/')[1];
+              selectedIds.push(id);
+            }
+          }
+
+          if (selectedIds.length > 0) {
+            window.location.href = '/perform_operation/' + selectedIds.join(',');
+          } else {
+            alert('No items selected.');
+          }
+        }
+
+        // Function to handle exporting to Excel
+        function exportToExcel(selectedIds) {
+          // You would need to implement Excel generation here using a library like xlsx.js
+          // This is a simplified example just for demonstration purposes
+          var excelData = "ID,Name,Description\n";
+
+          for (var i = 0; i < selectedIds.length; i++) {
+            // Replace this with your data retrieval logic
+            var id = selectedIds[i];
+            var name = "Item " + id;
+            var description = "Description of Item " + id;
+            excelData += id + "," + name + "," + description + "\n";
+          }
+
+          // Create a Blob and trigger the download
+          var blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          var link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = 'selected_data.xlsx';
+          link.click();
+        }
+
+        // Add a click event listener to the "Export to Excel" button
+        document.getElementById('exportButton').addEventListener('click', function () {
+          performOperationOnSelected(); // Call your existing function to get selected IDs
+          exportToExcel(selectedIds); // Call the function to export to Excel
+        });
+
+        </script>   
+        
+        
+
+
+
+
+
+
+
+        <script>
+        function selectAllRows1() {
+        var selectAllCheckbox = document.getElementById('selectAllCheckbox1');
+        var rowCheckboxes = document.getElementsByClassName('rowCheckbox1');
+
+        // Set the checked state of row checkboxes based on the select all checkbox
+        for (var i = 0; i < rowCheckboxes.length; i++) {
+          rowCheckboxes[i].checked = selectAllCheckbox.checked;
+        }
+      }
+
+      function deleteSelectedItems1() {
+        var rowCheckboxes = document.getElementsByClassName('rowCheckbox1');
+
+        // Collect the IDs of the selected rows
+        var selectedIds = [];
+        for (var i = 0; i < rowCheckboxes.length; i++) {
+          if (rowCheckboxes[i].checked) {
+            var row = rowCheckboxes[i].parentNode.parentNode;
+            var id = row.querySelector('a[href^="delete_multiple_fertilizers/"]').getAttribute('href').split('/')[1];
+            selectedIds.push(id);
+          }
+        }
+
+        // Perform the delete action with the selected IDs
+        if (selectedIds.length > 0) {
+          var confirmed = confirm('Are you sure you want to delete the selected items?');
+          if (confirmed) {
+            // Use AJAX to send the delete request to the server
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/delete_multiple_fertilizers/', true); // Replace with the appropriate endpoint for deleting multiple items
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                  // Handle the response if needed
+                  window.location.reload(); // Refresh the page after successful deletion
+                } else {
+                  // Handle errors
+                  alert('Failed to delete selected items.');
+                }
+              }
+            };
+            xhr.send(JSON.stringify({ selectedIds: selectedIds }));
+          }
+        } else {
+          alert('No items selected.');
+        }
+      }
+
+      function performOperationOnSelected1() {
+        var rowCheckboxes = document.getElementsByClassName('rowCheckbox1');
+
+        // Collect the IDs of the selected rows
+        var selectedIds = [];
+        for (var i = 0; i < rowCheckboxes.length; i++) {
+          if (rowCheckboxes[i].checked) {
+            var row = rowCheckboxes[i].parentNode.parentNode;
+            var id = row.querySelector('a[href^="update/"]').getAttribute('href').split('/')[1];
+            selectedIds.push(id);
+          }
+        }
+
+        // Perform the desired operation with the selected IDs
+        if (selectedIds.length > 0) {
+          // You can customize this function to perform the desired operation on the selected items
+          // Example: Redirect to a specific endpoint with the selected IDs
+          window.location.href = '/perform_operation/' + selectedIds.join(',');
+        } else {
+          alert('No items selected.');
+        }
+      }
+          </script>    
+
+
+
+
+        <script>
+          // JavaScript variables to track current page and rows per page
+          let currentPage = 1;
+          const rowsPerPage = 15;
+
+          // Function to show the relevant rows for the current page
+          function showRowsByPage() {
+            const rows = document.getElementsByClassName('pagination-row');
+
+            // Calculate the starting and ending row indexes for the current page
+            const startIndex = (currentPage - 1) * rowsPerPage;
+            const endIndex = startIndex + rowsPerPage;
+
+            // Show or hide rows based on the current page
+            for (let i = 0; i < rows.length; i++) {
+              if (i >= startIndex && i < endIndex) {
+                rows[i].style.display = 'table-row';
+              } else {
+                rows[i].style.display = 'none';
+              }
+            }
+          }
+
+          // Function to show the next page
+          function showNextPage() {
+            const totalRows = document.getElementsByClassName('pagination-row').length;
+            const maxPage = Math.ceil(totalRows / rowsPerPage);
+
+            if (currentPage < maxPage) {
+              currentPage++;
+              showRowsByPage();
+            }
+          }
+
+          // Function to show the previous page
+          function showPrevPage() {
+            if (currentPage > 1) {
+              currentPage--;
+              showRowsByPage();
+            }
+          }
+
+          // Initial call to show the rows for the first page
+          showRowsByPage();
+        </script>
+
+
+
+        
+      </div>
+    </ul> 
+  </div>
+</div>
+</div>
+<script>
+  //Clear form field form1 and form2
+  function clearFormFields() {
+    var form = document.getElementById('myForm');
+    var inputs = form.getElementsByTagName('input');
+    var selects = form.getElementsByTagName('select');
+    var textareas = form.getElementsByTagName('textarea');
+
+    // Clear the form fields
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = '';
+    }
+
+    for (var i = 0; i < selects.length; i++) {
+      selects[i].selectedIndex = 0;
+    }
+
+    for (var i = 0; i < textareas.length; i++) {
+      textareas[i].value = '';
+    }
+
+    // Regenerate the CSRF token
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/regenerate_csrf_token/', true);  // Replace with your server-side endpoint for regenerating CSRF token
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        var newToken = xhr.responseText;
+        // Update the CSRF token input field
+        var csrfInput = form.querySelector('input[name="csrfmiddlewaretoken"]');
+        if (csrfInput) {
+          csrfInput.value = newToken;
+        }
+      }
+    };
+    xhr.send();
+}
+
+  function clearFormFields1() {
+  var form = document.getElementById('myForm1');
+  var inputs = form.getElementsByTagName('input');
+  var selects = form.getElementsByTagName('select');
+  var textareas = form.getElementsByTagName('textarea');
+
+  // Clear the form fields
+  for (var i = 0; i < inputs.length; i++) {
+    inputs[i].value = '';
+  }
+
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].selectedIndex = 0;
+  }
+
+  for (var i = 0; i < textareas.length; i++) {
+    textareas[i].value = '';
+  }
+
+  // Regenerate the CSRF token
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/regenerate_csrf_token/', true);  // Replace with your server-side endpoint for regenerating CSRF token
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      var newToken = xhr.responseText;
+      // Update the CSRF token input field
+      var csrfInput = form.querySelector('input[name="csrfmiddlewaretoken"]');
+      if (csrfInput) {
+        csrfInput.value = newToken;
+      }
+    }
+  };
+  xhr.send();
+}
+
+
+
+
+</script>
+
+
+<!-- Jquery to print to download pdf File from the table -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript">
+    $("body").on("click", "#btnExport1", function () {
+        html2canvas($('#myTable2')[0], {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download("Fertilizer records.pdf");
+            }
+        });
+    });
+</script>
+
+
+<!-- Export data to excel file -->
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js">
+
+function ExportToExcel(type, fn, dl) {
+  var elt = document.getElementById('myTable2');
+  var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+  return dl ?
+    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+    XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+}
+</script>
+
+<script>
+
+
+
+
+window.onload = function() {
+  window.onload = clearFormFields1();
+}
+   
+
+const toggleButton = document.getElementById('toggleButtonadd');
+const formContainer = document.querySelector('.form-container');
+
+  toggleButton.addEventListener('click', () => {
+    if (formContainer.style.display === 'none') {
+      formContainer.style.display = 'block';
+    } else {
+      formContainer.style.display = 'none';
+    }
+  });
+
+
+  const dateInput = document.getElementById('dateInput');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.value = today;
+
+
+
+  const toggleButton1 = document.getElementById('toggleButton1');
+  const codeBlock = document.getElementById('codeBlock');
+
+  toggleButton1.addEventListener('click', () => {
+    if (codeBlock.style.display === 'none') {
+      codeBlock.style.display = 'block';
+    } else {
+      codeBlock.style.display = 'none';
+    }
+  });
+
+//Show or hide table upon button press
+
+
+// function toggleTable() {
+//     var table = document.getElementById("myTable2");
+//     if (table.style.display === "none") {
+//       table.style.display = "table"; // show the table
+//     } else {
+//       table.style.display = "none"; // hide the table
+//     }
+//   }
+
+
+
+  function showTable() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("dateInput");
+  filter = formatDate(input.value); // Convert date input value to desired format
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those that don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = formatDate(td.textContent || td.innerText); // Convert table date to desired format
+      if (txtValue === filter) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+// Helper function to format the date as "m/d/year"
+function formatDate(dateString) {
+  var date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric"
+  });
+}
+
+
+
+
+
+  // clear form on toLocaleDateString
+
+  window.onload = function() {
+    var form = document.getElementById("myForm");
+    form.reset();
+  };
+
+// Show function when the window loads
+  window.onload = function() {
+    toggleTable();
+    showTable();
+  };
+
+// Export table to excel
+function htmlTableToExcel(type, tableId) {
+  const table = document.getElementById(tableId);
+  const data = document.createElement('table');
+  data.innerHTML = table.innerHTML;
+  data.querySelectorAll('tr').forEach(row => { 
+    if (row.hidden || (row.closest('tbody') && row.matches('.header'))) row.remove() 
+  })
+  for(i = 0 ; i < data.rows.length ; i++) 
+  {    
+      var row = data.rows[i];
+      var numberOfCells = row.cells.length;
+      row.deleteCell(numberOfCells - 1);
+
+      var row = data.rows[i];
+      var numberOfCells = row.cells.length;
+      row.deleteCell(numberOfCells - 1);
+
+  }
+  console.log(data.outerHTML)
+  var excelFile = XLSX.utils.table_to_book(data, {
+    
+    sheet: "sheet1"
+  });
+  XLSX.write(excelFile, {
+    bookType: type,
+    bookSST: true,
+    type: 'base64'
+  });
+  
+  XLSX.writeFile(excelFile, 'Fertilizer records.' + type);
+}
+
+// Search table with name
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+// Search table with Date
+function myFunction0() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput3");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+// Search table within a date range
+function myFunction1() {
+  // Declare variables
+  var startDateInput, endDateInput, startDate, endDate, table, tr, td, i, txtValue;
+  startDateInput = document.getElementById("startDateInput");
+  endDateInput = document.getElementById("endDateInput");
+  startDate = startDateInput.valueAsDate; // Retrieve the start date value
+  endDate = endDateInput.valueAsDate; // Retrieve the end date value
+
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those that don't match the date range
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      // Retrieve the date from the table cell
+      var tableDate = new Date(td.textContent || td.innerText);
+
+      // Check if the table date is within the specified range
+      if (tableDate >= startDate && tableDate <= endDate) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+// Search table with Fertilizer
+function myFunction2() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput2");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+// Search table with Fertilizer
+function myFunction3() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput3");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+
+
+
+// Sort table with name
+
+function sortnameTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable2");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+// sort table with number
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable2");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (Number(x.innerHTML) > Number(y.innerHTML)) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+
+
+
+
+// Insert numbers on table
+
+// var table = document.getElementsByTagName('table')[0],
+//   rows = table.getElementsByTagName('tr'),
+//   text = 'textContent' in document ? 'textContent' : 'innerText';
+
+// for (var i = 1, len = rows.length; i < len; i++) {
+//   rows[i].children[0][text] = i + rows[i].children[0][text];
+// }
+
+
+
+
+
+function sortListDir() {
+  var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
+  list = document.getElementById("id01");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc"; 
+  // Make a loop that will continue until no switching has been done:
+  while (switching) {
+    // start by saying: no switching is done:
+    switching = false;
+    b = list.getElementsByTagName("LI");
+    // Loop through all list-items:
+    for (i = 0; i < (b.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /* check if the next item should switch place with the current item,
+      based on the sorting direction (asc or desc): */
+      if (dir == "asc") {
+        if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+          /* if next item is alphabetically lower than current item,
+          mark as a switch and break the loop: */
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
+          /* if next item is alphabetically higher than current item,
+          mark as a switch and break the loop: */
+          shouldSwitch= true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      b[i].parentNode.insertBefore(b[i + 1], b[i]);
+      switching = true;
+      // Each time a switch is done, increase switchcount by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+
+{% endblock %}
