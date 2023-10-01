@@ -24,7 +24,7 @@ from myapp.views import (
     register_view, login_view, logout_view, dashboard, Employee_view, index, about,
     anouncement, contacts, Employer_dashboard, Inventory, profile, Employee_details, departments, report_dashboard,
     daily_usage_report, purchased_stock_report, physical_stock_take_report, budget_report, price_list_report, items_classification_report,
-    forex_exchange_rates_report, mysettings, analytics_view
+    forex_exchange_rates_report, mysettings, analytics_view, DynamicChartView, business_settings
     )
 
 urlpatterns = [
@@ -52,7 +52,9 @@ urlpatterns = [
     path('items-classification/', items_classification_report, name='items_classification_report'),
     path('forex-exchange-rates/', forex_exchange_rates_report, name='forex_exchange_rates_report'),
     path('mysettings/', mysettings, name='settings'),
-     path('analytics/', analytics_view, name='analytics'),
+    path('business_settings/', business_settings, name='business_settings'),
+    path('analytics/', analytics_view, name='analytics'),
+    path('dynamic_chart/', DynamicChartView.as_view(), name='dynamic_chart'),
     # path('images/', include('myapp.urls')),
 ]
 

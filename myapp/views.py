@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSettings)
+                      Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSettings, BusinessSettings)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -35,6 +35,12 @@ from django.core.files import File
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+import random
+from django.views import View
+from django.http import JsonResponse
 
 
 
@@ -400,3 +406,19 @@ def analytics_view(request):
 
     context = {'graph': graph}
     return render(request, 'analytics.html', context)
+
+class DynamicChartView(View):
+    def get(self, request, format=None):
+        # Generate random data for the chart
+        x = [1, 2, 3, 4, 5]
+        y = [random.randint(1, 50) for _ in range(len(x))]  # Generate random y values
+
+        chart_data = {'x': x, 'y': y}
+        return render(request, 'analytics.html', {'chart_data': chart_data})
+
+
+def business_settings(request):
+    business_settings = BusinessSettings.objects.first()  # Retrieve the first settings object
+    return render(request, 'business_settings.html', {'business_settings': business_settings})
+
+

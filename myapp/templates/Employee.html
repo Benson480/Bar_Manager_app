@@ -290,9 +290,9 @@
                   <td>{{ forloop.counter }}</td> <!-- Add this line to display the row number -->
                   <td>{{ x.Date_employed|date:"m/d/Y" }}</td>
                   <td>{{ x.Payroll_number }}</td>
-                  <td>{{ x.firstname|default:"" }}</td>
-                  <td>{{ x.middlename|default:"" }}</td>
-                  <td>{{ x.lastname|default:"" }}</td>
+                  <td>{{ x.firstname|default:""|title }}</td>
+                  <td>{{ x.middlename|default:""|title }}</td>
+                  <td>{{ x.lastname|default:""|title }}</td>
                   <td>{{ x.Last_date_attendance|default:"" }}</td>
                   <td>{{ x.Designation|default:"" }}</td>
                   <td>{{ x.Performance|default:"" }}</td>

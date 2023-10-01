@@ -284,3 +284,12 @@ class UserSettings(models.Model):
 
     def __str__(self):
         return self.user.username + "'s Settings"
+    
+class BusinessSettings(models.Model):
+    business_name = models.CharField(max_length=100)
+    business_address = models.TextField()
+    business_email = models.EmailField()
+    business_phone = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.business_name

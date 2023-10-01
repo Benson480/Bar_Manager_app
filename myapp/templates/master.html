@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <meta charset="UTF-8">
   <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -490,9 +494,9 @@ body.dark-mode .content {
   </p>
   <div style="position: relative;">
     <p style="text-align: left;">
-      <a href="/Edit Profile" style="color: black;"><i class="fas fa-pencil-alt"></i> Edit Profile</a>
+      <a href="/Edit Profile" style="text-align: left; background-color: rgb(26, 159, 211);"><i class="fas fa-pencil-alt"></i> Edit Profile</a>
     </p>
-    <p style="text-align: left; background-color: green;">
+    <p style="text-align: left; background-color: green; color: white;">
       <a href="/index" style="color: white;"><i class="fa fa-sign-out-alt"></i> Logout</a>
     </p>
 
@@ -684,19 +688,20 @@ body.dark-mode .content {
 
   
 
-  <div class="sidenav" style="display: block;">  
-    <a href="/dashboard"><i class="fa fa-chart-bar"></i> Dashboard</a>
-    <a href="/Employee"><i class="fa fa-users"></i> Employees</a>
-    <a href="/departments"><i class="fa fa-building"></i> Departments</a>
-    <a href="/Inventory"><i class="fa fa-briefcase"></i> Inventory</a>
-    <a href="/finances"><i class="fa fa-dollar-sign"></i> Finances</a>
-    <a href="/clients"><i class="fa fa-user-tie"></i> Clients</a>
-    <a href="/analytics"><i class="fa fa-chart-line"></i> Analytics</a>
-    <a href='/mysettings'><i class="fa fa-cogs"></i> Settings</a>
-    <a href="/report_dashboard"><i class="fa fa-file-alt"></i> Reports</a>    
-    <a href="#"><i class="fa fa-cogs"></i> Business Settings</a>
-    <a href="/index"><i class="fa fa-sign-out-alt"></i> Logout</a>
-  </div>
+<div class="sidenav" style="display: block; max-height: 92%; overflow-y: auto;">
+  <a href="/dashboard"><i class="fa fa-chart-bar"></i> Dashboard</a>
+  <a href="/Employee"><i class="fa fa-users"></i> Employees</a>
+  <a href="/departments"><i class="fa fa-building"></i> Departments</a>
+  <a href="/Inventory"><i class="fa fa-briefcase"></i> Inventory</a>
+  <a href="/finances"><i class="fa fa-dollar-sign"></i> Finances</a>
+  <a href="/clients"><i class="fa fa-user-tie"></i> Clients</a>
+  <a href="/analytics"><i class="fa fa-chart-line"></i> Analytics</a>
+  <a href='/mysettings'><i class="fa fa-cogs"></i> Settings</a>
+  <a href="/report_dashboard"><i class="fa fa-file-alt"></i> Reports</a>    
+  <a href="/business_settings"><i class="fa fa-cogs"></i> Business Settings</a>
+  <a href="/index"><i class="fa fa-sign-out-alt"></i> Logout</a>
+</div>
+
   
     <!-- {% if user.is_authenticated %} -->
     <!-- {% else %}
