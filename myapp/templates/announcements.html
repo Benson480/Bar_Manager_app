@@ -237,7 +237,7 @@
     color: #FFF;
     text-align: center;
     padding: 10px;
-    position: fixed; /* or position: absolute; depending on your layout preference */
+    position: relative; /* or position: absolute; depending on your layout preference */
     bottom: 0;
     left: 0;
     right: 0;
@@ -311,7 +311,7 @@
       <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">Stay Informed about our business</p>
     </div>
   </header>
-  <div="paragraphs">
+  <div="paragraphs" style="background-color: #FFF;">
     {% if announcements %}
         <ul>
             {% for announcement in announcements %}
@@ -320,7 +320,7 @@
                     <p>{{ announcement.content }}</p>
                     <p>Type: {{ announcement.get_announcement_type_display }}</p>
                     {% if announcement.announcement_type == 'video' %}
-                        <p>Video URL: <a href="{{ announcement.video_url }}">{{ announcement.video_url }}</a></p>
+                        <p>Video URL: <a href="{{ announcement.video_url }}" target="_blank">{{ announcement.video_url }}</a></p>
                     {% endif %}
                     {% if announcement.countdown_to %}
                         <p>Countdown to: {{ announcement.countdown_to }}</p>
