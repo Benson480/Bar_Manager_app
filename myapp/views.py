@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSettings, BusinessSettings)
+                      Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSettings, BusinessSettings,
+                      Announcement)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -193,17 +194,13 @@ def report_dashboard(request):
     return render(request, 'reports_dashboard.html', {'user_profile': user_profile})
 
 def about(request):
-  template = loader.get_template('about.html')
-  return HttpResponse(template.render())
-
-def anouncement(request):
-  template = loader.get_template('anouncement.html')
-  return HttpResponse(template.render())
+    template = loader.get_template('about.html')
+    return HttpResponse(template.render())
 
 def contacts(request):
-  #This is the outer contacts page
-  template = loader.get_template('contacts.html')
-  return HttpResponse(template.render())
+    departments = Department.objects.all()
+    context = {'departments': departments}
+    return render(request, 'contacts.html', context)
 
 
 def image_list(request):
@@ -421,4 +418,6 @@ def business_settings(request):
     business_settings = BusinessSettings.objects.first()  # Retrieve the first settings object
     return render(request, 'business_settings.html', {'business_settings': business_settings})
 
-
+def announcement_list(request):
+    announcements = Announcement.objects.all().order_by('-timestamp')
+    return render(request, 'announcements.html', {'announcements': announcements})

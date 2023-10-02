@@ -143,9 +143,9 @@ body.dark-mode .content {
     }
     
     .sidenav a {
-      padding: 25px 8px 6px 16px;
+      padding: 20px 8px 6px 16px;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 15px;
       color: white;
       display: block;
       height: auto;
@@ -424,7 +424,7 @@ body.dark-mode .content {
   {% if user_settings.dark_mode %}class="dark-mode"{% endif %} style="font-size: {{ user_settings.font_size }};">
   <div class="topnav">
     <a href="/dashboard"><i class="fa fa-home"></i> Home</a>
-    <a href="/about/"><i class="fa fa-info-circle"></i> About</a>
+    <a href="/about" target="_blank"><i class="fa fa-info-circle"></i> About</a>
     <div class="menu-item">
         <a href="#"><i class="fa fa-leaf"></i> Business Profile</a>
         <div class="submenu" style="background-color: rgb(128, 0, 122);">
@@ -433,7 +433,7 @@ body.dark-mode .content {
           <a href="#" style="color: rgb(255, 255, 255);">Admin Panel</a>
         </div>
     </div>
-    <a href="/contact"><i class="fa fa-envelope"></i> Contact</a>
+    <a href="/contacts" target="_blank"><i class="fa fa-envelope"></i> Contact</a>
     <a href="#"><i class="fa fa-briefcase"></i> Careers</a>
     <div class="menu-item">
         <a href="https://www.pythonanywhere.com/user/barmanager/" target="_blank"><i class="fa fa-flask"></i> Research</a>

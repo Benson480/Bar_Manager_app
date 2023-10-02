@@ -22,9 +22,9 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include, re_path
 from myapp.views import (
     register_view, login_view, logout_view, dashboard, Employee_view, index, about,
-    anouncement, contacts, Employer_dashboard, Inventory, profile, Employee_details, departments, report_dashboard,
+    contacts, Employer_dashboard, Inventory, profile, Employee_details, departments, report_dashboard,
     daily_usage_report, purchased_stock_report, physical_stock_take_report, budget_report, price_list_report, items_classification_report,
-    forex_exchange_rates_report, mysettings, analytics_view, DynamicChartView, business_settings
+    forex_exchange_rates_report, mysettings, analytics_view, DynamicChartView, business_settings, announcement_list
     )
 
 urlpatterns = [
@@ -36,7 +36,6 @@ urlpatterns = [
     path('Employee/', Employee_view, name='Employee'),
     path('index/', index, name='index'),
     path('about/', about, name='about'),
-    path('anouncement/', anouncement, name='anouncement'),
     path('contacts/', contacts, name='contacts'),
     path('Employer_dashboard/', Employer_dashboard, name='Employer_dashboard'),
     path('Inventory/', Inventory, name='Inventory'),
@@ -55,6 +54,7 @@ urlpatterns = [
     path('business_settings/', business_settings, name='business_settings'),
     path('analytics/', analytics_view, name='analytics'),
     path('dynamic_chart/', DynamicChartView.as_view(), name='dynamic_chart'),
+    path('announcements/', announcement_list, name='announcement_list'),
     # path('images/', include('myapp.urls')),
 ]
 

@@ -4,14 +4,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" type="image/x-icon">
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
   <title>BarManager</title>
   <style>
     body {
-      background-image: url("https://images.pexels.com/photos/2749165/pexels-photo-2749165.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+      background-image: url("https://t3.ftcdn.net/jpg/06/17/20/36/360_F_617203655_gtsig7G8s9eihW44cXC3H9sxaoVJXJF4.jpg");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
+    }
+
+    .nav-item {
+      background-color: #fff;
+      font-size: large;
+      font-weight: bold;
+      
     }
 
     .navbar {
@@ -42,7 +49,7 @@
       padding: 10px;
       margin: 20px;
       max-width: 600px;
-      background-color: #244c0c;
+      background-color: #860e68;
       color: white;
     }
 
@@ -92,52 +99,93 @@
   <script src="https://kit.fontawesome.com/175df408b4.js" crossorigin="anonymous"></script>
 
   <!-- google fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital@1&family=Josefin+Sans:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <!-- As a heading -->
-  <nav class="navbar navbar-dark" style="background-color: #244c0c">
-    <div class="container-fluid">
-      <li class="navbar-brand mb-0 h1">About</li>
-      <li class="navbar-brand mb-0 h1"><a href="/index" style="color: whitesmoke;">Home</a></li>
-      <li class="navbar-brand mb-0 h1"><a href="/index" style="color: whitesmoke;">Home</a></li>
-      <li class="navbar-brand mb-0 h1"><a href="/index" style="color: whitesmoke;">Home</a></li>
-      <li class="navbar-brand mb-0 h1"><a href="/index" style="color: whitesmoke;">Home</a></li>
-    </div>
-  </nav>
+    <section class="image-section" id="title" >
+      <div class="container-fluid" style="background-color: rgb(230, 159, 182);">
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar">
+          <div class="container">
+            <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" style="width: 50px; height: 50px;" />
+            <a class="navbar-brand" href="#" style="font-size: xx-large;">BarManager</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              Menu
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="background-color: white; gap: 60px;">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="/index" style="color: #244c0c;">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/announcements" style="color: #244c0c;">Announcements</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/contacts" style="color: #244c0c;">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login" style="color: #244c0c;">Sign In</a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="/accounts/register" style="color: #244c0c;">Sign up</a>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link" href="/{{ BASE_URL }}admin/"  target="_blank" style="color: #244c0c;">Admin</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </section>
+    <header style="background-image: url('https://img.freepik.com/premium-photo/fintech-icon-abstract-financial-technology-background_34663-91.jpg?w=2000'); background-size: cover; padding: 5px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
+      <i class="fas fa-info-circle fa-3x" style="padding: 5px; color: #ffffff;"></i>
+      <div>
+        <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">About BarManager</h2>
+        <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">Stay Informed about our business</p>
+      </div>
+    </header>
   <div class="paragraphs">
     <div class="first_paragraph">
-      <h2>What is FERTPPM?</h2>
-      <p>As humans, considering that vegetables are the main source of food and survival, figuring out ways to increase the quality is the utmost priority. In addition, a lot of countries, especially in Africa, rely on the export of produce to generate capital. FERTPPM is a Fertigation system used in agriculture and horticulture that combines fertilizer and irrigation technology to optimize your crop yield. It focuses on the observation and maintenance of produce in a monitored environment, which will later impact the quantity and quality.</p>
+      <h2>What is Barmanager?</h2>
+      <p>
+        In the world of accounting and finance, businesses strive for efficient financial management to ensure their sustainability and growth. Barmanager is accounting software designed to streamline financial operations, helping businesses manage their finances effectively. This software is particularly beneficial for bars and restaurants, allowing them to track expenses, sales, and profits accurately. Barmanager focuses on providing robust accounting and financial tools to maintain financial health and profitability in the hospitality industry. It supports various financial processes, from expense tracking to revenue management, enabling bars and restaurants to thrive in a competitive market.
+      </p>
     </div>
   </div>
   <div class="paragraphs">
     <div class="second_paragraph">
-      <h2>Why FERTPPM?</h2>
-      <p>Prior to starting, we were in a pool of all these project suggestions that sounded really great as portfolio projects until Benson, who is one of the members of the team behind its creation, suggested it. It was a work-in-progress app but running in a desktop environment. Taking it up and reprogramming it into a web app has been a challenge and a good experience. It really helped that we learned more from each other in both frontend and backend aspects.</p>
+      <h2>Why Barmanager?</h2>
+      <p>Prior to starting, we were exploring various project suggestions that could serve as valuable portfolio projects. It was during this process that Stephanie, a member of our team, proposed Barmanager. We decided to take on the challenge of programming it into a web-based application.
+
+        Developing this software has provided us with a valuable opportunity to expand our knowledge and skills in both frontend and backend development. Working on Barmanager has not only helped us grow individually but also fostered a collaborative learning environment within our team.</p>
     </div>
   </div>
   <div class="paragraphs">
     <div class="third_paragraph">
-      <h2>Future FERTPPM?</h2>
-      <p>As of the time of writing up this section of the application, we both feel like there is so much room for improvements and tweaks. We have so many ideas and visions of a fully functional marketable app that, when combined together, are the motivation behind creating this app that can hopefully one day be put into a business setup and generate revenue.</p>
+      <h2>Future Barmanager Accounting Software?</h2>
+      <p>As of the time of writing up this section of the application, we both feel like there is so much room for improvements and tweaks. We have so many ideas and visions of a fully functional marketable accounting software that, when combined together, are the motivation behind creating this software that can hopefully one day be put into a business setup and generate revenue.</p>
     </div>
   </div>
 
-  <div class="creators_info">
-    <h3>To learn or see more works of the creators:</h3>
-    <div class="creator">
-      <h4>Benson</h4>
-      <a href="https://github.com/Benson480">Github</a>
+  <footer style="background-color: #462644; color: #FFF; text-align: center; padding: 10px;">
+    <div style="display: flex; justify-content: space-between; max-width: 800px; margin: 0 auto;">
+      <div>
+        <p>Contact: fertppm@solutions.com</p>
+      </div>
+      <div>
+        <p>Location: 00606 Nairobi, City</p>
+      </div>
+      <div>
+        <p>Dev Team: Benson & Stephanie</p>
+      </div>
     </div>
-    <div class="creator">
-      <h4>Stephanie</h4>
-      <a href="https://github.com/iman254">Github</a>
-    </div>
-  </div>
-</body>
+    <p>© 2023 BarManager. All rights reserved.</p>
+  </footer>
 
 </html>
