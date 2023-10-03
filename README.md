@@ -125,6 +125,17 @@ Make sure you run these commands in the appropriate directory or virtual environ
 
 
 
+
+presentation link
+
+https://docs.google.com/presentation/d/1N1wG1yhFRmbHfc5WSBCVBJNk7f_cMpBx2nkFX14Y4ik/edit#slide=id.g27ac641283c_0_17
+
+
+Architecture link
+
+
+https://app.diagrams.net/#G1LzeLET_FNLyQ7tWyZTLRmjoDehbatj2k
+
 Authors: 
 
 
