@@ -63,9 +63,9 @@ MIDDLEWARE = [
     # 'whitenoise.middleware.WhiteNoiseMiddleware',  # Static file handling
     'django.middleware.security.SecurityMiddleware',  # Security-related headers
     'django.contrib.sessions.middleware.SessionMiddleware',  # Session management
-    'django.contrib.auth.middleware.AuthenticationMiddleware',  # User authentication
     'django.middleware.common.CommonMiddleware',  # Common processing (e.g., URL handling)
     'django.middleware.csrf.CsrfViewMiddleware',  # CSRF protection
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # User authentication
     'myproject.redirect_middleware.LoginRequiredMiddleware',  # Your custom middleware (Authentication-related?)
     'axes.middleware.AxesMiddleware',  # IP blocking for suspicious login attempts
     'myproject.middleware.AutoLogoutMiddleware',  # Automatic logout after inactivity
@@ -74,14 +74,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Clickjacking protection
     'myproject.middleware.UserSettingsMiddleware'
     
-
-    # 'django.middleware.security.SecurityMiddleware',
-    # 'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -254,7 +246,8 @@ SESSION_COOKIE_AGE = 1800  # 30 minutes in seconds
 # LOGIN_REDIRECT_URL = 'dasboard'
 LOGOUT_REDIRECT_URL = 'index'  
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/login/'  # Make sure this is set to your login URL
+LOGIN_REDIRECT_URL = '/index/'  # Set this to your desired index URL
 
 
 SECURE_SSL_REDIRECT=False

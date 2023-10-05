@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
                       Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSettings, BusinessSettings,
-                      Announcement)
+                      Announcement, Cart, CartItem, Order)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -42,6 +42,7 @@ from rest_framework import status
 import random
 from django.views import View
 from django.http import JsonResponse
+
 
 
 
@@ -421,3 +422,57 @@ def business_settings(request):
 def announcement_list(request):
     announcements = Announcement.objects.all().order_by('-timestamp')
     return render(request, 'announcements.html', {'announcements': announcements})
+
+def cart_view(request):
+    # Assuming user authentication is enabled, get the current user
+    user = request.user
+
+    # Query the CartItem model to get the items in the user's cart
+    cart_items = CartItem.objects.filter(cart__user=user)
+
+    # Calculate the total price of items in the cart
+    total_price = sum(item.image.price * item.quantity for item in cart_items)
+
+    # Calculate subtotals and add them to cart_items
+    for item in cart_items:
+        item.subtotal = item.image.price * item.quantity
+
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price,
+    }
+
+    return render(request, 'cart_template.html', context)
+
+
+
+def add_to_cart(request, image_id):
+    image = get_object_or_404(BeverageImage, pk=image_id)
+    user = request.user if request.user.is_authenticated else None
+    cart, created = Cart.objects.get_or_create(user=user)
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, image=image)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+    return redirect('cart_view')
+
+
+
+def purchase_item(request, image_id):
+    # Implement the logic to handle a purchase (e.g., deduct from user's balance)
+    return redirect('success_view')  # Redirect to a success view
+
+def make_order(request, image_id):
+    user = request.user
+    cart = Cart.objects.get(user=user)
+    items_in_cart = CartItem.objects.filter(cart=cart)
+    total_price = sum(item.image.price * item.quantity for item in items_in_cart)
+    order = Order.objects.create(user=user, total_price=total_price)
+    order.items.set(items_in_cart)
+    cart.delete()
+    return redirect('order_confirmation_view')  # Redirect to an order confirmation view
+
+def remove_from_cart(request, item_id):
+    item = get_object_or_404(CartItem, pk=item_id)
+    item.delete()
+    return redirect('cart_view')

@@ -260,11 +260,14 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/about" style="color: #244c0c;">About</a>
               </li>
-              <li class="nav-item" style="width: 250px;">
+              <li class="nav-item" style="width: 280px;">
                 <a class="nav-link" href="/announcements" style="color: #244c0c;">Announcements</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/contacts" style="color: #244c0c;">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" style="color: #244c0c;">Careers</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/login" style="color: #244c0c;">Sign In</a>
@@ -339,6 +342,22 @@
         flex: 0 0 calc(33.33% - 20px); /* 3 columns per row with some margin */
         margin: 10px;
       }
+
+      .custom-button {
+          width: 150px; /* Adjust the width as needed */
+          text-align: center; /* Center the text horizontally */
+          transition: background-color 0.3s; /* Smooth color transition */
+        }
+
+        /* Style for normal state */
+        .custom-button {
+          background-color: rgb(12, 129, 57);
+        }
+
+        /* Style for hover state */
+        .custom-button:hover {
+          background-color: rgb(0, 255, 0); /* Change to the desired hover color */
+        }
     </style>
   
     <div class="container">
@@ -354,23 +373,27 @@
                 <p>{{ image.about_Image|wordwrap:40 }}</p>
               {% endif %}
               <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}</p>
-              <p><strong>Status:</strong> {{ image.uploaded_at }}</p>
-  
-              <!-- Buttons -->
-              <form method="POST" action="/add_to_cart/{{ image.id }}">
+              <p><strong>Status:</strong> {{ image.status }}</p>
+              <p><strong>Price:</strong> {{ image.price }} ksh per {{ image.UnitOfMeasure }}</p>
+
+              
+              <form method="POST" action="{% url 'add_to_cart' image.id %}">
                 {% csrf_token %}
-                <button type="submit">Add to Cart</button>
+                <button type="submit" class="custom-button" style="background-color: rgb(12, 129, 57);">Add to Cart</button>
               </form>
-  
-              <form method="POST" action="/purchase_item/{{ image.id }}">
-                {% csrf_token %}
-                <button type="submit">Purchase Item</button>
-              </form>
-  
+              
               <form method="POST" action="/make_order/{{ image.id }}">
                 {% csrf_token %}
-                <button type="submit">Make an Order</button>
+                <button type="submit" class="custom-button">Make an Order</button>
               </form>
+              
+              <form method="POST" action="/purchase_item/{{ image.id }}">
+                {% csrf_token %}
+                <button type="submit" class="custom-button" style="background-color: yellow">Purchase Item</button>
+              </form>
+              
+  
+
             </div>
           {% endfor %}
         </div>

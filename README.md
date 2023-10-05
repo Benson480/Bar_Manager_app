@@ -102,8 +102,6 @@ Installation:
 
 
 
-pip install requirements.txt
-
 
 To freeze the currently installed Python packages into a requirements.txt file using pip, you can use the following command:
 

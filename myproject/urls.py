@@ -24,11 +24,12 @@ from myapp.views import (
     register_view, login_view, logout_view, dashboard, Employee_view, index, about,
     contacts, Employer_dashboard, Inventory, profile, Employee_details, departments, report_dashboard,
     daily_usage_report, purchased_stock_report, physical_stock_take_report, budget_report, price_list_report, items_classification_report,
-    forex_exchange_rates_report, mysettings, analytics_view, DynamicChartView, business_settings, announcement_list
+    forex_exchange_rates_report, mysettings, analytics_view, DynamicChartView, business_settings, announcement_list, add_to_cart,
+    purchase_item, make_order, cart_view, remove_from_cart
     )
 
 urlpatterns = [
-    path('', index),
+    path('', include('myapp.urls')),
     path('admin/', admin.site.urls),
     path('login/', login_view, name='login'),
     path('dashboard/', dashboard, name='dashboard'),
@@ -54,7 +55,12 @@ urlpatterns = [
     path('business_settings/', business_settings, name='business_settings'),
     path('analytics/', analytics_view, name='analytics'),
     path('dynamic_chart/', DynamicChartView.as_view(), name='dynamic_chart'),
-    path('announcements/', announcement_list, name='announcement_list'),
+    path('announcements/', announcement_list, name='announcements'),
+    path('add_to_cart/<int:image_id>/', add_to_cart, name='add_to_cart'),
+    path('purchase_item/<int:image_id>/', purchase_item, name='purchase_item'),
+    path('make_order/<int:image_id>/', make_order, name='make_order'),
+    path('cart/', cart_view, name='cart_view'),
+    path('remove_from_cart/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
     # path('images/', include('myapp.urls')),
 ]
 

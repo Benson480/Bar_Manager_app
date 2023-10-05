@@ -213,10 +213,27 @@ class Employer(models.Model):
             return f"{self.firstname}"
     
 class BeverageImage(models.Model):
+    Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True, blank=True, null=True)
+    Date = models.DateField(null=True, db_index=True, blank=True)
     image = models.ImageField(upload_to='images/')
     uploaded_at = models.DateTimeField(auto_now_add=True) # Auto generated with datetime.now()
     title = models.CharField(max_length=200, null=True, db_index=True, blank=True)
     about_Image = models.TextField(max_length=255, null=True, blank=True)
+    def availability_description(self):
+        if self.Date:
+            return f"Available in {self.Date.strftime('%B %d, %Y')}"
+        else:
+            return "Availability not specified"
+    Status_Choices = (
+    ("default", "Select availability..."),
+    ("available", "Available now"),
+    ("Out of Stock", "Out of Stock"),
+    ("future", availability_description),
+    )
+
+    status = models.CharField(max_length=255,null=True,db_index=True,
+                  choices=Status_Choices
+                  )
 
     def save(self, *args, **kwargs):
         # Wrap the about_Image text before saving
@@ -225,8 +242,50 @@ class BeverageImage(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Image uploaded at {self.uploaded_at}"
+        return f"{self.Product} Image uploaded at {self.uploaded_at}"
+    
+    
+    @property
+    def UnitOfMeasure(self):
+        getUnitOfMeasure = Beverage_Price.objects.all()
+        for uom in getUnitOfMeasure:
+            if uom.Beverage_Product == self.Product:
+                return str(uom.Unit_Of_Measure)
+            
+    @property
+    def price(self):
+        getprice = Beverage_Price.objects.all()
+        for a in getprice:
+            if a.Beverage_Product == self.Product:
+                Price = round(a.price_ksh, 2)
+                formatted_price = "{:,.2f}".format(Price)
+                # Remove commas from the formatted price string and then convert to float
+                formatted_price = formatted_price.replace(',', '')
+                return float(formatted_price)
+        
+        # If no matching price is found, return 0
+        return 0.0  # Return a float, not a string
 
+
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    # Add any other fields you need
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    image = models.ForeignKey(BeverageImage, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    # Add any other fields you need
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(CartItem)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    # Add any other fields you need
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -257,7 +316,6 @@ def save_user_profile(sender, instance, **kwargs):
         UserProfile.objects.create(user=instance)
 
 
-from django.db import models
 
 class ContactDetail(models.Model):
     email = models.EmailField(max_length=255, blank=True, null=True)
