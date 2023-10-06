@@ -42,7 +42,7 @@
 
     .logo-img {
       width: 80px;
-      height: auto;
+      height: 80px;
       padding-top: 10px;
       padding-left: 0px;
       float: left;
@@ -208,93 +208,16 @@
     transform: translateX(10px); /* Adjust the value as needed */
     background-color: #e5e5ff;
     }
-    /* Add background texture */
-
-    /* Define the container for the link */
-  /* .nav-item {
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  /* Define the link style */
-  /* .nav-link {
-    color: #244c0c;
-    display: inline-block;
-    animation: scrollText 5s linear infinite;
-  }
-
-  /* Define the animation keyframes */
-  /* @keyframes scrollText {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }  */
-
-</style>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">.
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-  <!-- Include jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-  <!-- Include Bootstrap JS -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body>
-  <section class="image-section" id="title" >
-    <div class="container-fluid" style="background-color: rgb(230, 159, 182);">
-      <!-- navbar -->
-      <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar">
-        <div class="container">
-          <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" />
-          <a class="navbar-brand" href="#">BarManager</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            Menu
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/about" style="color: #244c0c;">About</a>
-              </li>
-              <li class="nav-item" style="width: 280px;">
-                <a class="nav-link" href="/announcements" style="color: #244c0c;">Announcements</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/contacts" style="color: #244c0c;">Contact</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" style="color: #244c0c;">Careers</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login" style="color: #244c0c;">Sign In</a>
-              </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" href="/accounts/register" style="color: #244c0c;">Sign up</a>
-              </li> -->
-              <li class="nav-item">
-                <a class="nav-link" href="/{{ BASE_URL }}admin/"  target="_blank" style="color: #244c0c;">Admin</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
-  </section>
-  <section class="image-section" id="title">
-    <style>
       .product {
         background-color: #fff;
         border: 1px solid #e0e0e0;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin: 10px;
-        padding: 20px;
+        margin: 5px;
+        padding: 50px;
         width: calc(33.33% - 20px); /* 3 columns per row with some margin */
         text-align: center;
         transition: transform 0.2s ease-in-out;
+        height: 100%;
       }
   
       .product:hover {
@@ -358,54 +281,225 @@
         .custom-button:hover {
           background-color: rgb(0, 255, 0); /* Change to the desired hover color */
         }
-    </style>
-  
-    <div class="container">
-      {% if images %}
-        <div class="row">
-          {% for image in images %}
-            <div class="col-md-4 product">
-              <p><strong>Title: {{ image.title }}</strong></p>
-              <a href="{{ image.image.url }}" target="_blank">
-                <img src="{{ image.image.url }}" alt="Uploaded Image">
-              </a>
-              {% if image.about_Image %}
-                <p>{{ image.about_Image|wordwrap:40 }}</p>
-              {% endif %}
-              <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}</p>
-              <p><strong>Status:</strong> {{ image.status }}</p>
-              <p><strong>Price:</strong> {{ image.price }} ksh per {{ image.UnitOfMeasure }}</p>
+      /* Add some CSS for styling */
+    
+      .full-page-container {
+        display: none; /* Initially hide the container */
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+        background-color: rgb(218, 143, 168);
+        background-size: cover;
+      }
+    
+      /* Add animation for the "Not Found" gif */
+      @keyframes notFoundAnimation {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    
+      .not-found-animation {
+        animation: notFoundAnimation 1s ease-in-out infinite;
+      }
+</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">.
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-              
-              <form method="POST" action="{% url 'add_to_cart' image.id %}">
-                {% csrf_token %}
-                <button type="submit" class="custom-button" style="background-color: rgb(12, 129, 57);">Add to Cart</button>
-              </form>
-              
-              <form method="POST" action="/make_order/{{ image.id }}">
-                {% csrf_token %}
-                <button type="submit" class="custom-button">Make an Order</button>
-              </form>
-              
-              <form method="POST" action="/purchase_item/{{ image.id }}">
-                {% csrf_token %}
-                <button type="submit" class="custom-button" style="background-color: yellow">Purchase Item</button>
-              </form>
-              
-  
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
-            </div>
-          {% endfor %}
+  <!-- Include Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <section class="image-section" id="title" >
+    <div class="container-fluid" style="background-color: rgb(230, 159, 182); position: fixed; top: 0; width: 100%; z-index: 999;">
+      <!-- navbar -->
+      <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar">
+        <div class="container" style="height: 80px;">
+          <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" />
+          <a class="navbar-brand" href="#">BarManager</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            Menu
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/about" style="color: #244c0c;">About</a>
+              </li>
+              <li class="nav-item" style="width: 280px;">
+                <a class="nav-link" href="/announcements" style="color: #244c0c;">Announcements</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contacts" style="color: #244c0c;">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" style="color: #244c0c;">Careers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login" style="color: #244c0c;">Sign In</a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="/accounts/register" style="color: #244c0c;">Sign up</a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="/{{ BASE_URL }}admin/"  target="_blank" style="color: #244c0c;">Admin</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      {% else %}
-        <p class="no-images">No images uploaded yet.</p>
-      {% endif %}
+      </nav>
     </div>
   </section>
+  <section class="image-section" id="title">
+    
+  
+
+    <style>
+      /* CSS for controlling the number of columns */
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -10px; /* Compensate for the margin on .product */
+      }
+
+      /* Display four columns per row with some margin on medium and larger screens */
+      .col-md-4 {
+        flex: 0 0 calc(25% - 20px); /* Four columns per row with some margin on medium and larger screens */
+        margin: 10px;
+      }
+
+      /* Display two columns per row with some margin on small screens */
+      @media (max-width: 767px) {
+        .col-md-4 {
+          flex: 0 0 calc(50% - 20px); /* Two columns per row with some margin on smaller screens */
+        }
+      }
+
+    </style>
+    
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 80px;">
+      <input type="text" id="searchInput" placeholder="Search for products..." style="text-align: center; width: 100%; max-width: 700px; margin: 5px 0;">
+      <div id="searchResults">
+        {% if images %}
+          <div class="row">
+            {% for image in images %}
+              <div class="col-md-4 product">
+                <p><strong>Title: {{ image.title }}</strong></p>
+                <a href="{{ image.image.url }}" target="_blank">
+                  <img src="{{ image.image.url }}" alt="Uploaded Image">
+                </a>
+                {% if image.about_Image %}
+                  <p>{{ image.about_Image|wordwrap:40 }}</p>
+                {% endif %}
+                <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}</p>
+                <p><strong>Status:</strong> {{ image.status }}</p>
+                <p><strong>Price:</strong> {{ image.price }} ksh per {{ image.UnitOfMeasure }}</p>
+                <form method="POST" action="{% url 'login' %}?next={% url 'add_to_cart' image.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="custom-button" style="background-color: rgb(12, 129, 57);">Add to Cart</button>
+                </form>
+                <form method="POST" action="/make_order/{{ image.id }}">
+                  {% csrf_token %}
+                  <button type="submit" class="custom-button">Make an Order</button>
+                </form>
+                <form method="POST" action="/purchase_item/{{ image.id }}">
+                  {% csrf_token %}
+                  <button type="submit" class="custom-button" style="background-color: yellow">Purchase Item</button>
+                </form>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="no-images">No images uploaded yet.</p>
+        {% endif %}
+      </div>
+    
+      <div class="full-page-container" id="notFoundContainer">
+        <h1 class="not-found-animation" style="color: red;">
+          No items match your search.
+          <!-- Add your "Not Found" gif here -->
+          <img src="https://cdn.dribbble.com/users/595978/screenshots/3603965/media/250a710e7478f92ef5fbb41bae572d58.gif" alt="Not Found" width="100" height="100">
+        </h1>
+      </div>
+    </div>
+    
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const productList = document.querySelectorAll(".product");
+        const notFoundContainer = document.getElementById("notFoundContainer");
+    
+        searchInput.addEventListener("input", function () {
+          const searchTerm = searchInput.value.trim().toLowerCase();
+          let found = false;
+    
+          productList.forEach(function (product) {
+            const title = product.querySelector("p strong").textContent.toLowerCase();
+            const about = product.querySelector("p:nth-child(3)").textContent.toLowerCase();
+    
+            if (title.includes(searchTerm) || about.includes(searchTerm)) {
+              product.style.display = "block";
+              found = true;
+            } else {
+              product.style.display = "none";
+            }
+          });
+    
+          // Show or hide the "Not Found" container based on search results
+          if (!found) {
+            notFoundContainer.style.display = "flex";
+          } else {
+            notFoundContainer.style.display = "none";
+          }
+        });
+      });
+    </script>
+    
+  </section>
+  
+  <script>
+    // JavaScript code for search functionality
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.getElementById("searchInput");
+      const productList = document.querySelectorAll(".product");
+      const noResultsMessage = document.getElementById("noResults");
+  
+      searchInput.addEventListener("input", function () {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        let found = false;
+  
+        productList.forEach(function (product) {
+          const title = product.querySelector("p strong").textContent.toLowerCase();
+          const about = product.querySelector("p:nth-child(3)").textContent.toLowerCase();
+  
+          if (title.includes(searchTerm) || about.includes(searchTerm)) {
+            product.style.display = "block";
+            found = true;
+          } else {
+            product.style.display = "none";
+          }
+        });
+  
+        if (!found) {
+          noResultsMessage.style.display = "block";
+        } else {
+          noResultsMessage.style.display = "none";
+        }
+      });
+    });
+  </script>
   
   
-      
-      
+
 
   
   <!-- js -->
@@ -420,7 +514,6 @@
     </div>
     <button id="chatbot-toggle" onclick="toggleChatbot()">Chat</button>
   </div>
-  
   <!-- Add the following JavaScript code below the HTML content -->
   <script>
     // Get the necessary DOM elements

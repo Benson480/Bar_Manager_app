@@ -29,7 +29,7 @@ from myapp.views import (
     )
 
 urlpatterns = [
-    path('', include('myapp.urls')),
+    path('', index, name='index'),
     path('admin/', admin.site.urls),
     path('login/', login_view, name='login'),
     path('dashboard/', dashboard, name='dashboard'),
@@ -59,7 +59,7 @@ urlpatterns = [
     path('add_to_cart/<int:image_id>/', add_to_cart, name='add_to_cart'),
     path('purchase_item/<int:image_id>/', purchase_item, name='purchase_item'),
     path('make_order/<int:image_id>/', make_order, name='make_order'),
-    path('cart/', cart_view, name='cart_view'),
+    path('cart_view/', cart_view, name='cart_view'),
     path('remove_from_cart/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
     # path('images/', include('myapp.urls')),
 ]

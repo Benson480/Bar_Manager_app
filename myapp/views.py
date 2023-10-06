@@ -42,6 +42,7 @@ from rest_framework import status
 import random
 from django.views import View
 from django.http import JsonResponse
+from django.contrib.auth import login as auth_login
 
 
 
@@ -84,12 +85,18 @@ def login_view(request):
         login_form = AuthenticationForm(request, data=request.POST)
         if login_form.is_valid():
             user = login_form.get_user()
-            login(request, user)
+            auth_login(request, user)
             logger.warning(
                 f"Login Successful at {timezone.now()} by username: {request.POST.get('username')}"
             )
             messages.success(request, f"Login Successful at {timezone.now()} by username: {request.POST.get('username')}")
-            return redirect('dashboard')  # Redirect to the dashboard or desired URL
+            
+            # Check if there is a 'next' parameter in the URL
+            next_url = request.GET.get('next', None)
+            if next_url:
+                return redirect(next_url)
+            else:
+                return redirect('dashboard')  # Default redirect if 'next' is not provided
         else:
             logger.warning(
                 f"Login attempt failed at {timezone.now()} by username: {request.POST.get('username')}"
@@ -445,7 +452,7 @@ def cart_view(request):
     return render(request, 'cart_template.html', context)
 
 
-
+@login_required
 def add_to_cart(request, image_id):
     image = get_object_or_404(BeverageImage, pk=image_id)
     user = request.user if request.user.is_authenticated else None

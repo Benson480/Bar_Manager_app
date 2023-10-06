@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Your Shopping Cart</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f7f7f7;
             margin: 0;
             padding: 0;
         }
 
-        h1 {
-            text-align: center;
+        header {
             background-color: #007bff;
             color: #fff;
             padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
             margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         table {
             width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
             border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         table th, table td {
             text-align: left;
-            padding: 10px;
+            padding: 15px;
+            border-bottom: 1px solid #e1e1e1;
         }
 
         table thead {
@@ -41,65 +54,94 @@
             background-color: #f2f2f2;
         }
 
-        table tfoot {
-            font-weight: bold;
-        }
-
-        form {
-            display: inline-block;
-        }
-
         .remove-button {
             background-color: #ff5555;
             color: #fff;
             border: none;
             padding: 5px 10px;
             cursor: pointer;
+            border-radius: 4px;
         }
 
         .remove-button:hover {
             background-color: #ff0000;
         }
+
+        .total-row {
+            font-weight: bold;
+        }
+
+        .back-to-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <h1>Your Shopping Cart</h1>
+    <header>
+        <h1>Your Shopping Cart</h1>
+    </header>
     
-    <table>
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Quantity</th>
-                <th>Price (per item)</th>
-                <th>Subtotal</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart_items %}
-            <tr>
-                <td>{{ item.image.Product }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>${{ item.image.price }}</td>
-                <td>${{ item.subtotal|floatformat:2 }}</td>
-                <td>
-                    <form method="POST" action="{% url 'remove_from_cart' item.id %}" onsubmit="return confirm('Are you sure you want to remove this item from your cart?');">
-                        {% csrf_token %}
-                        <input type="submit" class="remove-button" value="Remove">
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="4">Total:</td>
-                <td>${{ total_price|floatformat:2 }}</td>
-            </tr>
-        </tfoot>
-            
-    </table>
-    <a style="text-align: center; padding: 500px;" href="/index"><i class="fa fa-chart-bar"></i> Back to Home</a>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price (per item)</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.image.Product }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td><span class="price">${{ item.image.price }}</span></td>
+                    <td><span class="price">${{ item.subtotal|floatformat:2 }}</span></td>
+                    <td>
+                        <form method="POST" action="{% url 'remove_from_cart' item.id %}" onsubmit="return confirm('Are you sure you want to remove this item from your cart?');">
+                            {% csrf_token %}
+                            <button type="submit" class="remove-button">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td colspan="3">Total:</td>
+                    <td><span class="price">${{ total_price|floatformat:2 }}</span></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 
+    <script>
+        // Function to format numbers with commas for thousands separator
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Change currency symbol and format prices
+        var priceElements = document.querySelectorAll(".price");
+        priceElements.forEach(function(element) {
+            var priceValue = parseFloat(element.innerText.replace("$", ""));
+            var formattedPrice = "KSH " + formatNumberWithCommas(priceValue.toFixed(2));
+            element.innerText = formattedPrice;
+        });
+    </script>
+    
+    <a class="back-to-home" href="{% url 'index' %}">Back to Home</a>
 </body>
 </html>
