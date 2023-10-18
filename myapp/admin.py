@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
                       Employer, BeverageImage, Daily_Usage, Opening_stock, UserProfile, Department, ContactDetail, 
-                       UserSettings, BusinessSettings, Announcement)
+                       UserSettings, BusinessSettings, Announcement, Category)
 
 
 
@@ -22,6 +22,7 @@ admin.site.register(ContactDetail)
 admin.site.register(UserSettings)
 admin.site.register(BusinessSettings)
 admin.site.register(Announcement)
+admin.site.register(Category)
 
 
 

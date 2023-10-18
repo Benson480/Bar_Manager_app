@@ -211,9 +211,17 @@ class Employer(models.Model):
     Responsibility = models.CharField(max_length=255, null=True, db_index=True)
     def __str__(self):
             return f"{self.firstname}"
+
+class Category(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
     
+
 class BeverageImage(models.Model):
     Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True, blank=True, null=True)
+    categories = models.ManyToManyField(Category, related_name='images', blank=True)
     Date = models.DateField(null=True, db_index=True, blank=True)
     image = models.ImageField(upload_to='images/')
     uploaded_at = models.DateTimeField(auto_now_add=True) # Auto generated with datetime.now()

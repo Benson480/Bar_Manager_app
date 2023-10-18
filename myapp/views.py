@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
                       Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSettings, BusinessSettings,
-                      Announcement, Cart, CartItem, Order)
+                      Announcement, Cart, CartItem, Order, Category)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -174,9 +174,26 @@ def edit_profile(request):
 
     return render(request, 'edit_profile.html', {'form': form})
 
+
+
 def index(request):
-    images = BeverageImage.objects.all()
-    return render(request, 'index.html', {'images': images})
+    categories = Category.objects.all()
+    selected_category = request.GET.get('category', 'All')
+
+    if selected_category == 'All':
+        images = BeverageImage.objects.all()
+    else:
+        category = Category.objects.get(name=selected_category)
+        images = BeverageImage.objects.filter(categories=category)
+
+    categorized_images = {}
+    for category in categories:
+        categorized_images[category] = images.filter(categories=category)
+
+    return render(request, 'index.html', {'categorized_images': categorized_images, 'selected_category': selected_category, 'categories': categories})
+
+
+
 
 @login_required
 def dashboard(request):

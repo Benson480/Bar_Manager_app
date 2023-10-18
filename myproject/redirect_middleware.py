@@ -14,6 +14,7 @@ class LoginRequiredMiddleware:
             reverse('about'),
             reverse('announcements'),
             reverse('contacts'),
+            reverse('admin:index'),  # Use 'admin:index' for the Django admin dashboard
             reverse('add_to_cart', kwargs={'image_id': 0}),  # Include 'add_to_cart' with a placeholder image_id
             settings.MEDIA_URL,  # Allow access to MEDIA_URL
         ]
