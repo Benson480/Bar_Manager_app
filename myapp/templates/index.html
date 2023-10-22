@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BarManager</title>
+  <title>EnterpriseEaze</title>
   <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
   <!-- css -->
   <!--bootstrap-->
@@ -357,7 +357,7 @@
       <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar">
         <div class="container-fluid">
           <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" />
-          <a class="navbar-brand" href="#" style="font-size: x-large; margin-right: auto;">BarManager</a>
+          <a class="navbar-brand" href="#" style="font-size: x-large; margin-right: auto;">EnterpriseEaze</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             Menu
@@ -405,52 +405,53 @@
 
     <!-- Right column for images -->
     <div class="right-column" id="product-container" style="width: 100%; float: right; background-color: #3498db;">
-        <input type="text" id="searchInput" placeholder="Search for products..." style="text-align: center; width: 100%; max-width: 700px; margin: 5px 0;">
-        <div class="searchResults" style="background-color: #6ea8e2; width: 100%; display: grid; padding: 20px;">
+        <input type="text" id="searchInput" placeholder="Search for products..." style="text-align: center; width: 100%; max-width: 1000px; margin: 5px 0;">
+        <div class="searchResults" style="background-color: #6ea8e2; display: grid;width: 100%; height: 100%; display: flexbox; padding: 20px;">
             {% if categorized_images %}
                 {% for category, images in categorized_images.items %}
                     {% if images %}
-                        <h2 style="text-align: center; margin-top: 15px;" id="{{ category.name }}">{{ category.name }}</h2>
-                        <div class="row">
-                            {% for image in images %}
-                                <div class="col-md-3 product-card" data-category="{{ category.name }}">
-                                    <!-- Your image display code here -->
-                                    <p><strong>Title: {{ image.title }}</strong></p>
-                                    <a href="{{ image.image.url }}" target="_blank">
-                                        <img src="{{ image.image.url }}" alt="Uploaded Image" style="width: 100%;">
-                                    </a>
-                                    {% if image.about_Image %}
-                                        <p>{{ image.about_Image|wordwrap:40 }}</p>
-                                    {% endif %}
-                                    <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}</p>
-                                    <p><strong>Status:</strong> {{ image.status }}</p>
-                                    <p><strong>Price:</strong> {{ image.price }} ksh per {{ image.UnitOfMeasure }}</p>
-                                    <form method="POST" action="{% url 'login' %}?next={% url 'add_to_cart' image.id %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="custom-button" style="background-color: rgb(12, 129, 57);">Add to Cart</button>
-                                    </form>
-                                    <form method="POST" action="/make_order/{{ image.id }}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="custom-button">Make an Order</button>
-                                    </form>
-                                    <form method="POST" action="/purchase_item/{{ image.id }}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="custom-button" style="background-color: yellow">Purchase Item</button>
-                                    </form>
-                                </div>
-                                {% if forloop.counter|divisibleby:4 %}
-                                    <!-- Close and reopen a new row after every 4 images -->
-                                    </div>
-                                    <div class="row">
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+                    <div class="row">
+                      <h2 style="text-align: center; margin-top: 15px;" id="{{ category.name }}">{{ category.name }}</h2>
+                      {% for image in images %}
+                          <div class="col-md-3 product-card" data-category="{{ category.name }}">
+                              <!-- Your image display code here -->
+                              <p><strong>Title: {{ image.title }}</strong></p>
+                              <a href="{{ image.image.url }}" target="_blank">
+                                  <img src="{{ image.image.url }}" alt="Uploaded Image" style="width: 100%;">
+                              </a>
+                              {% if image.about_Image %}
+                                  <p>{{ image.about_Image|wordwrap:40 }}</p>
+                              {% endif %}
+                              <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}</p>
+                              <p><strong>Status:</strong> {{ image.status }}</p>
+                              <p><strong>Price:</strong> {{ image.price }} ksh per {{ image.UnitOfMeasure }}</p>
+                              <form method="POST" action="{% url 'login' %}?next={% url 'add_to_cart' image.id %}">
+                                  {% csrf_token %}
+                                  <button type="submit" class="custom-button" style="background-color: rgb(12, 129, 57);">Add to Cart</button>
+                              </form>
+                              <form method="POST" action="/make_order/{{ image.id }}">
+                                  {% csrf_token %}
+                                  <button type="submit" class="custom-button">Make an Order</button>
+                              </form>
+                              <form method="POST" action="/purchase_item/{{ image.id }}">
+                                  {% csrf_token %}
+                                  <button type="submit" class="custom-button" style="background-color: yellow">Purchase Item</button>
+                              </form>
+                          </div>
+                          {% if forloop.counter|divisibleby:4 %}
+                              <!-- Close the current row after every 4 images -->
+                          </div>
+                          <div class="row">
+                          {% endif %}
+                      {% endfor %}
+                  </div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
         </div>
     </div>
 </section>
+
 
 <div class="full-page-container" id="notFoundContainer" style="display: none;">
   <h1 class="not-found-animation" style="color: red;">
@@ -469,47 +470,109 @@
 
 
 
+<script>
+  // filter products with category
+  document.addEventListener("DOMContentLoaded", function () {
+    const categoryLinks = document.querySelectorAll(".category-link");
+    const productCards = document.querySelectorAll(".product-card");
 
+    categoryLinks.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        const selectedCategory = link.getAttribute("data-category");
 
+        // Handle "All Categories" separately to show all products and categories
+        if (selectedCategory === "All") {
+          productCards.forEach(function (card) {
+            card.style.display = "block";
+          });
 
+          categoryLinks.forEach(function (category) {
+            category.style.display = "block";
+          });
+        } else {
+          // Hide all product cards and category names except the selected one
+          productCards.forEach(function (card) {
+            const cardCategory = card.getAttribute("data-category");
+            if (selectedCategory === "All" || cardCategory === selectedCategory) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+
+          // Hide all category names except the selected one
+          categoryLinks.forEach(function (category) {
+            const categoryData = category.getAttribute("data-category");
+            if (categoryData === selectedCategory || categoryData === "All") {
+              category.style.display = "block";
+            } else {
+              category.style.display = "none";
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
 
 <script>
   // JavaScript code for search functionality
   document.addEventListener("DOMContentLoaded", function () {
-      const searchInput = document.getElementById("searchInput");
-      const productList = document.querySelectorAll(".product-card");
-      const notFoundContainer = document.getElementById("notFoundContainer");
-      const leftColumn = document.querySelector(".left-column");
-      const rightColumn = document.getElementById("product-container");
+    const searchInput = document.getElementById("searchInput");
+    const productList = document.querySelectorAll(".product-card");
+    const notFoundContainer = document.getElementById("notFoundContainer");
+    const leftColumn = document.querySelector(".left-column");
+    const rightColumn = document.getElementById("product-container");
 
-      searchInput.addEventListener("input", function () {
-          const searchTerm = searchInput.value.trim().toLowerCase();
-          let found = false;
+    searchInput.addEventListener("input", function () {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      let found = false;
 
-          productList.forEach(function (product) {
-              const title = product.querySelector("p strong").textContent.toLowerCase();
-              const about = product.querySelector("p:nth-child(3)").textContent.toLowerCase();
+      productList.forEach(function (product) {
+        const title = product.querySelector("p strong").textContent.toLowerCase();
+        const about = product.querySelector("p:nth-child(3)").textContent.toLowerCase();
 
-              if (title.includes(searchTerm) || about.includes(searchTerm)) {
-                  product.style.display = "block";
-                  found = true;
-              } else {
-                  product.style.display = "none";
-              }
-          });
-
-          if (!found) {
-              notFoundContainer.style.display = "block";
-              leftColumn.style.display = "none";
-              rightColumn.style.display = "none";
-          } else {
-              notFoundContainer.style.display = "none";
-              leftColumn.style.display = "block";
-              rightColumn.style.display = "block";
-          }
+        if (title.includes(searchTerm) || about.includes(searchTerm)) {
+          product.style.display = "block";
+          found = true;
+        } else {
+          product.style.display = "none";
+        }
       });
+
+      if (!found) {
+        notFoundContainer.style.display = "block";
+        leftColumn.style.display = "none";
+        rightColumn.style.display = "none";
+      } else {
+        notFoundContainer.style.display = "none";
+        leftColumn.style.display = "block";
+        rightColumn.style.display = "block";
+      }
+      
+      // Hide category names without associated products
+      categoryLinks.forEach(function (category) {
+        const categoryName = category.getAttribute("data-category");
+        let categoryExists = false;
+        productList.forEach(function (product) {
+          const cardCategory = product.getAttribute("data-category");
+          if (cardCategory === categoryName) {
+            categoryExists = true;
+          }
+        });
+        if (!categoryExists && categoryName !== "All") {
+          const categoryHeader = document.getElementById(categoryName);
+          if (categoryHeader) {
+            categoryHeader.style.display = "none";
+          }
+        }
+      });
+    });
   });
 </script>
+
+
 
 
 

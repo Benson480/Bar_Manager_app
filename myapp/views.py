@@ -486,6 +486,8 @@ def purchase_item(request, image_id):
     # Implement the logic to handle a purchase (e.g., deduct from user's balance)
     return redirect('success_view')  # Redirect to a success view
 
+
+
 def make_order(request, image_id):
     user = request.user
     cart = Cart.objects.get(user=user)
@@ -494,7 +496,13 @@ def make_order(request, image_id):
     order = Order.objects.create(user=user, total_price=total_price)
     order.items.set(items_in_cart)
     cart.delete()
-    return redirect('order_confirmation_view')  # Redirect to an order confirmation view
+    return redirect('order_confirmation_view', order_id=order.id)
+
+def order_confirmation_view(request, order_id):
+    # Retrieve the order based on the given order_id
+    order = Order.objects.get(id=order_id)
+    return render(request, 'order_confirmation.html', {'order': order})
+
 
 def remove_from_cart(request, item_id):
     item = get_object_or_404(CartItem, pk=item_id)

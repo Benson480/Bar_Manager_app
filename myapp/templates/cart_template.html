@@ -477,10 +477,16 @@
             </tfoot>
         </table>
     </div>
-    <form method="POST" action=""> 
+    <form method="POST" action="/submit_order">
       {% csrf_token %}
+      <input type="text" name="product_name" placeholder="Product Name">
+      <input type="number" name="quantity" placeholder="Quantity">
+      <input type="text" name="shipping_address" placeholder="Shipping Address">
       <button type="submit" class="order-button">Make an Order</button>
   </form>
+  
+  
+   
       </div>
 
     <script>
@@ -489,7 +495,7 @@
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        // Change currency symbol and format prices
+        // Change currency symbol and format priceds
         var priceElements = document.querySelectorAll(".price");
         priceElements.forEach(function(element) {
             var priceValue = parseFloat(element.innerText.replace("$", ""));
