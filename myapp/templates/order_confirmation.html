@@ -2,11 +2,138 @@
 <html>
 <head>
     <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto 0;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: #0074e4;
+            color: #fff;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        .order-details {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        h2 {
+            color: #0074e4;
+            font-size: 24px;
+        }
+
+        .order-id {
+            font-size: 18px;
+        }
+
+        p {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        img {
+            max-width: 100px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+        .item-name {
+            font-weight: bold;
+        }
+
+        .item-price {
+            color: #0074e4;
+        }
+
+        .item-quantity {
+            color: #777;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Order Confirmation</h1>
-    <p>Your order with Order ID {{ order.id }} has been confirmed.</p>
-    <p>Total Price: ${{ order.total_price }}</p>
-    <!-- You can display more order details here if needed -->
+    <div class="topnav">
+        <a class="active" href="/index">Home</a>
+        <a href="#orders">Orders</a>
+        <a href="#account">Account</a>
+        <a style="float:right" href="#logout">Logout</a>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Order Confirmation</h1>
+        </div>
+        <div class="order-details">
+            <h2>Ordered Items</h2>
+            <p>Your order with Order ID <span class="order-id">{{ order.id }}</span> has been confirmed.</p>
+            <p>Total Price: $<span class="item-price">{{ order.total_price }}</span></p>
+            <ul>
+                {% for item in items_in_order %}
+                    <li>
+                        <img src="{{ item.image }}" alt="{{ item.image.name }}">
+                        <p class="item-name">{{ item.image.name }}</p>
+                        <p>Price: $<span class="item-price">{{ item.image.price }}</span></p>
+                        <p>Quantity: <span class="item-quantity">{{ item.quantity }}</span></p>
+                    </li>
+                {% endfor %}
+            </ul>
+            <!-- Payment button (placeholder) -->
+            <a href="#" class="pay-button">Pay Now</a>
+        </div>
+        <!-- You can display more order details here if needed -->
+    </div>
+    <!-- JavaScript to handle the payment process (This would typically be more complex in a real application) -->
+    <script>
+        document.querySelector('.pay-button').addEventListener('click', function() {
+            // In a real application, you would handle payment processing here
+            alert('This is a placeholder. In a real application, you would connect to a payment gateway.');
+        });
+    </script>
 </body>
 </html>

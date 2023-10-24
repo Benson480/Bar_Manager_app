@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
     <title>Your Shopping Cart</title>
     <style>
         body {
@@ -92,6 +93,7 @@
         .image-section {
           background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTisOmuXlpkSScXHatNqfAJmXwUcd96Jjrv6dYdDo97&s");
           background-size: cover;
+          
         }
     
         .main-container {
@@ -133,7 +135,7 @@
           font-family: 'Josefin Sans', sans-serif;
           font-weight: bold;
           position: absolute;
-          left: 200px;
+          left: 100px;
           padding-top: 30px;
         }
     
@@ -141,11 +143,10 @@
           float: right;
           display: block;
           text-align: center;
-          padding: 12px 10px;
+          padding: px 10px;
           text-decoration: none;
           overflow: hidden;
           text-align: center;
-          padding: 12px 10px;
           text-decoration: none;
           background-color: #ffffff; /* Optional: Set a background color if needed */
           z-index: 100; /* Optional: Set a higher z-index if needed */
@@ -155,6 +156,7 @@
           color: hsl(97, 64%, 13%);
           font-size: 1.2rem;
           font-family: 'Josefin Sans', sans-serif;
+          margin: 0px;
           
         }
     
@@ -259,6 +261,7 @@
           padding: 20px; /* Optional: Add some padding around the content */
           background-color: rgba(255, 255, 255, 0.9); /* Light background color */
           border-radius: 10px; /* Rounded corners */
+          min-height: 80vh;
         }
     
         /* Responsive styles */
@@ -387,13 +390,13 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
     <body>
-      <section class="image-section" id="title" >
+      <section class="image-section" id="title">
         <div class="container-fluid" style="background-color: rgb(230, 159, 182); position: fixed; top: 0; width: 100%; z-index: 999;">
           <!-- navbar -->
           <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar">
-            <div class="container" style="height: 80px;">
+            <div class="container-fluid" style="background-color: white; height: 60px; margin-right: 5px;">
               <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" />
-              <a class="navbar-brand" href="#">BarManager</a>
+              <a class="navbar-brand" href="#" style="font-size: x-large; margin-right: auto; float: left;">EnterpriseEaze</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 Menu
@@ -401,25 +404,22 @@
               <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/about" style="color: #244c0c;">About</a>
-                  </li>
-                  <li class="nav-item" style="width: 280px;">
-                    <a class="nav-link" href="/announcements" style="color: #244c0c;">Announcements</a>
+                    <a class="nav-link" aria-current="page" href="/index" style="color: #244c0c;"><i class="fas fa-home"></i> Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/contacts" style="color: #244c0c;">Contact</a>
+                    <a class="nav-link active" aria-current="page" href="/about" style="color: #244c0c;"><i class="fas fa-info-circle"></i> About</a>
+                  </li>
+                  <li class="nav-item" style="width: 320px;">
+                    <a class="nav-link" href="/announcements" style="color: #244c0c;"><i class="fas fa-bullhorn"></i> Announcements</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: #244c0c;">Careers</a>
+                    <a class="nav-link" href="#" style="color: #244c0c;"><i class="fas fa-briefcase"></i> Careers</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/login" style="color: #244c0c;">Sign In</a>
+                    <a class="nav-link" href="/login" style="color: #244c0c;"><i class="fas fa-sign-in-alt"></i> Sign In</a>
                   </li>
-                  <!-- <li class="nav-item">
-                    <a class="nav-link" href="/accounts/register" style="color: #244c0c;">Sign up</a>
-                  </li> -->
                   <li class="nav-item">
-                    <a class="nav-link" href="/{{ BASE_URL }}admin/"  target="_blank" style="color: #244c0c;">Admin</a>
+                    <a class="nav-link" href="/{{ BASE_URL }}admin/" target="_blank" style="color: #244c0c;"><i class="fas fa-cogs"></i> Admin</a>
                   </li>
                 </ul>
               </div>
@@ -427,6 +427,7 @@
           </nav>
         </div>
       </section>
+      
       <section class="image-section" id="title">
     
         <style>
@@ -477,13 +478,10 @@
             </tfoot>
         </table>
     </div>
-    <form method="POST" action="/submit_order">
+    <form method="POST" action="{% url 'login' %}?next={% url 'make_order' %}">
       {% csrf_token %}
-      <input type="text" name="product_name" placeholder="Product Name">
-      <input type="number" name="quantity" placeholder="Quantity">
-      <input type="text" name="shipping_address" placeholder="Shipping Address">
       <button type="submit" class="order-button">Make an Order</button>
-  </form>
+    </form>
   
   
    
@@ -518,7 +516,7 @@
           <p>Dev Team: Benson & Stephanie</p>
         </div>
       </div>
-      <p>© 2023 BarManager. All rights reserved.</p>
+      <p>© 2023 EnterpriseEaze. All rights reserved.</p>
     </footer>
 </body>
 </html>

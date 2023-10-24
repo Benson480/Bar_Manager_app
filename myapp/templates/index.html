@@ -429,10 +429,13 @@
                                   {% csrf_token %}
                                   <button type="submit" class="custom-button" style="background-color: rgb(12, 129, 57);">Add to Cart</button>
                               </form>
-                              <form method="POST" action="/make_order/{{ image.id }}">
-                                  {% csrf_token %}
-                                  <button type="submit" class="custom-button">Make an Order</button>
-                              </form>
+
+                              <form method="POST" action="{% url 'login' %}?next={% url 'add_to_cart' image.id %}?next={% url 'make_order' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="custom-button" style="background-color: rgb(12, 129, 57);">Make an Order</button>
+                            </form>
+                            
+                            
                               <form method="POST" action="/purchase_item/{{ image.id }}">
                                   {% csrf_token %}
                                   <button type="submit" class="custom-button" style="background-color: yellow">Purchase Item</button>
@@ -667,7 +670,7 @@
         <p>Dev Team: Benson & Stephanie</p>
       </div>
     </div>
-    <p>© 2023 BarManager. All rights reserved.</p>
+    <p>© 2023 EnterpriseEaze. All rights reserved.</p>
   </footer>
 
 

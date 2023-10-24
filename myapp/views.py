@@ -43,6 +43,9 @@ import random
 from django.views import View
 from django.http import JsonResponse
 from django.contrib.auth import login as auth_login
+from django.http import Http404
+from django.contrib.sessions.models import Session
+from django.contrib.sessions.backends.db import SessionStore
 
 
 
@@ -475,33 +478,73 @@ def add_to_cart(request, image_id):
     user = request.user if request.user.is_authenticated else None
     cart, created = Cart.objects.get_or_create(user=user)
     cart_item, created = CartItem.objects.get_or_create(cart=cart, image=image)
+    
     if not created:
         cart_item.quantity += 1
         cart_item.save()
+    
+    # If the user is not authenticated, store the item details in the session
+    if not user:
+        item_data = {
+            'image_id': image_id,
+        }
+        session = SessionStore(session_key=request.session.session_key)
+        if 'cart_items' not in session:
+            session['cart_items'] = []
+        session['cart_items'].append(item_data)
+        session.save()
+    
     return redirect('cart_view')
 
+def make_order(request):
+    user = request.user
+
+    # Check if the user has a cart
+    try:
+        cart = Cart.objects.get(user=user)
+    except Cart.DoesNotExist:
+        # Handle the case where the cart does not exist, e.g., by redirecting to the cart page
+        return redirect('cart_view')  # You need to define this URL in your urls.py
+
+    items_in_cart = CartItem.objects.filter(cart=cart)
+    
+    # If the user was not logged in, retrieve stored item details from the session
+    if not user:
+        session = SessionStore(session_key=request.session.session_key)
+        if 'cart_items' in session:
+            for item_data in session['cart_items']:
+                image_id = item_data['image_id']
+                image = get_object_or_404(BeverageImage, pk=image_id)
+                cart_item, created = CartItem.objects.get_or_create(cart=cart, image=image)
+                if not created:
+                    cart_item.quantity += 1
+                    cart_item.save()
+    
+    total_price = sum(item.image.price * item.quantity for item in items_in_cart)
+    order = Order.objects.create(user=user, total_price=total_price)
+    order.items.set(items_in_cart)
+    
+    # Clear the session data
+    if not user:
+        request.session['cart_items'] = []
+    
+    cart.delete()
+    return redirect('order_confirmation_view', order_id=order.id)
+
+
+def order_confirmation_view(request, order_id):
+    try:
+        order = Order.objects.get(id=order_id)
+    except Order.DoesNotExist:
+        # Handle the case where the order does not exist, e.g., by showing an error message
+        raise Http404("Order does not exist")
+
+    return render(request, 'order_confirmation.html', {'order': order})
 
 
 def purchase_item(request, image_id):
     # Implement the logic to handle a purchase (e.g., deduct from user's balance)
     return redirect('success_view')  # Redirect to a success view
-
-
-
-def make_order(request, image_id):
-    user = request.user
-    cart = Cart.objects.get(user=user)
-    items_in_cart = CartItem.objects.filter(cart=cart)
-    total_price = sum(item.image.price * item.quantity for item in items_in_cart)
-    order = Order.objects.create(user=user, total_price=total_price)
-    order.items.set(items_in_cart)
-    cart.delete()
-    return redirect('order_confirmation_view', order_id=order.id)
-
-def order_confirmation_view(request, order_id):
-    # Retrieve the order based on the given order_id
-    order = Order.objects.get(id=order_id)
-    return render(request, 'order_confirmation.html', {'order': order})
 
 
 def remove_from_cart(request, item_id):
