@@ -18,6 +18,7 @@ packages_to_install = [
     "django-allauth[google]",
     "matplotlib",
     "djangorestframework",
+    "django-mpesa",
 
 ]
 

@@ -29,6 +29,7 @@ django-crispy-bootstrap==0.1.1.1
 django-crispy-forms==2.0
 django-flat-responsive==2.0
 django-flat-theme==1.1.4
+django-mpesa==2.0.14
 django-widget-tweaks==1.4.12
 djangorestframework==3.14.0
 dnsdb2==1.1.4
