@@ -535,12 +535,12 @@ def make_order(request):
 def order_confirmation_view(request, order_id):
     try:
         order = Order.objects.get(id=order_id)
+        # Assuming that each item in the order has a foreign key to BeverageImage
+        ordered_images = BeverageImage.objects.filter(order=order)
     except Order.DoesNotExist:
-        # Handle the case where the order does not exist, e.g., by showing an error message
         raise Http404("Order does not exist")
 
-    return render(request, 'order_confirmation.html', {'order': order})
-
+    return render(request, 'order_confirmation.html', {'order': order, 'ordered_images': ordered_images})
 
 def purchase_item(request, image_id):
     # Implement the logic to handle a purchase (e.g., deduct from user's balance)

@@ -291,6 +291,7 @@ class CartItem(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     items = models.ManyToManyField(CartItem)
+    beverage_image = models.ForeignKey(BeverageImage, on_delete=models.CASCADE, null=True)  # Establish the relationship
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     # Add any other fields you need

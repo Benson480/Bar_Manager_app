@@ -103,7 +103,7 @@
         <a class="active" href="/index">Home</a>
         <a href="#orders">Orders</a>
         <a href="#account">Account</a>
-        <a style="float:right" href="#logout">Logout</a>
+        <a style="float:right" href="/index">Logout</a>
     </div>
     <div class="container">
         <div class="header">
@@ -112,13 +112,13 @@
         <div class="order-details">
             <h2>Ordered Items</h2>
             <p>Your order with Order ID <span class="order-id">{{ order.id }}</span> has been confirmed.</p>
-            <p>Total Price: $<span class="item-price">{{ order.total_price }}</span></p>
+            <p>Total Price: Ksh <span class="item-price">{{ order.total_price }}</span></p>
             <ul>
-                {% for item in items_in_order %}
+                {% for item in images %}
                     <li>
-                        <img src="{{ item.image }}" alt="{{ item.image.name }}">
-                        <p class="item-name">{{ item.image.name }}</p>
-                        <p>Price: $<span class="item-price">{{ item.image.price }}</span></p>
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                        <p class="item-name">{{ item.name }}</p>
+                        <p>Price: Ksh <span class="item-price">{{ item.price }}</span></p>
                         <p>Quantity: <span class="item-quantity">{{ item.quantity }}</span></p>
                     </li>
                 {% endfor %}
@@ -128,11 +128,23 @@
         </div>
         <!-- You can display more order details here if needed -->
     </div>
-    <!-- JavaScript to handle the payment process (This would typically be more complex in a real application) -->
+    <!-- JavaScript to handle the payment process and format the price -->
     <script>
-        document.querySelector('.pay-button').addEventListener('click', function() {
-            // In a real application, you would handle payment processing here
-            alert('This is a placeholder. In a real application, you would connect to a payment gateway.');
+        document.addEventListener('DOMContentLoaded', function() {
+            const itemPrices = document.querySelectorAll('.item-price');
+            itemPrices.forEach(function(item) {
+                let price = parseFloat(item.innerText).toFixed(2);
+                item.innerText = numberWithCommas(price);
+            });
+
+            function numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            document.querySelector('.pay-button').addEventListener('click', function() {
+                // In a real application, you would handle payment processing here
+                alert('Dear User, You are almost there. Please, inoder to make payment, this system must be connected to a payment gateway.');
+            });
         });
     </script>
 </body>
