@@ -227,6 +227,7 @@ class BeverageImage(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True) # Auto generated with datetime.now()
     title = models.CharField(max_length=200, null=True, db_index=True, blank=True)
     about_Image = models.TextField(max_length=255, null=True, blank=True)
+    
     def availability_description(self):
         if self.Date:
             return f"Available in {self.Date.strftime('%B %d, %Y')}"
@@ -294,6 +295,7 @@ class Order(models.Model):
     beverage_image = models.ForeignKey(BeverageImage, on_delete=models.CASCADE, null=True)  # Establish the relationship
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
+    items = models.ManyToManyField(CartItem)  # Link Order to CartItems
     # Add any other fields you need
 
 class UserProfile(models.Model):

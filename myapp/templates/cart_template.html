@@ -6,7 +6,7 @@
     <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
-    <title>Your Shopping Cart</title>
+    <title>Shopping Cart</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -442,50 +442,50 @@
       </style>
       
       <div class="container" style="padding: 100px;">
-          <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Price (per item)</th>
-                    <th>Subtotal</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                <tr>
-                    <td>{{ item.image.Product }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td><span class="price">${{ item.image.price }}</span></td>
-                    <td><span class="price">${{ item.subtotal|floatformat:2 }}</span></td>
-                    <td>
-                        <form method="POST" action="{% url 'remove_from_cart' item.id %}" onsubmit="return confirm('Are you sure you want to remove this item from your cart?');">
-                            {% csrf_token %}
-                            <button type="submit" class="remove-button">Remove</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr class="total-row">
-                    <td colspan="3">Total:</td>
-                    <td><span class="price">${{ total_price|floatformat:2 }}</span></td>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Price (per item)</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td><img src="{{ item.image.image.url }}" alt="{{ item.image.title }}" style="width:100px; height:100px;"></td>
+                        <td>{{ item.image.Product }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td><span class="price">${{ item.image.price }}</span></td>
+                        <td><span class="price">${{ item.subtotal|floatformat:2 }}</span></td>
+                        <td>
+                            <form method="POST" action="{% url 'remove_from_cart' item.id %}" onsubmit="return confirm('Are you sure you want to remove this item from your cart?');">
+                                {% csrf_token %}
+                                <button type="submit" class="remove-button">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td colspan="4">Total:</td>
+                        <td><span class="price">${{ total_price|floatformat:2 }}</span></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <form method="POST" action="{% url 'login' %}?next={% url 'make_order' %}">
+            {% csrf_token %}
+            <button type="submit" class="order-button">Make an Order</button>
+        </form>
     </div>
-    <form method="POST" action="{% url 'login' %}?next={% url 'make_order' %}">
-      {% csrf_token %}
-      <button type="submit" class="order-button">Make an Order</button>
-    </form>
-  
-  
-   
-      </div>
+    
 
     <script>
         // Function to format numbers with commas for thousands separator

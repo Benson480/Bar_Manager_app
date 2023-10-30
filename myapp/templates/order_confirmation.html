@@ -2,37 +2,42 @@
 <html>
 <head>
     <title>Order Confirmation</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f7f7f7;
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
             text-align: center;
             margin: 0;
             padding: 0;
         }
-
         .topnav {
-            overflow: hidden;
             background-color: #333;
-        }
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999; /* Ensure it appears in front of other page content */
+    }
+
 
         .topnav a {
             float: left;
-            color: #f2f2f2;
+            color: #fff;
             text-align: center;
             padding: 14px 16px;
             text-decoration: none;
-            font-size: 17px;
+            font-size: 18px;
         }
 
         .topnav a:hover {
-            background-color: #ddd;
-            color: black;
+            background-color: #555;
         }
 
         .container {
             max-width: 800px;
-            margin: 50px auto 0;
+            margin: 50px auto;
             padding: 20px;
         }
 
@@ -43,15 +48,15 @@
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 32px;
             margin: 0;
         }
 
         .order-details {
             background-color: #fff;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             margin-top: 30px;
         }
 
@@ -62,10 +67,12 @@
 
         .order-id {
             font-size: 18px;
+            font-weight: bold;
         }
 
         p {
-            color: #333;
+            color: #555;
+            margin: 0;
         }
 
         ul {
@@ -86,14 +93,30 @@
 
         .item-name {
             font-weight: bold;
+            color: #333;
         }
 
         .item-price {
             color: #0074e4;
+            font-weight: bold;
         }
 
         .item-quantity {
             color: #777;
+        }
+
+        .pay-button {
+            background-color: #0074e4;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .pay-button:hover {
+            background-color: #06b300;
         }
     </style>
 </head>
@@ -111,23 +134,27 @@
         </div>
         <div class="order-details">
             <h2>Ordered Items</h2>
-            <p>Your order with Order ID <span class="order-id">{{ order.id }}</span> has been confirmed.</p>
+            <p>Your order with Order ID: <span class="order-id">{{ order.id }}</span> has been confirmed.</p>
             <p>Total Price: Ksh <span class="item-price">{{ order.total_price }}</span></p>
             <ul>
-                {% for item in images %}
+                {% for item in ordered_images %}
                     <li>
-                        <img src="{{ item.image.url }}" alt="{{ item.name }}">
-                        <p class="item-name">{{ item.name }}</p>
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                        <p class="item-name">{{ item.title }}</p>
+                        <p>Description: {{ item.about_Image }}</p>
                         <p>Price: Ksh <span class="item-price">{{ item.price }}</span></p>
                         <p>Quantity: <span class="item-quantity">{{ item.quantity }}</span></p>
                     </li>
                 {% endfor %}
             </ul>
-            <!-- Payment button (placeholder) -->
-            <a href="#" class="pay-button">Pay Now</a>
+            <!-- Payment button and cancel button -->
+            <div class="payment-buttons">
+                <a href="#" class="pay-button" id="pay-button">Pay Now</a>
+                <a href="#" class="cancel-button" id="cancel-button">Cancel</a>
+            </div>
         </div>
-        <!-- You can display more order details here if needed -->
     </div>
+    
     <!-- JavaScript to handle the payment process and format the price -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -141,11 +168,26 @@
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
 
-            document.querySelector('.pay-button').addEventListener('click', function() {
-                // In a real application, you would handle payment processing here
-                alert('Dear User, You are almost there. Please, inoder to make payment, this system must be connected to a payment gateway.');
+            const payButton = document.getElementById('pay-button');
+            const cancelButton = document.getElementById('cancel-button');
+
+            payButton.addEventListener('click', function() {
+                // Show a confirmation dialog
+                if (confirm('Are you sure you want to proceed with the payment?')) {
+                    // In a real application, you would handle payment processing here
+                    alert('Payment processing will be implemented here.');
+                } else {
+                    // User canceled the payment
+                    alert('Payment canceled.');
+                }
+            });
+
+            cancelButton.addEventListener('click', function() {
+                // Handle cancel action here
+                alert('Payment canceled.');
             });
         });
     </script>
 </body>
+
 </html>

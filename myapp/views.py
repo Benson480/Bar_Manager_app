@@ -179,24 +179,6 @@ def edit_profile(request):
 
 
 
-def index(request):
-    categories = Category.objects.all()
-    selected_category = request.GET.get('category', 'All')
-
-    if selected_category == 'All':
-        images = BeverageImage.objects.all()
-    else:
-        category = Category.objects.get(name=selected_category)
-        images = BeverageImage.objects.filter(categories=category)
-
-    categorized_images = {}
-    for category in categories:
-        categorized_images[category] = images.filter(categories=category)
-
-    return render(request, 'index.html', {'categorized_images': categorized_images, 'selected_category': selected_category, 'categories': categories})
-
-
-
 
 @login_required
 def dashboard(request):
@@ -450,6 +432,24 @@ def announcement_list(request):
     announcements = Announcement.objects.all().order_by('-timestamp')
     return render(request, 'announcements.html', {'announcements': announcements})
 
+
+def index(request):
+    categories = Category.objects.all()
+    selected_category = request.GET.get('category', 'All')
+
+    if selected_category == 'All':
+        images = BeverageImage.objects.all()
+    else:
+        category = Category.objects.get(name=selected_category)
+        images = BeverageImage.objects.filter(categories=category)
+
+    categorized_images = {}
+    for category in categories:
+        categorized_images[category] = images.filter(categories=category)
+
+    return render(request, 'index.html', {'categorized_images': categorized_images, 'selected_category': selected_category, 'categories': categories})
+
+# views.py
 def cart_view(request):
     # Assuming user authentication is enabled, get the current user
     user = request.user
@@ -464,12 +464,17 @@ def cart_view(request):
     for item in cart_items:
         item.subtotal = item.image.price * item.quantity
 
+    # Query all images from the BeverageImage model
+    images = BeverageImage.objects.all()
+
     context = {
         'cart_items': cart_items,
         'total_price': total_price,
+        'images': images,
     }
 
     return render(request, 'cart_template.html', context)
+
 
 
 @login_required
@@ -507,40 +512,43 @@ def make_order(request):
         return redirect('cart_view')  # You need to define this URL in your urls.py
 
     items_in_cart = CartItem.objects.filter(cart=cart)
-    
-    # If the user was not logged in, retrieve stored item details from the session
-    if not user:
-        session = SessionStore(session_key=request.session.session_key)
-        if 'cart_items' in session:
-            for item_data in session['cart_items']:
-                image_id = item_data['image_id']
-                image = get_object_or_404(BeverageImage, pk=image_id)
-                cart_item, created = CartItem.objects.get_or_create(cart=cart, image=image)
-                if not created:
-                    cart_item.quantity += 1
-                    cart_item.save()
-    
+
+    # Calculate the total price of items in the cart
     total_price = sum(item.image.price * item.quantity for item in items_in_cart)
+
+    # Create an order and associate the selected items with it
     order = Order.objects.create(user=user, total_price=total_price)
     order.items.set(items_in_cart)
-    
-    # Clear the session data
-    if not user:
-        request.session['cart_items'] = []
-    
+
+    # Retrieve the associated images
+    ordered_images = [item.image for item in items_in_cart]
+
+    # Clear the cart and redirect to the order confirmation view
     cart.delete()
-    return redirect('order_confirmation_view', order_id=order.id)
+    
+    # Pass the ordered_images to the order_confirmation_view
+    return HttpResponseRedirect(reverse('order_confirmation_view', args=(order.id,)) + f"?ordered_images={','.join([str(image.id) for image in ordered_images])}")
+
+
+
 
 
 def order_confirmation_view(request, order_id):
     try:
         order = Order.objects.get(id=order_id)
-        # Assuming that each item in the order has a foreign key to BeverageImage
-        ordered_images = BeverageImage.objects.filter(order=order)
     except Order.DoesNotExist:
         raise Http404("Order does not exist")
 
-    return render(request, 'order_confirmation.html', {'order': order, 'ordered_images': ordered_images})
+    ordered_images = request.GET.get('ordered_images', '').split(',')
+    ordered_images_objects = [get_object_or_404(BeverageImage, id=image_id) for image_id in ordered_images]
+
+    context = {
+        'order': order,
+        'ordered_images': ordered_images_objects,
+    }
+    return render(request, 'order_confirmation.html', context)
+
+
 
 def purchase_item(request, image_id):
     # Implement the logic to handle a purchase (e.g., deduct from user's balance)

@@ -1,36 +1,7 @@
 <!-- settings.html -->
 {% extends "master.html" %}
 
-{% block content %}
-<div class="settings-container">
-    <header>
-        <h1>Settings Page</h1>
-    </header>
-    <h2>Settings</h2>
-    <div class="form-group">
-        <label for="dark-mode-toggle">Dark Mode:</label>
-        <input type="checkbox" id="dark-mode-toggle">
-    </div>
-    <div class="form-group">
-        <label for="font-size-select">Font Size:</label>
-        <select id="font-size-select">
-            <option value="14px">Small</option>
-            <option value="16px">Medium</option>
-            <option value="18px">Large</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="notification-toggle">Notifications:</label>
-        <input type="checkbox" id="notification-toggle">
-    </div>
-    <h2>User Profile</h2>
-    <p><strong>Full Name:</strong> {{ user_profile.full_name }}</p>
-    <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
-    <p><strong>Location:</strong> {{ user_profile.location }}</p>
-    <p><strong>Website:</strong> <a href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
-    <p><strong>Date of Birth:</strong> {{ user_profile.date_of_birth }}</p>
-</div>
-
+{% block styles %}
 <style>
     .settings-container {
         max-width: 600px;
@@ -71,13 +42,75 @@
     a {
         color: #007BFF;
     }
+    .form-group {
+        padding-left: 80px;
+    }
 </style>
+
+
+{% endblock %}
+
+{% block content %}
+<div class="settings-container">
+    <header>
+        <h1 style="text-align: center;">Settings Page</h1>
+    </header>
+    <h2>Settings</h2>
+    <div class="form-group">
+        <label for="dark-mode-toggle">Dark Mode:</label>
+        <input type="checkbox" id="dark-mode-toggle">
+    </div>
+    <div class="form-group">
+        <label for="font-size-select">Font Size:</label>
+        <select id="font-size-select">
+            <option value="14px">Small</option>
+            <option value="16px">Medium</option>
+            <option value="18px">Large</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="notification-toggle">Notifications:</label>
+        <input type="checkbox" id="notification-toggle">
+    </div>
+    <h2>User Profile</h2>
+    <div class="form-group">
+        <label for="full-name">Full Name:</label>
+        <input type="text" id="full-name" value="{{ user_profile.full_name }}">
+    </div>
+    <div class="form-group">
+        <label for="bio">Bio:</label>
+        <textarea id="bio">{{ user_profile.bio }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="location">Location:</label>
+        <input type="text" id="location" value="{{ user_profile.location }}">
+    </div>
+    <div class="form-group">
+        <label for="website">Website:</label>
+        <input type="text" id="website" value="{{ user_profile.website }}">
+    </div>
+    <div class="form-group">
+        <label for="date-of-birth">Date of Birth:</label>
+        <input type="text" id="date-of-birth" value="{{ user_profile.date_of_birth }}">
+    </div>
+    <h2>Email Preferences</h2>
+    <div class="form-group">
+        <label for="email-notifications">Email Notifications:</label>
+        <input type="checkbox" id="email-notifications">
+    </div>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const fontSizeSelect = document.getElementById('font-size-select');
         const notificationToggle = document.getElementById('notification-toggle');
         const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const fullNameInput = document.getElementById('full-name');
+        const bioTextarea = document.getElementById('bio');
+        const locationInput = document.getElementById('location');
+        const websiteInput = document.getElementById('website');
+        const dateOfBirthInput = document.getElementById('date-of-birth');
+        const emailNotificationsToggle = document.getElementById('email-notifications');
 
         // Function to save user settings
         const saveUserSettings = () => {
@@ -87,7 +120,13 @@
             const userSettings = {
                 fontSize: selectedFontSize,
                 darkMode: darkModeToggle.checked,
-                notifications: notificationToggle.checked
+                notifications: notificationToggle.checked,
+                fullName: fullNameInput.value,
+                bio: bioTextarea.value,
+                location: locationInput.value,
+                website: websiteInput.value,
+                dateOfBirth: dateOfBirthInput.value,
+                emailNotifications: emailNotificationsToggle.checked
             };
             localStorage.setItem('userSettings', JSON.stringify(userSettings));
 
@@ -108,6 +147,12 @@
                 document.body.style.fontSize = userSettings.fontSize;
                 darkModeToggle.checked = userSettings.darkMode;
                 notificationToggle.checked = userSettings.notifications;
+                fullNameInput.value = userSettings.fullName;
+                bioTextarea.value = userSettings.bio;
+                locationInput.value = userSettings.location;
+                websiteInput.value = userSettings.website;
+                dateOfBirthInput.value = userSettings.dateOfBirth;
+                emailNotificationsToggle.checked = userSettings.emailNotifications;
 
                 // Apply dark mode immediately if enabled
                 if (userSettings.darkMode) {
@@ -116,7 +161,7 @@
             }
         };
 
-        // Event listeners
+        // Event listeners for form elements
         fontSizeSelect.addEventListener('change', () => {
             const selectedFontSize = fontSizeSelect.value;
             document.body.style.fontSize = selectedFontSize;
@@ -135,6 +180,14 @@
         notificationToggle.addEventListener('change', () => {
             saveUserSettings();
         });
+
+        // Additional event listeners for user profile and email preferences
+        fullNameInput.addEventListener('input', saveUserSettings);
+        bioTextarea.addEventListener('input', saveUserSettings);
+        locationInput.addEventListener('input', saveUserSettings);
+        websiteInput.addEventListener('input', saveUserSettings);
+        dateOfBirthInput.addEventListener('input', saveUserSettings);
+        emailNotificationsToggle.addEventListener('change', saveUserSettings);
 
         // Apply saved settings on page load
         applySavedSettings();
