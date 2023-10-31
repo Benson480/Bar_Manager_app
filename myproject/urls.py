@@ -62,6 +62,7 @@ urlpatterns = [
     path('cart_view/', cart_view, name='cart_view'),
     path('remove_from_cart/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
     path('order_confirmation/<int:order_id>/', order_confirmation_view, name='order_confirmation_view'),
+    path('logout/', logout_view, name='logout'),
     # path('images/', include('myapp.urls')),
 ]
 

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
                       Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSettings, BusinessSettings,
-                      Announcement, Cart, CartItem, Order, Category)
+                      Announcement, Cart, CartItem, Order, Category, Activity)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -46,6 +46,8 @@ from django.contrib.auth import login as auth_login
 from django.http import Http404
 from django.contrib.sessions.models import Session
 from django.contrib.sessions.backends.db import SessionStore
+from urllib.parse import urlparse
+from django.urls import resolve
 
 
 
@@ -145,11 +147,14 @@ def login_view(request):
     return render(request, 'accounts/login.html', context)
 
 
+@login_required  # Add this decorator to ensure the user is authenticated
 def logout_view(request):
     if request.method == "POST":
         logout(request)
+        if request.user.is_authenticated:  # Check if the user is authenticated
+            Activity.objects.create(user=request.user, activity_type="User Logout", user_logout=True)
         return redirect("/index/")
-    return render(request, "accounts/logout.html", {})  
+    return render(request, "accounts/logout.html", {})
 
 @login_required
 def profile(request):
@@ -166,6 +171,11 @@ def profile(request):
 def edit_profile(request):
     # Check if the user has a UserProfile instance, and create one if not
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    # Create an Activity object to track the action
+    max_activities = 50
+    activities = Activity.objects.all().order_by('-timestamp')[:max_activities]
+    Activity.objects.exclude(pk__in=activities).delete()
+
     
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=user_profile)
@@ -184,12 +194,76 @@ def edit_profile(request):
 def dashboard(request):
     # Retrieve or create the user_profile
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    
+
+    max_activities = 6
+    activities = Activity.objects.all().order_by('-timestamp')[:max_activities]
+    Activity.objects.exclude(pk__in=activities).delete()
+
     # Update user activity in the session
     if request.user.is_authenticated:
         request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
-    return render(request, 'dashboard.html', {'user_profile': user_profile})
+        # Get the accessed URL, excluding the login and logout URLs
+        accessed_url = request.META.get('HTTP_REFERER', '')
+        login_url = request.build_absolute_uri(reverse('login'))  # Replace 'login' with your login URL name
+        logout_url = request.build_absolute_uri(reverse('logout'))  # Replace 'logout' with your logout URL name
+
+        # Only save the URL if it's not a login or logout URL
+        if accessed_url != login_url and accessed_url != logout_url:
+            # Extract the path from the URL for a more descriptive access description
+            parsed_url = urlparse(accessed_url)
+            path = parsed_url.path
+
+            # Define a mapping of paths to activity descriptions
+            activity_descriptions = {
+                '/employee/': "Employee Page",
+                '/dashboard/': "Dashboard",
+                '/admin/': "Admin",
+                '/Employer_dashboard/': "Employer Dashboard",
+                '/Inventory/': "Inventory Page",
+                '/profile/': "Profile Page",
+                '/Employee_details/': "Employee Details Page",
+                '/departments/': "Departments Page",
+                '/report_dashboard/': "Report Dashboard",
+                '/daily-usage/': "Daily Usage Report",
+                '/purchased-stock/': "Purchased Stock Report",
+                '/physical-stock-take/': "Physical Stock Take Report",
+                '/budget/': "Budget Report",
+                '/price-list/': "Price List Report",
+                '/items-classification/': "Items Classification Report",
+                '/forex-exchange-rates/': "Forex Exchange Rates Report",
+                '/mysettings/': "Settings Page",
+                '/business_settings/': "Business Settings Page",
+                '/analytics/': "Analytics Page",
+                '/dynamic_chart/': "Dynamic Chart",
+                '/announcements/': "Announcements Page",
+                '/add_to_cart/': "Add Item to Cart",
+                '/purchase_item/': "Purchase Item",
+                '/make_order/': "Make Order",
+                '/cart_view/': "Cart View",
+                '/remove_from_cart/': "Remove Item from Cart",
+                '/order_confirmation/': "Order Confirmation Page",
+                '/logout/': "User Logout",
+                '/login/': "User Login",
+                '/accounts/register/': "User Registration",
+                '/contacts/': "Contacts Page",
+                '/index/': "Index Page",
+                '/about/': "About Page"
+            }
+
+
+            # Set the default description to "User accessed a page" if the path is not in the mapping
+            description = activity_descriptions.get(path, "User accessed a page")
+
+            Activity.objects.create(user=request.user, activity_type="View Access", description=description, url=accessed_url)
+
+    context = {
+        'activities': activities,
+        'user_profile': user_profile,  # Add user_profile to the context dictionary
+    }
+
+    return render(request, 'dashboard.html', context)
+
 
 
 @login_required
@@ -233,6 +307,7 @@ def Employee_view(request):
     # Fertilizer_list = Fertilizer.objects.all()
     # Employeeform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
     Employeeform = EmployeeForm(request.POST or None, request.FILES or None)
+    # Create an Activity object to track the action
     
      
     # check if form data is valid
@@ -262,6 +337,8 @@ def Employee_details(request):
     # Fertilizer_list = Fertilizer.objects.all()
     # Employeeform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
     Employeeform = EmployeeForm(request.POST or None, request.FILES or None)
+    # Create an Activity object to track the action
+
     
      
     # check if form data is valid
@@ -288,8 +365,10 @@ def Employer_dashboard(request):
     except UserProfile.DoesNotExist:
         # Create a UserProfile instance if it doesn't exist
         user_profile = UserProfile.objects.create(user=request.user)
+        
 
     template = loader.get_template('Employer.html')
+    # Create an Activity object to track the action
 
     # Update user activity in the session
     if request.user.is_authenticated:

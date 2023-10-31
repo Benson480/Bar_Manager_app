@@ -233,7 +233,70 @@
 
 </div>
 
-<div class="content">
+
+<style>
+  .activity-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px; /* Adjust the spacing between activities as needed */
+      color: black;
+  }
+
+  .activity-box {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      flex: 1;
+      max-width: 300px; /* Adjust the maximum width as needed */
+  }
+
+  .activity-header {
+      font-weight: bold;
+      margin-bottom: 5px;
+  }
+
+  .activity-timestamp {
+      color: #777;
+      margin-bottom: 5px;
+  }
+
+  .activity-description {
+      font-size: 16px;
+  }
+</style>
+
+<div>
+  <h2 style="text-align: center;">Recent Activities</h2>
+  <ul class="activity-list">
+      {% for activity in activities %}
+          <li class="activity-box" onclick="window.location.href='{{ activity.url }}';" style="cursor: pointer;">
+              <div class="activity-header">
+                  {{ activity.user.username }} - {{ activity.activity_type }}
+                  {% if activity.user_logout %}
+                      (User logged out)
+                  {% endif %}
+              </div>
+              <div class="activity-timestamp">
+                  {{ activity.timestamp }}
+              </div>
+              <div class="activity-description">
+                  {{ activity.description }}
+              </div>
+          </li>
+      {% endfor %}
+  </ul>
+</div>
+
+
+
+
+
+</div>
+  <div class="content">
   <h2>USD to KSH Exchange Rate Dashboard</h2>
   <div class="chart-container">
     <div class="chart">
@@ -306,10 +369,6 @@
   // Fetch initial forex rates and start updating
   fetchForexRates();
 </script>
-
-
-
-
 
 
 

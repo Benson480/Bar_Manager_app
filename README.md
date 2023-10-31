@@ -129,10 +129,15 @@ presentation link
 https://docs.google.com/presentation/d/1N1wG1yhFRmbHfc5WSBCVBJNk7f_cMpBx2nkFX14Y4ik/edit#slide=id.g27ac641283c_0_17
 
 
-Architecture link
+ARCHITECTURE LINK
 
 
 https://app.diagrams.net/#G1LzeLET_FNLyQ7tWyZTLRmjoDehbatj2k
+
+
+DARAJA API LINK
+
+https://youtu.be/ycVQGmaR-Lo
 
 Authors: 
 

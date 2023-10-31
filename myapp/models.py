@@ -378,3 +378,17 @@ class Announcement(models.Model):
 
     def __str__(self):
         return self.title
+    
+    
+class Activity(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activity_type = models.CharField(max_length=255)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(blank=True, null=True)
+    user_logout = models.BooleanField(default=False)
+    url = models.CharField(max_length=255, blank=True, null=True)  # Add a URL field
+
+    def __str__(self):
+        return f'{self.user} - {self.activity_type} - {self.timestamp}'
+
+
