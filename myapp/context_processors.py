@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile
-from .models import UserSettings
+from .models import UserSetting
 from django.contrib.auth.models import AnonymousUser  # Import AnonymousUser
 
 def include_login_form(request):
@@ -21,10 +21,10 @@ def user_profile(request):
 def user_settings(request):
     # Check if the user is authenticated before accessing settings
     if request.user.is_authenticated:
-        user_settings, created = UserSettings.objects.get_or_create(user=request.user)
+        user_settings, created = UserSetting.objects.get_or_create(user=request.user)
     else:
         # If the user is not authenticated, provide default settings or handle as needed
-        user_settings = UserSettings()  # You can set default values here
+        user_settings = UserSetting()  # You can set default values here
 
     return {
         'user_settings': user_settings,

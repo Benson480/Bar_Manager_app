@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
 from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSettings, BusinessSettings,
+                      Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSetting, BusinessSetting,
                       Announcement, Cart, CartItem, Order, Category, Activity)
 from django.db.models import Q
 from .forms import NewUserForm
@@ -216,14 +216,14 @@ def dashboard(request):
 
             # Define a mapping of paths to activity descriptions
             activity_descriptions = {
-                '/employee/': "Employee Page",
+                '/Employee/': "Employee",
                 '/dashboard/': "Dashboard",
                 '/admin/': "Admin",
                 '/Employer_dashboard/': "Employer Dashboard",
-                '/Inventory/': "Inventory Page",
-                '/profile/': "Profile Page",
-                '/Employee_details/': "Employee Details Page",
-                '/departments/': "Departments Page",
+                '/Inventory/': "Inventory",
+                '/profile/': "Profile",
+                '/Employee_details/': "Employee Details",
+                '/departments/': "Departments",
                 '/report_dashboard/': "Report Dashboard",
                 '/daily-usage/': "Daily Usage Report",
                 '/purchased-stock/': "Purchased Stock Report",
@@ -232,23 +232,23 @@ def dashboard(request):
                 '/price-list/': "Price List Report",
                 '/items-classification/': "Items Classification Report",
                 '/forex-exchange-rates/': "Forex Exchange Rates Report",
-                '/mysettings/': "Settings Page",
-                '/business_settings/': "Business Settings Page",
-                '/analytics/': "Analytics Page",
+                '/mysettings/': "Settings",
+                '/business_settings/': "Business Settings",
+                '/analytics/': "Analytics",
                 '/dynamic_chart/': "Dynamic Chart",
-                '/announcements/': "Announcements Page",
+                '/announcements/': "Announcements",
                 '/add_to_cart/': "Add Item to Cart",
                 '/purchase_item/': "Purchase Item",
                 '/make_order/': "Make Order",
                 '/cart_view/': "Cart View",
                 '/remove_from_cart/': "Remove Item from Cart",
-                '/order_confirmation/': "Order Confirmation Page",
+                '/order_confirmation/': "Order Confirmation",
                 '/logout/': "User Logout",
                 '/login/': "User Login",
                 '/accounts/register/': "User Registration",
-                '/contacts/': "Contacts Page",
-                '/index/': "Index Page",
-                '/about/': "About Page"
+                '/contacts/': "Contacts",
+                '/index/': "Index",
+                '/about/': "About"
             }
 
 
@@ -457,7 +457,7 @@ def forex_exchange_rates_report(request):
 
 @login_required  # Add the login_required decorator to require authentication
 def mysettings(request):
-    user_settings, created = UserSettings.objects.get_or_create(user=request.user)
+    user_settings, created = UserSetting.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         form = UserSettingsForm(request.POST, instance=user_settings)
         if form.is_valid():
@@ -504,7 +504,16 @@ class DynamicChartView(View):
 
 
 def business_settings(request):
-    business_settings = BusinessSettings.objects.first()  # Retrieve the first settings object
+    business_settings = BusinessSetting.objects.first()  # Retrieve the first settings object
+
+    if request.method == 'POST':
+        # Process the form data when the form is submitted
+        business_settings.business_name = request.POST.get('business-name')
+        business_settings.business_address = request.POST.get('business-address')
+        business_settings.business_email = request.POST.get('business-email')
+        business_settings.business_phone = request.POST.get('business-phone')
+        business_settings.save()  # Save the updated data
+
     return render(request, 'business_settings.html', {'business_settings': business_settings})
 
 def announcement_list(request):

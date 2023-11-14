@@ -9,26 +9,58 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <div class="container">
-  <h1>Business Settings</h1>
+  <h1 style="text-align: center;">Business Settings</h1>
+  <button id="edit-button" class="btn btn-secondary">Edit</button>
+  <button id="cancel-button" class="btn btn-secondary" style="display: none;">Cancel</button>
   <form id="settings-form" method="post" action="{% url 'business_settings' %}">
     {% csrf_token %}
     <div class="form-group">
       <label for="business-name">Business Name:</label>
-      <input type="text" class="form-control" id="business-name" name="business-name">
+      <input type="text" class="form-control" id="business-name" name="business-name" value="{{ business_settings.business_name }}" readonly>
     </div>
     <div class="form-group">
       <label for="business-address">Business Address:</label>
-      <input type="text" class="form-control" id="business-address" name="business-address">
+      <input type="text" class="form-control" id="business-address" name="business-address" value="{{ business_settings.business_address }}" readonly>
     </div>
     <div class="form-group">
       <label for="business-email">Business Email:</label>
-      <input type="email" class="form-control" id="business-email" name="business-email">
+      <input type="email" class="form-control" id="business-email" name="business-email" value="{{ business_settings.business_email }}" readonly>
     </div>
     <div class="form-group">
-      <label for="business-phone">Business Phone:</label>
-      <input type="tel" class="form-control" id="business-phone" name="business-phone">
+      <label for "business-phone">Business Phone:</label>
+      <input type="tel" class="form-control" id="business-phone" name="business-phone" value="{{ business_settings.business_phone }}" readonly>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary" id="save-button" style="display: none;">Save</button>
   </form>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const editButton = document.getElementById("edit-button");
+    const saveButton = document.getElementById("save-button");
+    const cancelButton = document.getElementById("cancel-button");
+    const formFields = document.querySelectorAll("#settings-form input");
+
+    editButton.addEventListener("click", function() {
+      for (const field of formFields) {
+        field.removeAttribute("readonly");
+      }
+      saveButton.style.display = "block";
+      cancelButton.style.display = "block";
+      editButton.style.display = "none";
+    });
+
+    cancelButton.addEventListener("click", function() {
+      for (const field of formFields) {
+        field.setAttribute("readonly", "readonly");
+      }
+      saveButton.style.display = "none";
+      cancelButton.style.display = "none";
+      editButton.style.display = "block";
+    });
+  });
+</script>
+
+
+
 {% endblock %}

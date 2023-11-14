@@ -25,6 +25,7 @@ class Beverage_Price(models.Model):
     ("Ltr", "Ltr"),
     ("Bag", "Bag"),
     ("Pcs", "Pcs"),
+    ("Pcs", "Pc"),
     ("Carton", "Carton"),
     ("Pkt", "Pkt"),
     ("Tons", "Tons"),
@@ -271,9 +272,10 @@ class BeverageImage(models.Model):
                 # Remove commas from the formatted price string and then convert to float
                 formatted_price = formatted_price.replace(',', '')
                 return float(formatted_price)
-        
-        # If no matching price is found, return 0
-        return 0.0  # Return a float, not a string
+
+        # If no matching price is found, return 0.0 as a float
+        return 0.0
+
 
 
 
@@ -345,7 +347,7 @@ class Department(models.Model):
         return self.name
 
 
-class UserSettings(models.Model):
+class UserSetting(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dark_mode = models.BooleanField(default=False)
     notifications = models.BooleanField(default=True)
@@ -354,11 +356,11 @@ class UserSettings(models.Model):
     def __str__(self):
         return self.user.username + "'s Settings"
     
-class BusinessSettings(models.Model):
+class BusinessSetting(models.Model):
     business_name = models.CharField(max_length=100)
     business_address = models.TextField()
     business_email = models.EmailField()
-    business_phone = models.CharField(max_length=15)
+    business_phone = models.CharField(max_length=30)
 
     def __str__(self):
         return self.business_name
