@@ -53,6 +53,7 @@ class New_stock(models.Model):
     Purchase_Date = models.DateField(null=True, db_index=True, blank=True)
     Purchase_Amount = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
 
+
     def __str__(self):
         return str(self.Product)
     @property
