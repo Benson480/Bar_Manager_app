@@ -25,6 +25,6 @@ admin.site.register(Category)
 
 
 
-admin.site.site_header = "BarManager"
-admin.site.site_title = "BarManager Administration"
-admin.site.index_title = "Welcome To Your Alcohol Business Management Platform"
+admin.site.site_header = "BenthaTechnology"
+admin.site.site_title = "BenthaTechnology Administration"
+admin.site.index_title = "Welcome To Your BenthaTechnology Management Platform"
