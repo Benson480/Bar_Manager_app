@@ -25,6 +25,6 @@ admin.site.register(Category)
 
 
 
-admin.site.site_header = "BenthaTechnology"
-admin.site.site_title = "BenthaTechnology Administration"
-admin.site.index_title = "Welcome To Your BenthaTechnology Management Platform"
+admin.site.site_header = "Bentha Technologies"
+admin.site.site_title = "Bentha Technologies Administration"
+admin.site.index_title = "Welcome To Your Bentha Technologies Management Platform"
