@@ -31,6 +31,7 @@ class Beverage_Price(models.Model):
     ("Tons", "Tons"),
     ("Bottles", "Bottles"),
     ("Dose", "Dose"),
+    ("Course", "Course"),
     )
     Unit_Of_Measure = models.CharField(max_length=255,null=True,db_index=True,
                   choices=Unit_Of_Measure_Choices
