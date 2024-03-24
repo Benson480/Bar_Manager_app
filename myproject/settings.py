@@ -16,6 +16,7 @@ import os
 from myproject.redirect_middleware import LoginRequiredMiddleware
 from myproject.middleware import AutoLogoutMiddleware
 import socket
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -272,3 +273,6 @@ ADMIN_STYLE = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Activate django_heroku
+django_heroku.settings(locals())
