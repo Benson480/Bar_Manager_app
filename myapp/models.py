@@ -32,11 +32,14 @@ class Beverage_Price(models.Model):
     ("Bottles", "Bottles"),
     ("Dose", "Dose"),
     ("Course", "Course"),
+    ("Square Meter", "Square Meter"),
     )
     Unit_Of_Measure = models.CharField(max_length=255,null=True,db_index=True,
                   choices=Unit_Of_Measure_Choices
                   )
     price_ksh = models.FloatField(blank=True, db_index=True, null=True, default=0)
+    Price_Negotiable = models.CharField(max_length=255, null=True, db_index=True)
+
 
     def __str__(self):
         return str(self.Beverage_Product)

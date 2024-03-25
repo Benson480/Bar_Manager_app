@@ -457,6 +457,7 @@
                               <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}</p>
                               <p><strong>Status:</strong> {{ image.status }}</p>
                               <p><strong>Price:</strong> <span class="formattedNumber" data-field="price">{{ image.price|default:"" }}</span> ksh per {{ image.UnitOfMeasure }}</p>
+                              <p><strong>Price_Negotiable:</strong> <span class="formattedNumber" data-field="price">{{ image.price|default:"" }}</span> ksh per {{ image.Price_Negotiable }}</p>
                               <div style="margin-top: auto;">
                               <form method="POST" action="{% url 'login' %}?next={% url 'add_to_cart' image.id %}">
                                   {% csrf_token %}
