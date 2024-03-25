@@ -367,6 +367,8 @@ class BusinessSetting(models.Model):
     def __str__(self):
         return self.business_name
     
+from django.db import models
+
 class Announcement(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
@@ -375,6 +377,8 @@ class Announcement(models.Model):
         ('advertisement', 'Advertisement'),
         ('video', 'Video Upload'),
     ])
+    image = models.ImageField(upload_to='announcement_images/', blank=True, null=True)
+    image_description = models.CharField(max_length=255, blank=True, null=True, help_text="Description of the image")
     video_url = models.URLField(blank=True, null=True)
     countdown_to = models.DateTimeField(blank=True, null=True)
     venue = models.CharField(max_length=100, blank=True, null=True)
@@ -382,6 +386,7 @@ class Announcement(models.Model):
 
     def __str__(self):
         return self.title
+
     
     
 class Activity(models.Model):
