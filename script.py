@@ -1,3 +1,5 @@
+# This script is made to run and execute python commands at a large scale eg database query
+
 import sqlite3
 
 # Connect to SQLite database

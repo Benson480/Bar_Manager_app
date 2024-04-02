@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
-from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage, UserProfile, Department, UserSetting, BusinessSetting,
+from .models import (Item, Item_Price, New_stock, Employee,
+                      Employer, ItemImage, Daily_Usage, UserProfile, Department, UserSetting, BusinessSetting,
                       Announcement, Cart, CartItem, Order, Category, Activity)
 from django.db.models import Q
 from .forms import NewUserForm
@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-from .forms import (Beverage_Form, EmployeeForm, Usage_Amount_Form, New_stockForm, UserProfileForm, UserSettingsForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
+from .forms import (Item_Form, EmployeeForm, Usage_Amount_Form, New_stockForm, UserProfileForm, UserSettingsForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
                     #Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm, Fertilizer_Recycle_Form)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
@@ -288,11 +288,11 @@ def contacts(request):
 
 
 def image_list(request):
-    images = BeverageImage.objects.all()
+    images = ItemImage.objects.all()
     return render(request, 'index.html', {'images': images})
 
 def deleteimages(request, id):
-  member = BeverageImage.objects.get(id=id)
+  member = ItemImage.objects.get(id=id)
   member.delete()
   return HttpResponseRedirect(reverse("image_list"))
 
@@ -526,10 +526,10 @@ def index(request):
     selected_category = request.GET.get('category', 'All')
 
     if selected_category == 'All':
-        images = BeverageImage.objects.all()
+        images = ItemImage.objects.all()
     else:
         category = Category.objects.get(name=selected_category)
-        images = BeverageImage.objects.filter(categories=category)
+        images = ItemImage.objects.filter(categories=category)
 
     categorized_images = {}
     for category in categories:
@@ -552,8 +552,8 @@ def cart_view(request):
     for item in cart_items:
         item.subtotal = item.image.price * item.quantity
 
-    # Query all images from the BeverageImage model
-    images = BeverageImage.objects.all()
+    # Query all images from the ItemImage model
+    images = ItemImage.objects.all()
 
     context = {
         'cart_items': cart_items,
@@ -567,7 +567,7 @@ def cart_view(request):
 
 @login_required
 def add_to_cart(request, image_id):
-    image = get_object_or_404(BeverageImage, pk=image_id)
+    image = get_object_or_404(ItemImage, pk=image_id)
     user = request.user if request.user.is_authenticated else None
     cart, created = Cart.objects.get_or_create(user=user)
     cart_item, created = CartItem.objects.get_or_create(cart=cart, image=image)
@@ -628,7 +628,7 @@ def order_confirmation_view(request, order_id):
         raise Http404("Order does not exist")
 
     ordered_images = request.GET.get('ordered_images', '').split(',')
-    ordered_images_objects = [get_object_or_404(BeverageImage, id=image_id) for image_id in ordered_images]
+    ordered_images_objects = [get_object_or_404(ItemImage, id=image_id) for image_id in ordered_images]
 
     context = {
         'order': order,

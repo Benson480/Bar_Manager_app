@@ -1,18 +1,18 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage, Opening_stock, UserProfile, Department, ContactDetail, 
+from .models import (Item, Item_Price, New_stock, Employee,
+                      Employer, ItemImage, Daily_Usage, Opening_stock, UserProfile, Department, ContactDetail, 
                        UserSetting, BusinessSetting, Announcement, Category)
 
 
 
-admin.site.register(Beverage)
-admin.site.register(Beverage_Price)
+admin.site.register(Item)
+admin.site.register(Item_Price)
 admin.site.register(New_stock)
 admin.site.register(Employee)
 admin.site.register(Employer)
-admin.site.register(BeverageImage)
+admin.site.register(ItemImage)
 admin.site.register(Daily_Usage)
 admin.site.register(Opening_stock)
 admin.site.register(UserProfile)

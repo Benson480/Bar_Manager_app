@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import (Beverage, Beverage_Price, New_stock, Employee,
-                      Employer, BeverageImage, Daily_Usage, UserSetting)
+from .models import (Item, Item_Price, New_stock, Employee,
+                      Employer, ItemImage, Daily_Usage, UserSetting)
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from django.contrib.auth.forms import AuthenticationForm
@@ -51,22 +51,22 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class Beverage_Form(forms.ModelForm):
+class Item_Form(forms.ModelForm):
 	# specify the name of model to use
 	class Meta:
-		model = Beverage
+		model = Item
 		fields = ['Date', 'name', 'Supplier']
 		widgets = {
 			'Date': DateInput(),
 			
 		}
 
-class Beverage_PriceForm(forms.ModelForm):
+class Item_PriceForm(forms.ModelForm):
 	# specifIed the name of model to use
 	price_ksh = forms.DecimalField(required=True,label= "Price_Ksh", widget=forms.NumberInput(attrs={'placeholder': 0}))
 	class Meta:
-		model = Beverage_Price
-		fields = ['Date', 'Beverage_Product','Unit_Of_Measure', 'price_ksh']
+		model = Item_Price
+		fields = ['Date', 'Item_Product','Unit_Of_Measure', 'price_ksh']
 		widgets = {
 			'Date': DateInput(),
 			
@@ -121,15 +121,15 @@ class EmployerForm(forms.ModelForm):
 
 
 	
-class BeverageImageForm(forms.ModelForm):
+class ItemImageForm(forms.ModelForm):
     class Meta:
-        model = BeverageImage
+        model = ItemImage
         fields = ['image', 'about_Image', 'title']
 		
 		
-class DeleteBeverageForm(forms.ModelForm): #This can be handled using JavaScript
+class DeleteItemForm(forms.ModelForm): #This can be handled using JavaScript
     class Meta:
-        model = Beverage
+        model = Item
         fields = []
 		
 class DeleteEmployeeForm(forms.ModelForm): #This can be handled using JavaScript

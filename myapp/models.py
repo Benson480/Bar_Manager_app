@@ -10,16 +10,16 @@ from django.core.files import File
 # Create your models here.
 
 
-class Beverage(models.Model):
+class Item(models.Model):
     name = models.CharField(max_length=255)
     Date = models.DateField(null=True,db_index=True)
     Supplier = models.CharField(max_length=255, null=True, db_index=True)
     def __str__(self):
             return f"{self.name}"
 
-class Beverage_Price(models.Model):
+class Item_Price(models.Model):
     Date = models.DateField(null=True,db_index=True)
-    Beverage_Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True)
+    Item_Product = models.ForeignKey(Item,on_delete=models.CASCADE, db_index=True)
     Unit_Of_Measure_Choices = (
     ("Kg", "Kg"),
     ("Ltr", "Ltr"),
@@ -42,10 +42,10 @@ class Beverage_Price(models.Model):
 
 
     def __str__(self):
-        return str(self.Beverage_Product)
+        return str(self.Item_Product)
     
 class Opening_stock(models.Model):
-    Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True)
+    Product = models.ForeignKey(Item,on_delete=models.CASCADE, db_index=True)
     Stock_Take_Date = models.DateField(null=True, db_index=True, blank=True)
     Physical_balance = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
 
@@ -53,7 +53,7 @@ class Opening_stock(models.Model):
         return str(self.Product)
     
 class New_stock(models.Model):
-    Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True)
+    Product = models.ForeignKey(Item,on_delete=models.CASCADE, db_index=True)
     Purchase_Date = models.DateField(null=True, db_index=True, blank=True)
     Purchase_Amount = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
 
@@ -62,13 +62,13 @@ class New_stock(models.Model):
         return str(self.Product)
     @property
     def Supplier(self):
-        suppliers = Beverage.objects.all()
+        suppliers = Item.objects.all()
         for productsupplier in suppliers:
             if productsupplier.name == self.Product:
                 return str(productsupplier.Supplier)
     
 class Daily_Usage(models.Model):
-    Product = models.ForeignKey(Beverage, on_delete=models.CASCADE, db_index=True)
+    Product = models.ForeignKey(Item, on_delete=models.CASCADE, db_index=True)
     Date = models.DateField(null=True, db_index=True, blank=True)
     Place_of_use_Choices = (
         ("Internal Sales", "Internal Sales"),
@@ -84,9 +84,9 @@ class Daily_Usage(models.Model):
 
     @property
     def UnitOfMeasure(self):
-        getUnitOfMeasure = Beverage_Price.objects.all()
+        getUnitOfMeasure = Item_Price.objects.all()
         for uom in getUnitOfMeasure:
-            if uom.Beverage_Product == self.Product:
+            if uom.Item_Product == self.Product:
                 return str(uom.Unit_Of_Measure)
 
     @property
@@ -98,9 +98,9 @@ class Daily_Usage(models.Model):
 
     @property
     def Product_price(self):
-        getprice = Beverage_Price.objects.all()
+        getprice = Item_Price.objects.all()
         for a in getprice:
-            if a.Beverage_Product == self.Product:
+            if a.Item_Product == self.Product:
                 price = round(a.price_ksh, 2)
                 formatted_price = "{:,.2f}".format(price)
                 return formatted_price
@@ -116,9 +116,9 @@ class Daily_Usage(models.Model):
 
     @property
     def Daily_cost(self):
-        getprice = Beverage_Price.objects.all()
+        getprice = Item_Price.objects.all()
         for a in getprice:
-            if a.Beverage_Product == self.Product:
+            if a.Item_Product == self.Product:
                 if self.Used_Amount is None:
                     self.Used_Amount = 0  # Convert None to zero
                 DailyCost = round(a.price_ksh * self.Used_Amount, 2)
@@ -129,7 +129,7 @@ class Daily_Usage(models.Model):
     def closing_stock(self):
         get_opening = Opening_stock.objects.all()
         getNewStock = New_stock.objects.all()
-        getprice = Beverage_Price.objects.all()
+        getprice = Item_Price.objects.all()
         for opening in get_opening:
             if opening.Product == self.Product:
                 Physical_stock = round(opening.Physical_balance, 2)
@@ -145,9 +145,9 @@ class Daily_Usage(models.Model):
 
     @property
     def closing_stock_value(self):
-        getprice = Beverage_Price.objects.all()
+        getprice = Item_Price.objects.all()
         for price in getprice:
-            if price.Beverage_Product == self.Product:
+            if price.Item_Product == self.Product:
                 if self.Closing_amount is None:
                     self.closing_stock  # Calculate Closing_amount if it's not already calculated
                 Closing_value = round(price.price_ksh * self.Closing_amount, 2)
@@ -156,9 +156,9 @@ class Daily_Usage(models.Model):
 
     @property
     def Daily_usage_cost(self):
-        getprice = Beverage_Price.objects.all()
+        getprice = Item_Price.objects.all()
         for price in getprice:
-            if price.Beverage_Product == self.Product:
+            if price.Item_Product == self.Product:
                 if self.Used_Amount is None:
                     self.Used_Amount  # Calculate Closing_amount if it's not already calculated
                 Daily_used_cost = round(price.price_ksh * self.Used_Amount, 2)
@@ -225,8 +225,8 @@ class Category(models.Model):
         return self.name
     
 
-class BeverageImage(models.Model):
-    Product = models.ForeignKey(Beverage,on_delete=models.CASCADE, db_index=True, blank=True, null=True)
+class ItemImage(models.Model):
+    Product = models.ForeignKey(Item,on_delete=models.CASCADE, db_index=True, blank=True, null=True)
     categories = models.ManyToManyField(Category, related_name='images', blank=True)
     Date = models.DateField(null=True, db_index=True, blank=True)
     image = models.ImageField(upload_to='images/')
@@ -262,16 +262,16 @@ class BeverageImage(models.Model):
     
     @property
     def UnitOfMeasure(self):
-        getUnitOfMeasure = Beverage_Price.objects.all()
+        getUnitOfMeasure = Item_Price.objects.all()
         for uom in getUnitOfMeasure:
-            if uom.Beverage_Product == self.Product:
+            if uom.Item_Product == self.Product:
                 return str(uom.Unit_Of_Measure)
             
     @property
     def price(self):
-        getprice = Beverage_Price.objects.all()
+        getprice = Item_Price.objects.all()
         for a in getprice:
-            if a.Beverage_Product == self.Product:
+            if a.Item_Product == self.Product:
                 Price = round(a.price_ksh, 2)
                 formatted_price = "{:,.2f}".format(Price)
                 # Remove commas from the formatted price string and then convert to float
@@ -292,14 +292,14 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    image = models.ForeignKey(BeverageImage, on_delete=models.CASCADE)
+    image = models.ForeignKey(ItemImage, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     # Add any other fields you need
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     items = models.ManyToManyField(CartItem)
-    beverage_image = models.ForeignKey(BeverageImage, on_delete=models.CASCADE, null=True)  # Establish the relationship
+    Item_image = models.ForeignKey(ItemImage, on_delete=models.CASCADE, null=True)  # Establish the relationship
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     items = models.ManyToManyField(CartItem)  # Link Order to CartItems

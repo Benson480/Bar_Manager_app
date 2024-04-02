@@ -1,522 +1,112 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
-    <title>Shopping Cart | Bentha Technologies</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
+{% extends "home_master.html" %}
 
-        header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
+{% block title %}
+shopping cart | Bentha Technologies
+{% endblock %}
 
-        h1 {
-            font-size: 24px;
-            margin: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table th, table td {
-            text-align: left;
-            padding: 15px;
-            border-bottom: 1px solid #e1e1e1;
-        }
-
-        table thead {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        table tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .remove-button {
-            background-color: #ff5555;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .remove-button:hover {
-            background-color: #ff0000;
-        }
-
-        .total-row {
-            font-weight: bold;
-        }
-
-        .back-to-home {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        .back-to-home:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <style>
-
-        .image-section {
-          background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTisOmuXlpkSScXHatNqfAJmXwUcd96Jjrv6dYdDo97&s");
-          background-size: cover;
-          
-        }
+{% block content %}  
+      <section class="image-section" id="title">
     
-        .main-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          min-height: 100vh;
-        }
-    
-        .container-fluid {
-          padding: 0;
-          overflow: hidden;
-          margin: 0 auto;
-          max-width: 100%;
-        }
-    
-        .logo-img {
-          width: 80px;
-          height: 80px;
-          padding-top: 10px;
-          padding-left: 0px;
-          float: left;
-        }
-    
-        .navbar {
-          background-color: transparent;
-          margin: 0;
-          padding: 0;
-          list-style-type: none;
-          position: fixed;
-          top: 0;
-          width: 100%;
-          z-index: 999;
-        }
-    
-        .navbar-brand {
-          color: #244c0c;
-          font-family: 'Josefin Sans', sans-serif;
-          font-weight: bold;
-          position: absolute;
-          left: 100px;
-          padding-top: 30px;
-        }
-    
-        .nav-item {
-          float: right;
-          display: block;
-          text-align: center;
-          padding: px 10px;
-          text-decoration: none;
-          overflow: hidden;
-          text-align: center;
-          text-decoration: none;
-          background-color: #ffffff; /* Optional: Set a background color if needed */
-          z-index: 100; /* Optional: Set a higher z-index if needed */
-        }
-    
-        .nav-link {
-          color: hsl(97, 64%, 13%);
-          font-size: 1.2rem;
-          font-family: 'Josefin Sans', sans-serif;
-          margin: 0px;
-          
-        }
-    
-        @media (max-width: 767px) {
-          .navbar-brand {
-            left: 20px;
-          }
-    
-          .navbar-collapse {
-            position: absolute;
-            top: 60px;
-            left: 0;
-            right: 0;
-            background-color: white;
-          }
-    
-          .navbar-nav {
-            width: 100%;
-            text-align: center;
-          }
-    
-          .nav-item {
-            float: none;
-            display: inline-block;
-          }
-    
-          .navbar-toggler {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-          }
-        }
-    
-      #chatbot-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 250px;
-      height: 300px;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    
-    #chatbot-frame {
+<!-- CSS styles -->
+<style>
+  .table-container {
+      max-height: 400px;
+      overflow-y: auto;
+      overflow-x: auto;
+  }
+  table {
       width: 100%;
-      height: 100%;
-    }
-    
-    #chatbot-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 4px;
-      background-color: #244c0c;
-      color: #ffffff;
+      border-collapse: collapse; /* Collapse border spacing */
+      border: 1px solid #ddd; /* Add a border around the table */
+  }
+  th, td {
+      padding: 10px;
+      border: 1px solid #ddd; /* Add borders to table cells */
+  }
+  th {
+      background-color: #f2f2f2; /* Add background color to header cells */
+  }
+  img {
+      width: 100px;
+      height: 100px;
+      vertical-align: middle;
+  }
+  .remove-button {
+      background-color: #ff5555;
+      color: #fff;
       border: none;
-    }
-    
-    #chatbot-toggle:hover {
+      padding: 8px 12px;
+      border-radius: 4px;
       cursor: pointer;
-      background-color: #A4BE7B;
-    }
-    
-    .message {
-          margin: 10px;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-        }
-    
-        .user {
-          background-color: #f1f1f1;
-        }
-    
-        .assistant {
-          background-color: #e5e5ff;
-        }
-        ul {
-          list-style: none;
-          padding: 0;
-        }
-    
-        li {
-          display: inline-block;
-          margin: 10px;
-          width: calc(25% - 20px); /* Set the width for four items per row (25% - 20px margin) */
-          box-sizing: border-box; /* Include padding and border within the width calculation */
-        }
-    
-        img {
-          max-width: 100px; /* Set the maximum width of the images */
-          max-height: 100px; /* Set the maximum height of the images */
-          border: 1px solid #ccc;
-        }
-    
-        /* Add a container to limit the page width */
-        .container {
-          max-width: 800px; /* Set the maximum width for the container */
-          margin: 0 auto; /* Center the container on the page */
-          padding: 20px; /* Optional: Add some padding around the content */
-          background-color: rgba(255, 255, 255, 0.9); /* Light background color */
-          border-radius: 10px; /* Rounded corners */
-          min-height: 80vh;
-        }
-    
-        /* Responsive styles */
-        @media (max-width: 600px) {
-          .container {
-            max-width: 100%; /* Set the container width to 100% on small screens */
-            padding: 10px; /* Adjust the padding on small screens */
-          }
-    
-          li {
-            width: 100%; /* Set the width to 100% on small screens for a vertical layout */
-          }
-        }
-        
-        .nav-link:hover {
-        transform: translateX(10px); /* Adjust the value as needed */
-        background-color: #e5e5ff;
-        }
-          .product {
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin: 5px;
-            padding: 50px;
-            width: calc(33.33% - 20px); /* 3 columns per row with some margin */
-            text-align: center;
-            transition: transform 0.2s ease-in-out;
-            height: 100%;
-          }
-      
-          .product:hover {
-            transform: translateY(-5px);
-          }
-      
-          .product img {
-            max-width: 100%;
-            height: auto;
-            max-height: 150px; /* Limit the height of the images */
-          }
-      
-          .product p {
-            margin: 10px 0;
-            width: 100%;
-          }
-      
-          .product button {
-            background-color: #e7ebf0;
-            color: #1d0707;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
-          }
-      
-          .product button:hover {
-            background-color: #6ea8e2;
-          }
-      
-          .no-images {
-            text-align: center;
-            font-size: 18px;
-            margin-top: 20px;
-          }
-      
-          /* CSS for controlling the number of columns */
-          .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin: -10px; /* Compensate for the margin on .product */
-          }
-      
-          .col-md-4 {
-            flex: 0 0 calc(33.33% - 20px); /* 3 columns per row with some margin */
-            margin: 10px;
-          }
-    
-          .custom-button {
-              width: 150px; /* Adjust the width as needed */
-              text-align: center; /* Center the text horizontally */
-              transition: background-color 0.3s; /* Smooth color transition */
-            }
-    
-            /* Style for normal state */
-            .custom-button {
-              background-color: rgb(12, 129, 57);
-            }
-    
-            /* Style for hover state */
-            .custom-button:hover {
-              background-color: rgb(0, 255, 0); /* Change to the desired hover color */
-            }
-          /* Add some CSS for styling */
-        
-          .full-page-container {
-            display: none; /* Initially hide the container */
-            justify-content: center;
-            align-items: center;
-            height: 50vh;
-            background-color: rgb(218, 143, 168);
-            background-size: cover;
-          }
-        
-          /* Add animation for the "Not Found" gif */
-          @keyframes notFoundAnimation {
-            0% {
-              opacity: 0;
-              transform: translateY(-20px);
-            }
-            100% {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-        
-          .not-found-animation {
-            animation: notFoundAnimation 1s ease-in-out infinite;
-          }
-    </style>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">.
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
-      <!-- Include jQuery -->
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    
-      <!-- Include Bootstrap JS -->
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-      <section class="image-section" id="title">
-        <div class="container-fluid" style="background-color: rgb(230, 159, 182); position: fixed; top: 0; width: 100%; z-index: 999;">
-          <!-- navbar -->
-          <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar">
-            <div class="container-fluid" style="background-color: white; height: 60px; margin-right: 5px;">
-              <img class="logo-img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU' alt="logo-img" />
-              <a class="navbar-brand" href="#" style="font-size: x-large; margin-right: auto; float: left;">EnterpriseEaze</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                Menu
-              </button>
-              <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/index" style="color: #244c0c;"><i class="fas fa-home"></i> Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/about" style="color: #244c0c;"><i class="fas fa-info-circle"></i> About</a>
-                  </li>
-                  <li class="nav-item" style="width: 320px;">
-                    <a class="nav-link" href="/announcements" style="color: #244c0c;"><i class="fas fa-bullhorn"></i> Announcements</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: #244c0c;"><i class="fas fa-briefcase"></i> Careers</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/login" style="color: #244c0c;"><i class="fas fa-sign-in-alt"></i> Sign In</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/{{ BASE_URL }}admin/" target="_blank" style="color: #244c0c;"><i class="fas fa-cogs"></i> Admin</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </section>
-      
-      <section class="image-section" id="title">
-    
-        <style>
-          .table-container {
-              max-height: 400px; /* Set the maximum height for vertical scroll */
-              overflow-y: auto; /* Enable vertical scrollbar if content overflows */
-              overflow-x: auto; /* Enable horizontal scrollbar if content overflows */
-          }
-          table {
-              width: 100%; /* Ensure the table takes up 100% of the container's width */
-          }
-      </style>
-      
-      <div class="container" style="padding: 100px;">
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Price (per item)</th>
-                        <th>Subtotal</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in cart_items %}
-                    <tr>
-                        <td><img src="{{ item.image.image.url }}" alt="{{ item.image.title }}" style="width:100px; height:100px;"></td>
-                        <td>{{ item.image.Product }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td><span class="price">${{ item.image.price }}</span></td>
-                        <td><span class="price">${{ item.subtotal|floatformat:2 }}</span></td>
-                        <td>
-                            <form method="POST" action="{% url 'remove_from_cart' item.id %}" onsubmit="return confirm('Are you sure you want to remove this item from your cart?');">
-                                {% csrf_token %}
-                                <button type="submit" class="remove-button">Remove</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr class="total-row">
-                        <td colspan="4">Total:</td>
-                        <td><span class="price">${{ total_price|floatformat:2 }}</span></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-        <form method="POST" action="{% url 'login' %}?next={% url 'make_order' %}">
-            {% csrf_token %}
-            <button type="submit" class="order-button">Make an Order</button>
-        </form>
+  }
+  .remove-button:hover {
+      background-color: #cc0000;
+  }
+</style>
+
+</style>
+
+<!-- Table structure and content -->
+<div class="container" style="padding: 50px;">
+  <div class="table-container">
+      <table>
+          <thead>
+              <tr>
+                  <th>Image</th>
+                  <th>Item</th>
+                  <th>Quantity</th>
+                  <th>Price (per item)</th>
+                  <th>Subtotal</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for item in cart_items %}
+              <tr>
+                  <td><img src="{{ item.image.image.url }}" alt="{{ item.image.title }}"></td>
+                  <td>{{ item.image.Product }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>KSH {{ item.image.price }}</td>
+                  <td>KSH {{ item.subtotal|floatformat:2 }}</td>
+                  <td>
+                      <form method="POST" action="{% url 'remove_from_cart' item.id %}" onsubmit="return confirm('Are you sure you want to remove this item from your cart?');">
+                          {% csrf_token %}
+                          <button type="submit" class="remove-button">Remove</button>
+                      </form>
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+          <tfoot>
+              <tr class="total-row">
+                  <td colspan="4">Total:</td>
+                  <td>KSH {{ total_price|floatformat:2 }}</td>
+                  <td></td>
+              </tr>
+          </tfoot>
+      </table>
     </div>
-    
+    <form method="POST" action="{% url 'login' %}?next={% url 'make_order' %}" style="text-align: center;">
+      {% csrf_token %}
+      <button type="submit" class="order-button" style="background-color: green;">Make an Order</button>
+  </form>
+  
+  </div>
 
-    <script>
-        // Function to format numbers with commas for thousands separator
-        function formatNumberWithCommas(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
+  <!-- JavaScript -->
+  <script>
+    // Function to format numbers with commas for thousands separator
+    function formatNumberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
-        // Change currency symbol and format priceds
-        var priceElements = document.querySelectorAll(".price");
-        priceElements.forEach(function(element) {
-            var priceValue = parseFloat(element.innerText.replace("$", ""));
-            var formattedPrice = "KSH " + formatNumberWithCommas(priceValue.toFixed(2));
-            element.innerText = formattedPrice;
-        });
-    </script>
-    
-    <a class="back-to-home" href="{% url 'index' %}">Back to Home</a>
+    // Change currency symbol and format prices
+    var priceElements = document.querySelectorAll(".price");
+    priceElements.forEach(function(element) {
+        var priceValue = parseFloat(element.innerText.replace("$", ""));
+        var formattedPrice = "KSH " + formatNumberWithCommas(priceValue.toFixed(2));
+        element.innerText = formattedPrice;
+    });
+  </script>
 
-    <footer style="background-color: #462644; color: #FFF; text-align: center; padding: 10px;">
-      <div style="display: flex; justify-content: space-between; max-width: 800px; margin: 0 auto;">
-        <div>
-          <p>Contact: benthatechnologies@gmail.com</p>
-        </div>
-        <div>
-          <p>Location: 00606 Nairobi, City</p>
-        </div>
-        <div>
-          <p>Dev Team: Bentha Technologies @ ComputerScience</p>
-        </div>
-      </div>
-      <p>© 2023 Bentha Technologies. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+{% endblock %}
