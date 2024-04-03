@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'widget_tweaks',
     'mpesa',
+
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN' # only if django version >= 3.0
@@ -74,7 +75,8 @@ MIDDLEWARE = [
     'myproject.middleware.RedirectAfterInactivityMiddleware', #custom middleware
     'django.contrib.messages.middleware.MessageMiddleware',  # Message handling
     'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Clickjacking protection
-    'myproject.middleware.UserSettingsMiddleware'
+    'myproject.middleware.UserSettingsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
     
 ]
 
@@ -120,6 +122,7 @@ TEMPLATES = [
                 'myapp.context_processors.include_login_form',
                 'myapp.context_processors.user_profile',
                 'myapp.context_processors.user_settings',
+                'django.template.context_processors.i18n',
 
             ],
         },
