@@ -42,6 +42,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 INSTALLED_APPS = [
     'admin_interface',
     'flat_responsive', # only if django version < 2.0
+    'flat', # only if django version < 1.9
     'colorfield',
     'admin_menu',
     'axes',
@@ -56,7 +57,6 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'widget_tweaks',
     'mpesa',
-
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN' # only if django version >= 3.0
@@ -74,8 +74,7 @@ MIDDLEWARE = [
     'myproject.middleware.RedirectAfterInactivityMiddleware', #custom middleware
     'django.contrib.messages.middleware.MessageMiddleware',  # Message handling
     'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Clickjacking protection
-    'myproject.middleware.UserSettingsMiddleware',
-    'django.middleware.locale.LocaleMiddleware'
+    'myproject.middleware.UserSettingsMiddleware'
     
 ]
 
@@ -121,8 +120,6 @@ TEMPLATES = [
                 'myapp.context_processors.include_login_form',
                 'myapp.context_processors.user_profile',
                 'myapp.context_processors.user_settings',
-                'django.template.context_processors.i18n',
-                'django.template.context_processors.static',
 
             ],
         },
@@ -201,8 +198,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "productionfiles")
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
