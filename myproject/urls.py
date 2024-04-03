@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.urls import path, include, re_path
+from django.conf.urls.static import static
 from myapp.views import (
     register_view, login_view, logout_view, dashboard, Employee_view, index, about,
     contacts, Employer_dashboard, Inventory, profile, Employee_details, departments, report_dashboard,
@@ -64,7 +65,7 @@ urlpatterns = [
     path('order_confirmation/<int:order_id>/', order_confirmation_view, name='order_confirmation_view'),
     path('logout/', logout_view, name='logout'),
     # path('images/', include('myapp.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

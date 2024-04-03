@@ -123,6 +123,7 @@ TEMPLATES = [
                 'myapp.context_processors.user_profile',
                 'myapp.context_processors.user_settings',
                 'django.template.context_processors.i18n',
+                'django.template.context_processors.static',
 
             ],
         },
@@ -201,14 +202,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "productionfiles")
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'mystaticfiles'),  # Replace 'static' with your actual static files directory
+    os.path.join(BASE_DIR, 'static'),  # Replace 'static' with your actual static files directory
 ]
 
 WHITENOISE_MANIFEST_STRICT = False
