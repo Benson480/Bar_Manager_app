@@ -120,6 +120,7 @@ TEMPLATES = [
                 'myapp.context_processors.include_login_form',
                 'myapp.context_processors.user_profile',
                 'myapp.context_processors.user_settings',
+                'django.template.context_processors.static',
 
             ],
         },
