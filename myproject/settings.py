@@ -41,8 +41,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 INSTALLED_APPS = [
     'admin_interface',
-    'flat_responsive', # only if django version < 2.0
-    'flat', # only if django version < 1.9
     'colorfield',
     'admin_menu',
     'axes',
@@ -57,6 +55,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'widget_tweaks',
     'mpesa',
+
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN' # only if django version >= 3.0
