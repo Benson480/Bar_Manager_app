@@ -42,7 +42,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 INSTALLED_APPS = [
     'admin_interface',
     'flat_responsive', # only if django version < 2.0
-    'flat', # only if django version < 1.9
     'colorfield',
     'admin_menu',
     'axes',
