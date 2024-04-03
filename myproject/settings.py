@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'admin_interface',
     'flat_responsive', # only if django version < 2.0
     'colorfield',
+    'flat',
     'admin_menu',
     'axes',
     'django.contrib.admin',
@@ -56,6 +57,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'widget_tweaks',
     'mpesa',
+    'grappelli',
+
 
 ]
 
@@ -257,7 +260,7 @@ SECURE_SSL_REDIRECT=False
 SESSION_COOKIE_SECURE=False
 CSRF_COOKIE_SECURE=False
 
-ADMIN_LOGO = 'FERTPPM.jpeg'
+
 MENU_WEIGHT = {
     'World': 20,
     'Auth': 4,
@@ -277,3 +280,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Activate django_heroku
 django_heroku.settings(locals())
+
