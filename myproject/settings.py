@@ -23,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -74,7 +75,8 @@ MIDDLEWARE = [
     'myproject.middleware.RedirectAfterInactivityMiddleware', #custom middleware
     'django.contrib.messages.middleware.MessageMiddleware',  # Message handling
     'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Clickjacking protection
-    'myproject.middleware.UserSettingsMiddleware'
+    'myproject.middleware.UserSettingsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     
 ]
 
@@ -198,8 +200,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "productionfiles")
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
