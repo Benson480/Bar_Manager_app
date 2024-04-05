@@ -1,0 +1,36 @@
+Collecting django-viewflow
+  Downloading django_viewflow-1.11.0-py2.py3-none-any.whl.metadata (6.0 kB)
+Requirement already satisfied: Django>=2.2 in c:\webstack\env\lib\site-packages (from django-viewflow) (4.1.7)
+Collecting django-filter>=1.0 (from django-viewflow)
+  Downloading django_filter-24.2-py3-none-any.whl.metadata (5.1 kB)
+Collecting django-jsonstore (from django-viewflow)
+  Downloading django_jsonstore-0.5.1-py3-none-any.whl.metadata (4.6 kB)
+Collecting django-annoying (from django-viewflow)
+  Downloading django_annoying-0.10.6-py2.py3-none-any.whl.metadata (2.3 kB)
+Requirement already satisfied: six in c:\webstack\env\lib\site-packages (from django-viewflow) (1.14.0)
+Requirement already satisfied: asgiref<4,>=3.5.2 in c:\webstack\env\lib\site-packages (from Django>=2.2->django-viewflow) (3.6.0)
+Requirement already satisfied: sqlparse>=0.2.2 in c:\webstack\env\lib\site-packages (from Django>=2.2->django-viewflow) (0.4.3)
+Requirement already satisfied: tzdata in c:\webstack\env\lib\site-packages (from Django>=2.2->django-viewflow) (2022.7)
+Collecting Django>=2.2 (from django-viewflow)
+  Downloading Django-5.0.4-py3-none-any.whl.metadata (4.1 kB)
+Collecting asgiref<4,>=3.7.0 (from Django>=2.2->django-viewflow)
+  Downloading asgiref-3.8.1-py3-none-any.whl.metadata (9.3 kB)
+Downloading django_viewflow-1.11.0-py2.py3-none-any.whl (141 kB)
+   -------------------------------------- 141.1/141.1 kB 209.4 kB/s eta 0:00:00
+Downloading django_filter-24.2-py3-none-any.whl (94 kB)
+   ---------------------------------------- 94.5/94.5 kB 384.9 kB/s eta 0:00:00
+Downloading Django-5.0.4-py3-none-any.whl (8.2 MB)
+   ---------------------------------------- 8.2/8.2 MB 651.4 kB/s eta 0:00:00
+Downloading django_annoying-0.10.6-py2.py3-none-any.whl (9.5 kB)
+Downloading django_jsonstore-0.5.1-py3-none-any.whl (18 kB)
+Downloading asgiref-3.8.1-py3-none-any.whl (23 kB)
+Installing collected packages: asgiref, Django, django-jsonstore, django-filter, django-annoying, django-viewflow
+  Attempting uninstall: asgiref
+    Found existing installation: asgiref 3.6.0
+    Uninstalling asgiref-3.6.0:
+      Successfully uninstalled asgiref-3.6.0
+  Attempting uninstall: Django
+    Found existing installation: Django 4.1.7
+    Uninstalling Django-4.1.7:
+      Successfully uninstalled Django-4.1.7
+Successfully installed Django-5.0.4 asgiref-3.8.1 django-annoying-0.10.6 django-filter-24.2 django-jsonstore-0.5.1 django-viewflow-1.11.0

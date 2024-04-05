@@ -42,8 +42,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 INSTALLED_APPS = [
     'admin_interface',
     'flat_responsive', # only if django version < 2.0
+    'flat', # only if django version < 1.9
     'colorfield',
-    'flat',
     'admin_menu',
     'axes',
     'django.contrib.admin',
@@ -57,9 +57,6 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'widget_tweaks',
     'mpesa',
-    'grappelli',
-
-
 ]
 
 X_FRAME_OPTIONS='SAMEORIGIN' # only if django version >= 3.0
@@ -123,7 +120,6 @@ TEMPLATES = [
                 'myapp.context_processors.include_login_form',
                 'myapp.context_processors.user_profile',
                 'myapp.context_processors.user_settings',
-                'django.template.context_processors.static',
 
             ],
         },
@@ -209,7 +205,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Replace 'static' with your actual static files directory
+    os.path.join(BASE_DIR, 'mystaticfiles'),  # Replace 'static' with your actual static files directory
 ]
 
 WHITENOISE_MANIFEST_STRICT = False
@@ -260,7 +256,7 @@ SECURE_SSL_REDIRECT=False
 SESSION_COOKIE_SECURE=False
 CSRF_COOKIE_SECURE=False
 
-
+ADMIN_LOGO = 'FERTPPM.jpeg'
 MENU_WEIGHT = {
     'World': 20,
     'Auth': 4,
@@ -280,4 +276,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Activate django_heroku
 django_heroku.settings(locals())
-

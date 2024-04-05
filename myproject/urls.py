@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 from grappelli import urls as grappelli_urls
 
 
+
 from myapp.views import (
     register_view, login_view, logout_view, dashboard, Employee_view, index, about,
     contacts, Employer_dashboard, Inventory, profile, Employee_details, departments, report_dashboard,
@@ -68,6 +69,7 @@ urlpatterns = [
     path('order_confirmation/<int:order_id>/', order_confirmation_view, name='order_confirmation_view'),
     path('logout/', logout_view, name='logout'),
     path('grappelli/', include(grappelli_urls)),
+    
 
     # path('images/', include('myapp.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
