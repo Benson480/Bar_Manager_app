@@ -106,32 +106,32 @@
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container-fluid">
           <button style="color: #f8f9fa;" class="navbar-toggler" type="button" id="menuButton" aria-controls="navbarNav"
-                  aria-expanded="false" aria-label="Toggle navigation" style="z-index: 999;">
+              aria-expanded="false" aria-label="Toggle navigation" style="z-index: 999;">
               <span class="navbar-toggler-icon"></span>
               Menu
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
               <img class="logo-img" style="width: 40px; height: 40px; padding: 10px;" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU'
-                   alt="logo-img"/>
+                  alt="logo-img" />
               <a class="navbar-brand" href="#" style="font-size: x-large; font-weight: bold;">Bentha Technologies</a>
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                      <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><i class="fas fa-home"></i> Home</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'about' %}">About</a>
+                      <a class="nav-link active" aria-current="page" href="{% url 'about' %}"><i class="fas fa-info-circle"></i> About</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'announcements' %}">Announcements</a>
+                      <a class="nav-link" href="{% url 'announcements' %}"><i class="fas fa-bullhorn"></i> Announcements</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'contacts' %}">Contact</a>
+                      <a class="nav-link" href="{% url 'contacts' %}"><i class="fas fa-address-book"></i> Contact</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">Careers</a>
+                      <a class="nav-link" href="#"><i class="fas fa-briefcase"></i> Careers</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'login' %}">Sign In</a>
+                      <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Sign In</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i> Cart</a>
@@ -143,6 +143,7 @@
           </div>
       </div>
   </nav>
+  
 
   <!-- When the screen is minimize display nav links using menu -->
   <script>

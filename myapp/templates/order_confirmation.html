@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Order Confirmation</title>
-    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% extends "home_master.html" %}
+
+{% block title %}
+  Order | Bentha Technologies
+{% endblock %}
+
+{% block content %}
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -12,29 +13,6 @@
             margin: 0;
             padding: 0;
         }
-        .topnav {
-            background-color: #5e1654;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 999; /* Ensure it appears in front of other page content */
-    }
-
-
-        .topnav a {
-            float: left;
-            color: #fff;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        .topnav a:hover {
-            background-color: #555;
-        }
-
         .container {
             max-width: 800px;
             margin: 50px auto;
@@ -80,11 +58,6 @@
             padding: 0;
         }
 
-        li {
-            border-bottom: 1px solid #eee;
-            padding: 20px 0;
-        }
-
         img {
             max-width: 100px;
             border: 1px solid #eee;
@@ -119,15 +92,6 @@
             background-color: #06b300;
         }
     </style>
-</head>
-
-<body>
-    <div class="topnav">
-        <a class="active" href="/index">Home</a>
-        <a href="#orders">Orders</a>
-        <a href="#account">Account</a>
-        <a style="float:right" href="/index">Logout</a>
-    </div>
     <div class="container">
         <div class="header">
             <h1>Order Confirmation</h1>
@@ -189,21 +153,4 @@
         });
     </script>
 
-    <footer style="background-color: #5f115a; color: #FFF; text-align: center; padding: 10px;">
-        <div style="display: flex; justify-content: space-between; max-width: 800px; margin: 0 auto; color: white;">
-        <div>
-            <p>Contact: fertppm@solutions.com</p>
-        </div>
-        <div>
-            <p>Location: 00606 Nairobi, City</p>
-        </div>
-        <div>
-            <p>Dev Team: Benson & Stephanie</p>
-        </div>
-        </div>
-        <p>© 2023 EnterpriseEaze. All rights reserved.</p>
-    </footer>
-
-</body>
-
-</html>
+{% endblock %}
