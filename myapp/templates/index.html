@@ -19,12 +19,13 @@
   <div class="left-column" style="width: 18%; min-width: 180px; flex: 0 0 auto; overflow: auto;">
     <h2 style="text-align: left; color: #4a90e2; margin-top: 20px; font-size: 24px; font-weight: bold;">Categories</h2>
     <ul class="category-list" style="text-align: left;">
-        <li><a class="category-link" href="#" data-category="All" style="color: #050505; text-decoration: none; font-size: 18px;">All Categories</a></li>
+        <li style="margin-bottom: 10px;"><a class="category-link" href="#" data-category="All" style="color: #fa0d97; text-decoration: none; font-size: 18px;">All Categories</a></li>
         {% for category in categories %}
-            <li><a class="category-link" href="#" data-category="{{ category.name }}" style="color: #000000; text-decoration: none; font-size: 18px;">{{ category.name }}</a></li>
+            <li style="margin-bottom: 12px; color: #000000;"><a class="category-link" href="#" data-category="{{ category.name }}" style="color: #000000; text-decoration: none; font-size: 18px;">{{ category.name }}</a></li>
         {% endfor %}
     </ul>
 </div>
+
 
 
   <!-- Right column for images -->
