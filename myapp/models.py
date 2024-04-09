@@ -33,6 +33,7 @@ class Item_Price(models.Model):
     ("Dose", "Dose"),
     ("Course", "Course"),
     ("Square Meter", "Square Meter"),
+    ("Case", "Case"),
     )
     Unit_Of_Measure = models.CharField(max_length=255,null=True,db_index=True,
                   choices=Unit_Of_Measure_Choices
