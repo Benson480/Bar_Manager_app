@@ -44,7 +44,7 @@
                   <!-- Your image display code here -->
                   <p style="text-align: center; color: #130496; font-size: 20px; font-weight: bold; margin-bottom: 10px;">Title: {{ image.title }}</p>
                   <a href="{{ image.image.url }}" target="_blank" style="display: block; margin-bottom: 10px;">
-                      <img src="{{ image.image.url }}" alt="Uploaded Image" style="width: 100%; border-radius: 10px;">
+                      <img src="{{ image.image.url }}" alt="Uploaded Image" style="width: 100%; height: 150px; border-radius: 10px;">
                   </a>
                   {% if image.about_Image %}
                   <p style="text-align: center; color: #777; font-size: 16px; margin-bottom: 10px;">{{ image.about_Image|wordwrap:40 }}</p>
