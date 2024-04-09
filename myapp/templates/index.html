@@ -38,11 +38,12 @@
                     <div class="row">
                       <h2 class="col-md-3 product-card" data-category="{{ category.name }}" style="text-align: center; margin-top: 15px; color: #130496; width: 100%; font-size: 24px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">{{ category.name }}</h2>
                       {% for image in images %}
-                          <div class="col-md-3 product-card" data-category="{{ category.name }}" style="display: flex; flex-direction: column; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px; padding: 15px;">
+                      <div class="col-md-2 product-card" data-category="{{ category.name }}" style="display: flex; flex-direction: column; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px; padding: 15px;">
                               <!-- Your image display code here -->
-                              <p style="text-align: center; color: #130496; font-size: 20px; font-weight: bold; margin-bottom: 10px;">Title: {{ image.title }}</p>
+                              <p style="text-align: center; color: #130496; font-size: 16px; font-weight: bold; margin-bottom: 10px;">Title: {{ image.title }}</p>
                               <a href="{{ image.image.url }}" target="_blank" style="display: block; margin-bottom: 10px;">
-                                  <img src="{{ image.image.url }}" alt="Uploaded Image" style="width: 100%; border-radius: 10px;">
+                                <img src="{{ image.image.url }}" alt="Uploaded Image" style="width: 100%; height: 100px; border-radius: 10px; object-fit: cover;">
+
                               </a>
                               {% if image.about_Image %}
                                   <p style="text-align: center; color: #777; font-size: 16px; margin-bottom: 10px;">{{ image.about_Image|wordwrap:40 }}</p>
@@ -61,6 +62,7 @@
                                           <button type="submit" class="custom-button" style="background-color: #3498db; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold;">Add to Cart</button>
                                       {% endif %}
                                   </form>
+                                  
                                       <div style="margin-top: auto; text-align: center;">
                                         <button onclick="showNegotiateInfo()" class="custom-button" style="background-color: #09bd09; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold; margin-bottom: 30px">Negotiate Price</button>
                                     </div>
