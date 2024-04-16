@@ -53,16 +53,22 @@
                   <p style="text-align: center; color: #777; font-size: 16px;"><strong>Status:</strong> {{ image.status }}</p>
                   <p style="text-align: center; color: #777; font-size: 16px;"><strong>Price:</strong> <span class="formattedNumber" data-field="price">{{ image.price|default:"" }}</span> ksh per {{ image.UnitOfMeasure }}</p>
                   <div style="margin-top: auto; text-align: center;">
-                      <form method="POST" action="{% url 'login' %}?next={% url 'add_to_cart' image.id %}">
-                          {% csrf_token %}
-                          {% if category.name == "Programming Courses" %}
-                          <button type="submit" class="custom-button" style="background-color: #3498db; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold;">Enroll</button>
-                          {% elif category.name == "Cyber Services" %}
-                          <button type="submit" class="custom-button" style="background-color: #3498db; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold;">Request Service</button>
-                          {% else %}
-                          <button type="submit" class="custom-button" style="background-color: #3498db; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold;">Add to Cart</button>
-                          {% endif %}
-                      </form>
+                    {% if category.name == "Programming Courses" or category.name == "Computer Packages" %}
+                    <form method="POST" action="{% url 'login' %}?next={% url 'enroll_student' %}">
+                      {% csrf_token %}
+                      <button type="submit" class="custom-button" style="background-color: #3498db; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold;">Enroll</button>
+                  </form>
+                    {% elif category.name == "Cyber Services" %}
+                    <form method="POST" action="{% url 'login' %}?next={% url 'add_to_cart' image.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="custom-button" style="background-color: #3498db; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold;">Request Service</button>
+                    </form>
+                    {% else %}
+                    <form method="POST" action="{% url 'login' %}?next={% url 'add_to_cart' image.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="custom-button" style="background-color: #3498db; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold;">Add to Cart</button>
+                    </form>
+                    {% endif %}                    
                       <div style="margin-top: auto; text-align: center;">
                           <button onclick="showNegotiateInfo()" class="custom-button" style="background-color: #09bd09; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold; margin-bottom: 30px">Negotiate Price</button>
                       </div>

@@ -30,7 +30,7 @@ from myapp.views import (
     contacts, Employer_dashboard, Inventory, profile, Employee_details, departments, report_dashboard,
     daily_usage_report, purchased_stock_report, physical_stock_take_report, budget_report, price_list_report, items_classification_report,
     forex_exchange_rates_report, mysettings, analytics_view, DynamicChartView, business_settings, announcement_list, add_to_cart,
-    purchase_item, make_order, cart_view, remove_from_cart, order_confirmation_view
+    purchase_item, make_order, cart_view, remove_from_cart, order_confirmation_view, enroll_student, success_page
     )
 
 urlpatterns = [
@@ -67,6 +67,8 @@ urlpatterns = [
     path('cart_view/', cart_view, name='cart_view'),
     path('remove_from_cart/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
     path('order_confirmation/<int:order_id>/', order_confirmation_view, name='order_confirmation_view'),
+    path('enroll_student/', enroll_student, name='enroll_student'),
+    path('success/', success_page, name='success_page'),
     path('logout/', logout_view, name='logout'),
     path('grappelli/', include(grappelli_urls)),
     

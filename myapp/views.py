@@ -48,6 +48,8 @@ from django.contrib.sessions.models import Session
 from django.contrib.sessions.backends.db import SessionStore
 from urllib.parse import urlparse
 from django.urls import resolve
+from .models import Student_Enrollment
+from .forms import StudentForm
 
 
 
@@ -647,3 +649,22 @@ def remove_from_cart(request, item_id):
     item = get_object_or_404(CartItem, pk=item_id)
     item.delete()
     return redirect('cart_view')
+
+
+
+def enroll_student(request):
+    if request.method == 'GET':
+        form = StudentForm()
+        return render(request, 'enroll_student.html', {'form': form})
+
+    elif request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('success_page')   # Redirect to a success page or URL
+        else:
+            # Handle invalid form submission
+            return render(request, 'enroll_student.html', {'form': form})
+
+def success_page(request):
+    return render(request, 'success_page.html')

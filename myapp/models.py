@@ -233,7 +233,7 @@ class ItemImage(models.Model):
     image = models.ImageField(upload_to='images/')
     uploaded_at = models.DateTimeField(auto_now_add=True) # Auto generated with datetime.now()
     title = models.CharField(max_length=200, null=True, db_index=True, blank=True)
-    about_Image = models.TextField(max_length=255, null=True, blank=True)
+    about_Image = models.TextField(max_length=2000, null=True, blank=True)
     
     def availability_description(self):
         if self.Date:
@@ -405,3 +405,30 @@ class Activity(models.Model):
         return f'{self.user} - {self.activity_type} - {self.timestamp}'
 
 
+#Student enrollment in the course model
+class Student_Enrollment(models.Model):
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other')
+    )
+    
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    date_of_birth = models.DateField()
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    email = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=20)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    nationality = models.CharField(max_length=100)
+    guardian_name = models.CharField(max_length=100)
+    guardian_phone = models.CharField(max_length=20)
+    guardian_email = models.EmailField()
+    previous_school = models.CharField(max_length=100)
+    year_of_study = models.IntegerField()
+    date_enrolled = models.DateField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"

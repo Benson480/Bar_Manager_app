@@ -7,6 +7,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UserProfile
+from .models import Student_Enrollment
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -142,3 +143,9 @@ class UserSettingsForm(forms.ModelForm):
     class Meta:
         model = UserSetting
         fields = ['dark_mode', 'notifications', 'font_size']
+        
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student_Enrollment
+        fields = '__all__'
