@@ -12,13 +12,6 @@
   <button id="applyButton" style="background-color: green; color: white;" type="submit">Apply</button>
 </form>
 
-{% if messages %}
-<ul class="messages">
-  {% for message in messages %}
-  <li>{{ message }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
 
 <script>
 document.getElementById('applyForm').addEventListener('submit', function(event) {
