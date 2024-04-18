@@ -17,9 +17,9 @@
         <ul style="list-style-type: none; padding: 0; margin: 0;">
             {% for announcement in announcements %}
                 <li style="margin-bottom: 20px;">
-                    <h2>{{ announcement.title }}</h2>
+                    <h2 style="color: blue; text-align: center;">{{ announcement.title }}</h2>
                     <p>{{ announcement.content }}</p>
-                    <p style="font-size: large; font-weight: bold;">Announcement Type: {{ announcement.get_announcement_type_display }}</p>
+                    <p style="font-size: large; font-weight: bold; color: blue; text-align: center;">Announcement Type: {{ announcement.get_announcement_type_display }}</p>
                     {% if announcement.announcement_type == 'video' %}
                         <p>Video URL: <a href="{{ announcement.video_url }}" target="_blank">{{ announcement.video_url }}</a></p>
                     {% elif announcement.announcement_type != 'video' and announcement.image %}
@@ -27,12 +27,12 @@
                         <p style="text-align: center;">{{ announcement.image_description }}</p>
                     {% endif %}
                     {% if announcement.countdown_to %}
-                        <p>Countdown to: {{ announcement.countdown_to }}</p>
+                        <p style="color: blue; text-align: center;">Countdown to: {{ announcement.countdown_to }}</p>
                     {% endif %}
                     {% if announcement.venue %}
-                        <p>Venue: {{ announcement.venue }}</p>
+                        <p style="color: blue; text-align: center;">Venue: {{ announcement.venue }}</p>
                     {% endif %}
-                    <p>Posted on: {{ announcement.timestamp }}</p>
+                    <p style="color: blue; text-align: center;">Posted on: {{ announcement.timestamp }}</p>
                 </li>
             {% endfor %}
         </ul>

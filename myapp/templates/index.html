@@ -63,6 +63,11 @@
                         {% csrf_token %}
                         <button type="submit" class="custom-button" style="background-color: #3498db; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold;">Request Service</button>
                     </form>
+                    {% elif category.name == "Software Development" %}
+                    <form method="POST" action="{% url 'login' %}?next={% url 'request_software' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="custom-button" style="background-color: #3498db; color: #fff; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 18px; font-weight: bold;">Request Service</button>
+                    </form>
                     {% else %}
                     <form method="POST" action="{% url 'login' %}?next={% url 'add_to_cart' image.id %}">
                         {% csrf_token %}

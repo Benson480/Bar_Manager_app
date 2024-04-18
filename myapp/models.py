@@ -34,6 +34,7 @@ class Item_Price(models.Model):
     ("Course", "Course"),
     ("Square Meter", "Square Meter"),
     ("Case", "Case"),
+    ("Custom Software", "Custom Software"),
     )
     Unit_Of_Measure = models.CharField(max_length=255,null=True,db_index=True,
                   choices=Unit_Of_Measure_Choices
@@ -243,6 +244,7 @@ class ItemImage(models.Model):
     Status_Choices = (
     ("default", "Select availability..."),
     ("available", "Available now"),
+    ("Service available", " Service Available now"),
     ("Out of Stock", "Out of Stock"),
     ("future", availability_description),
     )
@@ -429,6 +431,55 @@ class Student_Enrollment(models.Model):
     previous_school = models.CharField(max_length=100)
     year_of_study = models.IntegerField()
     date_enrolled = models.DateField(auto_now_add=True)
+    Do_you_have_smartphone_or_computer = models.BooleanField(default=False)
     
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+class Career(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    requirements = models.TextField()
+    responsibilities = models.TextField()
+    published_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+class JobApplication(models.Model):
+    full_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20)
+    resume = models.FileField(upload_to='resumes/')
+    cover_letter = models.TextField()
+    career = models.ForeignKey(Career, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Application for {self.career.title} by {self.full_name}"
+    
+
+class SoftwareRequest(models.Model):
+    CUSTOMER_TYPE_CHOICES = (
+        ('Individual', 'Individual'),
+        ('Small Business', 'Small Business'),
+        ('Enterprise', 'Enterprise'),
+    )
+    SOFTWARE_TYPE_CHOICES = (
+        ('Mobile Application', 'Mobile Application'),
+        ('Website', 'Website'),
+        ('Desktop Application', 'Desktop Application'),
+        ('Other', 'Other'),
+    )
+
+    customer_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    budget_in_Ksh = models.DecimalField(max_digits=10, decimal_places=2)
+    target_customers = models.TextField()
+    software_type = models.CharField(max_length=50, choices=SOFTWARE_TYPE_CHOICES)
+    additional_specifications = models.TextField(blank=True)
+    customer_type = models.CharField(max_length=50, choices=CUSTOMER_TYPE_CHOICES)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.customer_name} - {self.software_type}"

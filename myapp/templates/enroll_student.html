@@ -15,7 +15,7 @@
                 </div>
                 
                 <div class="card-body">
-                    <form id="enrollForm" method="POST" action="" class="mt-4">
+                    <form id="enrollForm" method="POST" action="{% url 'enroll_student' %}" class="mt-4">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <div class="row">
@@ -36,7 +36,26 @@
     </div>
 </div>
 
+{% if messages %}
+    <script>
+        // Check if the message exists and display it as a JavaScript alert
+        var messages = "{{ messages }}";
+        if (messages.includes("Student enrollment with this Email already exists.")) {
+            alert("Student enrollment with this Email already exists.");
+        }
+    </script>
+{% endif %}
+
 <script>
+    // Function to display the alert
+    function showAlert() {
+        alert("Student enrollment with this Email already exists.");
+    }
+
+    // Call the showAlert function when the page is loaded
+    window.onload = showAlert;
+
+    // Function to print the content
     function printContent() {
         var printWindow = window.open('', '_blank');
         var content = document.getElementById('printContent').innerHTML;
@@ -46,14 +65,18 @@
         printWindow.print();
     }
 
+    // Add a function to clear the form after submission
+    function clearForm() {
+        document.getElementById("enrollForm").reset();
+    }
+
     document.getElementById('enrollForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent default form submission
         if (confirm('Are you sure you want to enroll this student?')) {
             this.submit(); // Submit the form if user confirms
+            clearForm(); // Clear the form after submission
         }
     });
-
 </script>
+
 {% endblock %}
-
-

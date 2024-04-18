@@ -112,6 +112,12 @@
             transform: translateX(-100%);
         }
     }
+  .message-icon {
+    width: 20px; /* Adjust size as needed */
+    height: auto;
+    margin-left: 5px; /* Adjust spacing as needed */
+}
+
   </style>
 </head>
 
@@ -149,8 +155,14 @@
                       <a class="nav-link" href="{% url 'contacts' %}"><i class="fas fa-address-book"></i> Contact</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="fas fa-briefcase"></i> Careers</a>
-                  </li>
+                    <a class="nav-link" href="{% url 'login' %}?next={% url 'careers_list' %}">
+                        <i class="fas fa-briefcase"></i> Careers
+                        {% if careers %}
+                            <img src="data:image/png;base64,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" alt="Message Icon" class="message-icon">
+                        {% endif %}
+                    </a>
+                </li>
+                
                   <li class="nav-item">
                       <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Sign In</a>
                   </li>

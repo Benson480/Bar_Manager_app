@@ -50,6 +50,10 @@ from urllib.parse import urlparse
 from django.urls import resolve
 from .models import Student_Enrollment
 from .forms import StudentForm
+from .models import Career
+from .forms import JobApplicationForm
+from .forms import SoftwareRequestForm
+
 
 
 
@@ -650,21 +654,56 @@ def remove_from_cart(request, item_id):
     item.delete()
     return redirect('cart_view')
 
-
+def success_page(request):
+    return render(request, 'success_page.html')
 
 def enroll_student(request):
-    if request.method == 'GET':
-        form = StudentForm()
-        return render(request, 'enroll_student.html', {'form': form})
-
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = StudentForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('success_page')   # Redirect to a success page or URL
         else:
             # Handle invalid form submission
+            # Check if the error is due to duplicate email
+            if 'email' in form.errors:
+                messages.error(request, "Student enrollment with this Email already exists.")
             return render(request, 'enroll_student.html', {'form': form})
+    else:
+        # If the request method is not POST, render the form
+        form = StudentForm()
 
-def success_page(request):
-    return render(request, 'success_page.html')
+    # If form is not valid or it's a GET request, render the form with errors or empty form
+    return render(request, 'enroll_student.html', {'form': form})
+
+
+def career_detail(request, pk):
+    career = Career.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = JobApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            job_application = form.save(commit=False)
+            job_application.career = career
+            job_application.save()
+            messages.success(request, 'Your job application has been submitted successfully.')
+            return redirect('career_detail', pk=pk)
+    else:
+        form = JobApplicationForm()
+    return render(request, 'career_detail.html', {'career': career, 'form': form})
+
+def careers_list(request):
+    careers = Career.objects.all().order_by('-published_date')
+    return render(request, 'careers_list.html', {'careers': careers})
+
+def request_software(request):
+    if request.method == 'POST':
+        form = SoftwareRequestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('request_success')  # Redirect to a success page
+    else:
+        form = SoftwareRequestForm()
+    return render(request, 'request_software.html', {'form': form})
+
+def request_success(request):
+    return render(request, 'request_success.html')

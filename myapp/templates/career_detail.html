@@ -1,0 +1,34 @@
+{% extends "home_master.html" %}
+
+{% block content %}
+<h1 style="margin-left: 10px; color: blue;">{{ career.title }}</h1>
+<p style="margin-left: 10px;"><strong>Description:</strong> {{ career.description }}</p>
+<p style="margin-left: 10px;"><strong>Requirements:</strong> {{ career.requirements }}</p>
+<p style="margin-left: 10px;"><strong>Responsibilities:</strong> {{ career.responsibilities }}</p>
+
+<form id="applyForm" method="post" enctype="multipart/form-data" style="margin-left: 10px;">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button id="applyButton" style="background-color: green; color: white;" type="submit">Apply</button>
+</form>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<script>
+document.getElementById('applyForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    if (confirm('Are you sure you want to apply for this position?')) {
+        this.submit(); // Submit the form if user confirms
+    } else {
+        alert('Application cancelled.'); // Display message if user cancels
+    }
+    alert('Your job application has been submitted successfully.'); // Display message if user cancels
+});
+</script>
+{% endblock %}

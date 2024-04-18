@@ -7,7 +7,9 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UserProfile
+from .models import JobApplication
 from .models import Student_Enrollment
+from .models import SoftwareRequest
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -149,3 +151,13 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student_Enrollment
         fields = '__all__'
+        
+class JobApplicationForm(forms.ModelForm):
+    class Meta:
+        model = JobApplication
+        fields = ['full_name', 'email', 'phone_number', 'resume', 'cover_letter']
+
+class SoftwareRequestForm(forms.ModelForm):
+    class Meta:
+        model = SoftwareRequest
+        fields = ['customer_name', 'email', 'budget_in_Ksh', 'target_customers', 'software_type', 'additional_specifications', 'customer_type']

@@ -1,0 +1,40 @@
+{% extends "home_master.html" %}
+{% block title %}
+  Request Software | Bentha Technologies
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center" style="background-color: blue; color: white;">Request Software</h2>
+        </div>
+        <div class="card-body">
+          <form id="softwareRequestForm" method="POST" style="margin-bottom: 20px;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+          </form>
+          <div id="successMessage" style="display: none;">
+            <div class="alert alert-success" role="alert">
+              Your software request has been successfully submitted!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('softwareRequestForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    // Perform AJAX request or submit the form data using fetch or jQuery.ajax
+    // Assuming the form submission is successful, display success message
+    document.getElementById('softwareRequestForm').reset(); // Reset the form
+    document.getElementById('successMessage').style.display = 'block'; // Show success message
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "home_master.html" %}
+
+{% block title %}
+  Careers | Bentha Technologies
+{% endblock %}
+
+{% block content %}
+<section class="section-careers">
+  <div class="container" style="padding-top: 20px;">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h1 style="text-align: center; color: white; background-color: blue;" class="section-title">Explore Careers</h1>
+        {% if careers %}
+        <div class="career-list">
+          {% for career in careers %}
+          <div class="career-item">
+            <div class="career-info">
+              <h3 class="career-title"><a href="{% url 'career_detail' pk=career.pk %}">{{ career.title }}</a></h3>
+              <p class="career-description">{{ career.description }}</p>
+              <div class="career-meta">
+                <span class="career-date">Published: {{ career.published_date|date:"F d, Y" }}</span>
+              </div>
+            </div>
+            <div class="career-action">
+              <a href="{% url 'career_detail' pk=career.pk %}" class="btn btn-primary">Apply Now</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-careers">No careers are currently posted. Please check back later.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

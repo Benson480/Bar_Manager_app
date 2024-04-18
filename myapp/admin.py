@@ -3,7 +3,8 @@ from django.contrib import admin
 # Register your models here.
 from .models import (Item, Item_Price, New_stock, Employee,
                       Employer, ItemImage, Daily_Usage, Opening_stock, UserProfile, Department, ContactDetail, 
-                       UserSetting, BusinessSetting, Announcement, Category, Student_Enrollment)
+                       UserSetting, BusinessSetting, Announcement, Category, Student_Enrollment, Career, JobApplication,
+                       SoftwareRequest)
 
 
 
@@ -23,6 +24,9 @@ admin.site.register(BusinessSetting)
 admin.site.register(Announcement)
 admin.site.register(Category)
 admin.site.register(Student_Enrollment)
+admin.site.register(Career)
+admin.site.register(JobApplication)
+admin.site.register(SoftwareRequest)
 
 
 
