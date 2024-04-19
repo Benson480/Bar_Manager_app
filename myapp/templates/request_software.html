@@ -17,24 +17,9 @@
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Submit Request</button>
           </form>
-          <div id="successMessage" style="display: none;">
-            <div class="alert alert-success" role="alert">
-              Your software request has been successfully submitted!
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-  document.getElementById('softwareRequestForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-    // Perform AJAX request or submit the form data using fetch or jQuery.ajax
-    // Assuming the form submission is successful, display success message
-    document.getElementById('softwareRequestForm').reset(); // Reset the form
-    document.getElementById('successMessage').style.display = 'block'; // Show success message
-  });
-</script>
 {% endblock %}

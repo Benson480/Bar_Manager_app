@@ -19,7 +19,7 @@
   <div class="left-column" style="width: 100%; max-width: 16em; min-width: 180px; flex: 0 0 auto; overflow: auto;">
 
       <!-- Category toggle button for mobile screens -->
-      <button id="categoryToggleBtn" style="display: none;"><i class="fas fa-list"></i> Categories</button>
+      <button id="categoryToggleBtn" style="display: none; background-color: green; color: white;"><i class="fas fa-list"></i> Categories</button>
       <!-- Categories list -->
       <h2 id="categoriesHeading" style="text-align: left; color: #4a90e2; margin-top: 20px; font-size: 24px; font-weight: bold; margin-left: 10px;">Categories</h2>
       <ul class="category-list" id="categoryList" style="text-align: left;">
@@ -38,7 +38,7 @@
           {% for category, images in categorized_images.items %}
           {% if images %}
           <div class="row">
-              <h2 class="col-md-3 product-card" data-category="{{ category.name }}" style="text-align: center; margin-top: 15px; color: #130496; width: 100%; font-size: 24px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">{{ category.name }}</h2>
+            <h2 class="col-md-3 product-card" data-category="{{ category.name }}" style="text-align: center; margin-top: 15px; color: #ffffff; background-color: blue; width: 100%; font-size: 24px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; padding: 10px 0; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">{{ category.name }}</h2>
               {% for image in images %}
               <div class="col-md-3 product-card" data-category="{{ category.name }}" style="display: flex; flex-direction: column; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px; padding: 15px;">
                   <!-- Your image display code here -->

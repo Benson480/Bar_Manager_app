@@ -700,7 +700,8 @@ def request_software(request):
         form = SoftwareRequestForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('request_success')  # Redirect to a success page
+            messages.success(request, 'Your software request has been successfully submitted!')
+            return redirect('request_software')  # Redirect to the same page after form submission
     else:
         form = SoftwareRequestForm()
     return render(request, 'request_software.html', {'form': form})
