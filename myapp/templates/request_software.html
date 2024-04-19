@@ -22,4 +22,17 @@
     </div>
   </div>
 </div>
+
+
+<script>
+    document.getElementById('softwareRequestForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    if (confirm('Are you sure you want to submit the request?')) {
+        this.submit(); // Submit the form if user confirms
+    } else {
+        alert('Software Submission cancelled.'); // Display message if user cancels
+    }
+    alert('Your software development request has been submitted successfully.'); // Display message if user cancels
+});
+</script>
 {% endblock %}
