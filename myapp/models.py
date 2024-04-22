@@ -40,6 +40,7 @@ class Item_Price(models.Model):
                   choices=Unit_Of_Measure_Choices
                   )
     price_ksh = models.FloatField(blank=True, db_index=True, null=True, default=0)
+    Duration = models.CharField(max_length=255, null=True, db_index=True)
     Price_Negotiable = models.CharField(max_length=255, null=True, db_index=True)
 
 
@@ -245,6 +246,7 @@ class ItemImage(models.Model):
     ("default", "Select availability..."),
     ("available", "Available now"),
     ("Service available", " Service Available now"),
+    ("Course available", "Course available"),
     ("Out of Stock", "Out of Stock"),
     ("future", availability_description),
     )

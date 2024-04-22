@@ -151,6 +151,10 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student_Enrollment
         fields = '__all__'
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            'date_enrolled': forms.DateInput(attrs={'type': 'date'}),
+        }
         
 class JobApplicationForm(forms.ModelForm):
     class Meta:
