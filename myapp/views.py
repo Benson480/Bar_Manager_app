@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import (Item, Item_Price, New_stock, Employee,
                       Employer, ItemImage, Daily_Usage, UserProfile, Department, UserSetting, BusinessSetting,
-                      Announcement, Cart, CartItem, Order, Category, Activity)
+                      Announcement, Cart, CartItem, Order, Category, Activity, Sale)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -12,8 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-from .forms import (Item_Form, EmployeeForm, Usage_Amount_Form, New_stockForm, UserProfileForm, UserSettingsForm)# DeleteFertilizerForm, Fertilizer_PricesForm, 
-                    #Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm, Fertilizer_Recycle_Form)
+from .forms import (Item_Form, EmployeeForm, Usage_Amount_Form, New_stockForm, UserProfileForm, UserSettingsForm, UploadFileForm)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
@@ -53,9 +52,12 @@ from .forms import StudentForm
 from .models import Career
 from .forms import JobApplicationForm
 from .forms import SoftwareRequestForm
-
-
-
+import pandas as pd
+from django.core.exceptions import ValidationError
+import csv
+import matplotlib.pyplot as plt
+import io
+import urllib, base64
 
 
 def regenerate_csrf_token(request):
@@ -708,3 +710,108 @@ def request_software(request):
 
 def request_success(request):
     return render(request, 'request_success.html')
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            df = pd.read_excel(file)
+
+            # Process the DataFrame and save to database
+            for index, row in df.iterrows():
+                Sale.objects.create(
+                    year=row['year'],  # Corrected to use 'year' instead of 'Year'
+                    month=row['month'],  # Assuming correct column names in your DataFrame
+                    week=row['week'],
+                    day=row['day'],
+                    cost=row['cost'],
+                    category=row['category'],
+                )
+
+            return redirect('sales_list')
+    else:
+        form = UploadFileForm()
+    return render(request, 'upload_file.html', {'form': form})
+
+def sales_list(request):
+    sales = Sale.objects.all()
+
+    # Data analysis and visualization
+    df = pd.DataFrame(list(sales.values()))
+
+    # Convert 'cost' column to numeric
+    df['cost'] = pd.to_numeric(df['cost'], errors='coerce')
+
+    # Sample analysis and plots
+    plt.figure(figsize=(16, 10))
+
+    # Sales by Category
+    plt.subplot(2, 3, 1)
+    category_counts = df['category'].value_counts()
+    category_counts.plot(kind='bar')
+    plt.title('Sales by Category')
+    plt.xlabel('Category')
+    plt.ylabel('Count')
+    plt.xticks(rotation=45)
+
+    # Sales by Year
+    plt.subplot(2, 3, 2)
+    sales_by_year = df.groupby('year')['cost'].sum()
+    sales_by_year.plot(kind='line', marker='o')
+    plt.title('Sales Trend by Year')
+    plt.xlabel('Year')
+    plt.ylabel('Total Sales')
+
+    # Sales by Month
+    plt.subplot(2, 3, 3)
+    sales_by_month = df.groupby('month')['cost'].sum()
+    sales_by_month.plot(kind='line', marker='o')
+    plt.title('Sales Trend by Month')
+    plt.xlabel('Month')
+    plt.ylabel('Total Sales')
+
+    # Sales by Week
+    plt.subplot(2, 3, 4)
+    sales_by_week = df.groupby('week')['cost'].sum()
+    sales_by_week.plot(kind='line', marker='o')
+    plt.title('Sales Trend by Week')
+    plt.xlabel('Week')
+    plt.ylabel('Total Sales')
+
+    # Sales by Day
+    plt.subplot(2, 3, 5)
+    sales_by_day = df.groupby('day')['cost'].sum()
+    sales_by_day.plot(kind='line', marker='o')
+    plt.title('Sales Trend by Day')
+    plt.xlabel('Day')
+    plt.ylabel('Total Sales')
+
+    # Convert plot to base64 image
+    buffer = io.BytesIO()
+    plt.tight_layout()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    buffer.close()
+    graphic = base64.b64encode(image_png).decode('utf-8')
+
+    return render(request, 'sales_list.html', {'sales': sales, 'graphic': graphic})
+
+
+def download_sales_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="sales_data.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Year', 'Month', 'Week', 'Day', 'Cost', 'Category'])
+
+    for sale in Sale.objects.all():  
+        writer.writerow([sale.year, sale.month, sale.week, sale.day, sale.cost, sale.category])
+
+    return response
+
+def delete_sales(request):
+    Sale.objects.all().delete()  # Delete all sales
+    return redirect('sales_list')  # Redirect to the sales list page after deletion

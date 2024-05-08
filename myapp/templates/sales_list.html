@@ -1,0 +1,42 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Sales List | Bentha Technologies
+{% endblock %}
+
+{% block content %}
+    <div style="display: grid; grid-template-columns: 1fr 1fr;">
+        <div>
+            <h1>Sales List</h1>
+            <a href="{% url 'download_sales_csv' %}">Download CSV</a>
+            <form method="post" action="{% url 'delete_sales' %}">
+                {% csrf_token %}
+                <button type="submit">Delete All Sales</button>
+            </form>
+            <table border="1">
+                <tr>
+                    <th>Year</th>
+                    <th>Month</th>
+                    <th>Week</th>
+                    <th>Day</th>
+                    <th>Cost</th>
+                    <th>Category</th>
+                </tr>
+                {% for sale in sales %}
+                <tr>
+                    <td>{{ sale.year }}</td>
+                    <td>{{ sale.month }}</td>
+                    <td>{{ sale.week }}</td>
+                    <td>{{ sale.day }}</td>
+                    <td>{{ sale.cost }}</td>
+                    <td>{{ sale.category }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div>
+            <h2 style="text-align: center;">Data Analysis</h2>
+            <img src="data:image/png;base64,{{ graphic }}" alt="Sales Analysis" />
+        </div>
+    </div>
+{% endblock %}

@@ -124,6 +124,12 @@
       <p style="color: #6d571b;">View the daily usage report.</p>
       <a href="{% url 'daily_usage_report' %}" class="report-link" style="color: #007bff;">View Report</a>
     </div>
+    <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
+      <h3 style="color: #008000;">Sales Report</h3>
+      <p style="color: #6d571b;">View the Sales report.</p>
+      <a href="{% url 'sales_list' %}" class="report-link" style="color: #007bff;">View Sales</a>
+    </div>
+
 
     <!-- Purchased Stock Report Card -->
     <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
@@ -165,6 +171,13 @@
       <h3 style="color: #008000;">Forex Exchange Rates</h3>
       <p style="color: #6d571b;">View the forex exchange rates report.</p>
       <a href="{% url 'forex_exchange_rates_report' %}" class="report-link" style="color: #007bff;">View Report</a>
+    </div>
+
+    <!-- Forex Exchange Rates Report Card -->
+    <div class="report-card" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
+      <h3 style="color: #008000;">Upload Sales Report</h3>
+      <p style="color: #6d571b;">Upload and Analyse Sales.</p>
+      <a href="{% url 'upload_file' %}" class="report-link" style="color: #007bff;">Upload Report</a>
     </div>
   </div>
 </div>

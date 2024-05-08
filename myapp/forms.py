@@ -165,3 +165,7 @@ class SoftwareRequestForm(forms.ModelForm):
     class Meta:
         model = SoftwareRequest
         fields = ['customer_name', 'email', 'budget_in_Ksh', 'target_customers', 'software_type', 'additional_specifications', 'customer_type']
+
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()

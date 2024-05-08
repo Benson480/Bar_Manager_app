@@ -31,7 +31,7 @@ from myapp.views import (
     daily_usage_report, purchased_stock_report, physical_stock_take_report, budget_report, price_list_report, items_classification_report,
     forex_exchange_rates_report, mysettings, analytics_view, DynamicChartView, business_settings, announcement_list, add_to_cart,
     purchase_item, make_order, cart_view, remove_from_cart, order_confirmation_view, enroll_student, success_page,careers_list,
-    career_detail, request_software, request_success
+    career_detail, request_software, request_success, upload_file,  sales_list, download_sales_csv, delete_sales
     )
 
 urlpatterns = [
@@ -76,6 +76,10 @@ urlpatterns = [
     path('careers/<int:pk>/', career_detail, name='career_detail'),
     path('request_software/', request_software, name='request_software'),
     path('request_success/', request_success, name='request_success'),
+    path('upload/', upload_file, name='upload_file'),
+    path('sales/', sales_list, name='sales_list'),
+    path('download/', download_sales_csv, name='download_sales_csv'),
+    path('delete/', delete_sales, name='delete_sales'),
     
 
     # path('images/', include('myapp.urls')),
