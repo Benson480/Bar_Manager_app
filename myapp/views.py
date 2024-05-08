@@ -749,12 +749,13 @@ def sales_list(request):
 
     # Sales by Category
     plt.subplot(2, 3, 1)
-    category_counts = df['category'].value_counts()
-    category_counts.plot(kind='bar')
-    plt.title('Sales by Category')
+    category_total = df.groupby('category')['cost'].sum()
+    category_total.plot(kind='bar')
+    plt.title('Total Sales by Category')
     plt.xlabel('Category')
-    plt.ylabel('Count')
+    plt.ylabel('Total Sales')
     plt.xticks(rotation=45)
+
 
     # Sales by Year
     plt.subplot(2, 3, 2)
