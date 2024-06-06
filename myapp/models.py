@@ -48,6 +48,7 @@ class Item_Price(models.Model):
         return str(self.Item_Product)
     
 class Opening_stock(models.Model):
+    # Relationship for tables
     Product = models.ForeignKey(Item,on_delete=models.CASCADE, db_index=True)
     Stock_Take_Date = models.DateField(null=True, db_index=True, blank=True)
     Physical_balance = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
