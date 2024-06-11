@@ -146,18 +146,12 @@ Authors:
 
 bensonmwangi101@gmail.com
 
-backend Development
+Developer
 
 
->
+git push heroku main
+heroku run python manage.py migrate
 
+heroku restart
 
-<stephanie iman 
-
-
-
-
-Front end developer
-
-
->>
+heroku open
