@@ -8,7 +8,7 @@ from crispy_forms.layout import Layout, Row, Column
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UserProfile
 from .models import JobApplication
-from .models import Student_Enrollment
+from .models import Student_Enrollment, Student
 from .models import SoftwareRequest
 
 class UserProfileForm(forms.ModelForm):
@@ -169,3 +169,14 @@ class SoftwareRequestForm(forms.ModelForm):
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
+
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['name', 'email', 'is_alumni']
+
+class AlumniCertificateForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['alumni_certificate']

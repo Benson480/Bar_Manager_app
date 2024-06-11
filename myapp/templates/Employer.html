@@ -4,181 +4,75 @@
   Employer | Dashboard
 {% endblock %}
 
-{% block styles %}
-  <!-- Add any additional CSS styles here -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-KyZXEAg3QhqLMpG8r+1mZ1S5jp9VI5F2f2+x/EU6lNsBKk5B9dWp51z4cXnRNa0o6bHtQSm3UzQ5y5Q5gKgV6SqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    /* Add your custom styles for the dashboard here */
-    body {
-      background-color: #f8f9fa; /* Background color for the entire page */
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    .dashboard-container {
-      display: grid;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .dashboard-card {
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease-in-out;
-      text-align: center;
-      color: #333;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .dashboard-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .dashboard-card a {
-      text-decoration: none;
-      color: #333;
-    }
-
-    .dashboard-icon {
-      font-size: 64px; /* Increased icon size */
-      margin-bottom: 10px;
-      color: #007BFF;
-    }
-
-    .dashboard-card h3 {
-      background-color: #007BFF;
-      color: #fff;
-      padding: 10px;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      margin-top: 0;
-      width: 100%;
-    }
-
-    .dashboard-card ul {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      display: flex; /* Display list items in a row */
-      justify-content: center; /* Center list items horizontally */
-      width: 100%;
-      flex-wrap: wrap; /* Allow items to wrap to the next row if necessary */
-    }
-
-    .dashboard-card ul li {
-      margin: 10px;
-    }
-
-    .dashboard-card ul li a {
-      color: #007BFF;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .dashboard-card ul li a:hover {
-      color: #0056b3;
-    }
-
-    /* Media queries for responsive design */
-    @media (min-width: 576px) {
-      .dashboard-container {
-        grid-template-columns: repeat(auto-fill, minmax(20%, 1fr)); /* 5 items per row on small screens and up */
-      }
-    }
-
-    @media (max-width: 575px) {
-      .dashboard-container {
-        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* 1 item per row on extra small screens */
-      }
-      .dashboard-card {
-        margin: 0 0 20px 0; /* Add some spacing between cards */
-      }
-    }
-  </style>
-{% endblock %}
 
 {% block content %}
-<header style="background-image: url('https://img.freepik.com/premium-photo/fintech-icon-abstract-financial-technology-background_34663-91.jpg?w=2000'); background-size: cover; padding: 5px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
-    <div>
-      <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Employer Dashboard</h2>
-      <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">Business management Solution at your Finger tips</p>
-    </div>
-</header>
-<!-- Dashboard Content -->
-<div class="dashboard-container">
-    <!-- Manage Employee -->
-    <div class="dashboard-card" style="text-align: center; padding: 20px; gap: 50px;">
-        <a href="#">
-            <div class="dashboard-icon">
-                <!-- Use an icon element for Manage Employee -->
-                <i class="fas fa-users" style="color: brown; font-size: x-large;"></i>
-            </div>
-            <h3 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; background-color: rgb(0, 47, 255); padding: 20px;">Manage Employee</h3>
+<div style="background-color: #f8f9fa; padding: 20px;">
+    <header style="background-color: #007bff; color: #fff; padding: 20px; text-align: center;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhEYp1Ms55GKpRiyGycyExeolQXvYImlI7vg&usqp=CAU" alt="Logo" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px;">
+        <h1 style="font-size: 36px; font-weight: bold; margin: 0;">Employer Dashboard</h1>
+        <p style="font-size: 18px; opacity: 0.8; margin-top: 10px;">Business Management Solution at Your Fingertips</p>
+    </header>
 
-            <ul>
-                <li style="background-color: #FCEDEA; display: inline-block; margin-right: 20px; border-radius: 5px;">
-                    <a href="/Employee_details" style="text-align: center; padding: 13px; font-weight: bold;">
-                        <i class="fas fa-user" style="font-size: 50px; color: #ff0000;"></i> Employee Details
+    <!-- Dashboard Content -->
+    <div style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-around;">
+        <!-- Manage Employee -->
+        <div style="background-color: #007bff; color: #fff; padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
+            <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Manage Employee</h2>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 10px;">
+                    <a href="/Employee_details" style="text-decoration: none; color: #fff; display: flex; align-items: center;">
+                        <i class="fas fa-user" style="font-size: 24px; margin-right: 10px;"></i> Employee Details
                     </a>
                 </li>
-                <li style="background-color: #FCEDEA; display: inline-block; margin-right: 20px; border-radius: 5px;">
-                    <a href="#" style="text-align: center; padding: 13px; font-weight: bold;">
-                        <i class="fas fa-calendar-alt" style="font-size: 50px; color: #00ff00;"></i> Attendance
+                <li style="margin-bottom: 10px;">
+                    <a href="#" style="text-decoration: none; color: #fff; display: flex; align-items: center;">
+                        <i class="fas fa-calendar-alt" style="font-size: 24px; margin-right: 10px;"></i> Attendance
                     </a>
                 </li>
-                <li style="background-color: #FCEDEA; display: inline-block; margin-right: 20px; border-radius: 5px;">
-                    <a href="#" style="text-align: center; padding: 13px; font-weight: bold;">
-                        <i class="fas fa-chart-line" style="font-size: 50px; color: #0000ff;"></i> Performance
+                <li style="margin-bottom: 10px;">
+                    <a href="#" style="text-decoration: none; color: #fff; display: flex; align-items: center;">
+                        <i class="fas fa-chart-line" style="font-size: 24px; margin-right: 10px;"></i> Performance
                     </a>
                 </li>
-                <li style="background-color: #FCEDEA; display: inline-block; margin-right: 20px; border-radius: 5px;">
-                    <a href="#" style="text-align: center; padding: 13px; font-weight: bold;">
-                        <i class="fas fa-briefcase" style="font-size: 50px; color: #ff00ff;"></i> Designation
+                <li style="margin-bottom: 10px;">
+                    <a href="#" style="text-decoration: none; color: #fff; display: flex; align-items: center;">
+                        <i class="fas fa-briefcase" style="font-size: 24px; margin-right: 10px;"></i> Designation
                     </a>
                 </li>
-                <li style="background-color: #FCEDEA; display: inline-block; margin-right: 20px; border-radius: 5px;">
-                    <a href="#" style="text-align: center; padding: 13px; font-weight: bold;">
-                        <i class="fas fa-money-bill" style="font-size: 50px; color: #ffff00;"></i> Salary and Allowances
+                <li>
+                    <a href="#" style="text-decoration: none; color: #fff; display: flex; align-items: center;">
+                        <i class="fas fa-money-bill" style="font-size: 24px; margin-right: 10px;"></i> Salary and Allowances
                     </a>
                 </li>
             </ul>
+        </div>
 
-        </a>
+        <!-- Manage Business -->
+        <div style="background-color: #007bff; color: #fff; padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
+            <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Manage Business</h2>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 10px;">
+                    <a href="#" style="text-decoration: none; color: #fff; display: flex; align-items: center;">
+                        <i class="fas fa-chart-line" style="font-size: 24px; margin-right: 10px;"></i> Profit
+                    </a>
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <a href="#" style="text-decoration: none; color: #fff; display: flex; align-items: center;">
+                        <i class="fas fa-chart-bar" style="font-size: 24px; margin-right: 10px;"></i> Losses
+                    </a>
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <a href="#" style="text-decoration: none; color: #fff; display: flex; align-items: center;">
+                        <i class="fas fa-chart-area" style="font-size: 24px; margin-right: 10px;"></i> Sale Trends
+                    </a>
+                </li>
+                <li>
+                    <a href="#" style="text-decoration: none; color: #fff; display: flex; align-items: center;">
+                        <i class="fas fa-chart-pie" style="font-size: 24px; margin-right: 10px;"></i> Market Prediction
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-
-    <!-- Manage Business -->
-    <div class="dashboard-card" style="text-align: center; padding: 20px; gap: 50px;">
-        <a href="#">
-            <div class="dashboard-icon">
-                <!-- Use an icon element for Manage Business -->
-                <i class="fas fa-briefcase" style="color: rgb(26, 158, 59); font-size: x-large;"></i>
-            </div>
-            <div class="dashboard-content">
-                <h3 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; background-color: rgb(0, 47, 255); padding: 20px;">Manage Business</h3>
-                <ul>
-                    <a href="#" style="text-align: center; font-weight: bold; padding: 20px; margin-right: 20px; background-color: #FCEDEA;">
-                        <i class="fas fa-chart-line" style="font-size: 50px; color: #FF5733;"></i> Profit
-                    </a>
-                    <a href="#" style="text-align: center; font-weight: bold; padding: 20px; margin-right: 20px; background-color: #EAFCEA;">
-                        <i class="fas fa-chart-bar" style="font-size: 50px; color: #33FF57;"></i> Losses
-                    </a>
-                    <a href="#" style="text-align: center; font-weight: bold; padding: 20px; margin-right: 20px; background-color: #EAEAFD;">
-                        <i class="fas fa-chart-area" style="font-size: 50px; color: #5733FF;"></i> Sale Trends
-                    </a>
-                    <a href="#" style="text-align: center; font-weight: bold; padding: 20px; background-color: #FCEAFC;">
-                        <i class="fas fa-chart-pie" style="font-size: 50px; color: #FF33FF;"></i> Market Prediction
-                    </a>
-                </ul>
-            </div>
-        </a>
-    </div>
-
-    <!-- Add more dashboard cards as needed -->
 </div>
 {% endblock %}

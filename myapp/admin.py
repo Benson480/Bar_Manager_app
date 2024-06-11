@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import (Item, Item_Price, New_stock, Employee,
                       Employer, ItemImage, Daily_Usage, Opening_stock, UserProfile, Department, ContactDetail, 
                        UserSetting, BusinessSetting, Announcement, Category, Student_Enrollment, Career, JobApplication,
-                       SoftwareRequest)
+                       SoftwareRequest, Student)
 
 
 
@@ -27,6 +27,7 @@ admin.site.register(Student_Enrollment)
 admin.site.register(Career)
 admin.site.register(JobApplication)
 admin.site.register(SoftwareRequest)
+admin.site.register(Student)
 
 
 

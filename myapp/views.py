@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import (Item, Item_Price, New_stock, Employee,
                       Employer, ItemImage, Daily_Usage, UserProfile, Department, UserSetting, BusinessSetting,
-                      Announcement, Cart, CartItem, Order, Category, Activity, Sale)
+                      Announcement, Cart, CartItem, Order, Category, Activity, Sale, Student)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib import messages
@@ -12,7 +12,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-from .forms import (Item_Form, EmployeeForm, Usage_Amount_Form, New_stockForm, UserProfileForm, UserSettingsForm, UploadFileForm)
+from .forms import (Item_Form, EmployeeForm, Usage_Amount_Form, New_stockForm, UserProfileForm, UserSettingsForm, 
+                    UploadFileForm, StudentForm, AlumniCertificateForm)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
@@ -816,3 +817,40 @@ def download_sales_csv(request):
 def delete_sales(request):
     Sale.objects.all().delete()  # Delete all sales
     return redirect('sales_list')  # Redirect to the sales list page after deletion
+
+def student_list(request):
+    students = Student.objects.filter(is_alumni=False)
+    alumni = Student.objects.filter(is_alumni=True)
+    return render(request, 'student_list.html', {'students': students, 'alumni': alumni})
+
+def student_manage(request, pk=None):
+    if pk:
+        student = get_object_or_404(Student, pk=pk)
+    else:
+        student = None
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('student_list')
+    else:
+        form = StudentForm(instance=student)
+    return render(request, 'student_manage.html', {'form': form})
+
+def upload_certificate(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    if request.method == 'POST':
+        form = AlumniCertificateForm(request.POST, request.FILES, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('student_list')
+    else:
+        form = AlumniCertificateForm(instance=student)
+    return render(request, 'upload_certificate.html', {'form': form})
+
+def student_delete(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    if request.method == "POST":
+        student.delete()
+        return redirect('student_list')
+    return render(request, 'student_confirm_delete.html', {'student': student})

@@ -497,3 +497,14 @@ class Sale(models.Model):
     date = models.DateField(null=True, blank=True)
     cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     category = models.CharField(max_length=100, null=True, blank=True)
+
+
+# Student model to hold active students and alumni
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    is_alumni = models.BooleanField(default=False)
+    alumni_certificate = models.FileField(upload_to='certificates/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name

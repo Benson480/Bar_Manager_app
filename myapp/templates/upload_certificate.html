@@ -1,0 +1,23 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Alumni Certificate | Bentha Technologies
+{% endblock %}
+
+{% block content %}
+<div class="container form-container">
+    <div class="card mt-5 shadow-sm">
+        <div class="card-body">
+            <h1 class="card-title text-center my-4">View or Change Alumni Certificate</h1>
+            <form method="post" enctype="multipart/form-data" class="mb-4">
+                {% csrf_token %}
+                {{ form.as_p|safe }}
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="submit" class="btn btn-primary mx-2">Upload</button>
+                    <a href="{% url 'student_list' %}" class="btn btn-secondary mx-2">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

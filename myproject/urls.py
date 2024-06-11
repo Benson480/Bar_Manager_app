@@ -31,7 +31,8 @@ from myapp.views import (
     daily_usage_report, purchased_stock_report, physical_stock_take_report, budget_report, price_list_report, items_classification_report,
     forex_exchange_rates_report, mysettings, analytics_view, DynamicChartView, business_settings, announcement_list, add_to_cart,
     purchase_item, make_order, cart_view, remove_from_cart, order_confirmation_view, enroll_student, success_page,careers_list,
-    career_detail, request_software, request_success, upload_file,  sales_list, download_sales_csv, delete_sales
+    career_detail, request_software, request_success, upload_file,  sales_list, download_sales_csv, delete_sales, student_manage,
+    upload_certificate, student_list, student_delete
     )
 
 urlpatterns = [
@@ -80,6 +81,11 @@ urlpatterns = [
     path('sales/', sales_list, name='sales_list'),
     path('download/', download_sales_csv, name='download_sales_csv'),
     path('delete/', delete_sales, name='delete_sales'),
+    path('student_list/', student_list, name='student_list'),
+    path('manage/', student_manage, name='student_manage'),
+    path('manage/<int:pk>/', student_manage, name='student_manage'),
+    path('upload_certificate/<int:pk>/', upload_certificate, name='upload_certificate'),
+    path('delete/<int:pk>/', student_delete, name='student_delete'),
     
 
     # path('images/', include('myapp.urls')),
